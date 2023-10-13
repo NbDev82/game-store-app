@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "game_imgs")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GameImg implements Serializable {
     @Id
     @ManyToOne
@@ -21,31 +25,5 @@ public class GameImg implements Serializable {
 
     @Lob
     private byte[] img;
-
-    public GameImg() {
-    }
-
-    public GameImg(Game game, byte[] img) {
-        this.game = game;
-        this.img = img;
-    }
-
-    // Getter and setter methods
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public byte[] getImg() {
-        return img;
-    }
-
-    public void setImg(byte[] img) {
-        this.img = img;
-    }
 }
 

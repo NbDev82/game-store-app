@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "wallets")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Wallet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,40 +28,5 @@ public class Wallet implements Serializable {
     private User walletUserId;
 
     private int balance;
-
-    public Wallet() {
-    }
-
-    public Wallet(int walletId, User walletUserId, int balance) {
-        this.walletId = walletId;
-        this.walletUserId = walletUserId;
-        this.balance = balance;
-    }
-
-    // Getter and setter methods
-
-    public int getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(int walletId) {
-        this.walletId = walletId;
-    }
-
-    public User getWalletUserId() {
-        return walletUserId;
-    }
-
-    public void setWalletUserId(User walletUserId) {
-        this.walletUserId = walletUserId;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
 }
 
