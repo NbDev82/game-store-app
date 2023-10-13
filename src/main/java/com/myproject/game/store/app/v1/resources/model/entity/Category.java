@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import javax.persistence.*;
 import java.io.Serializable;
+import lombok.*;
 
 @Entity
 @Table(name = "categories")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,39 +29,6 @@ public class Category implements Serializable {
     @Column(name = "category_name")
     private String categoryName;
 
-    public Category() {
-    }
 
-    public Category(int categoryId, int categoryType, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryType = categoryType;
-        this.categoryName = categoryName;
-    }
-
-    // Getter and setter methods
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(int categoryType) {
-        this.categoryType = categoryType;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
 }
 

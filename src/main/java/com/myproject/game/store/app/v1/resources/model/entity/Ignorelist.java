@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "ignorelist")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ignorelist implements Serializable {
     @Id
     @ManyToOne
@@ -24,40 +28,5 @@ public class Ignorelist implements Serializable {
     private Game game;
 
     private String reason;
-
-    public Ignorelist() {
-    }
-
-    public Ignorelist(User user, Game game, String reason) {
-        this.user = user;
-        this.game = game;
-        this.reason = reason;
-    }
-
-    // Getter and setter methods
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
 }
 

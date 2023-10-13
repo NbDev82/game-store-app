@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "wishlist")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Wishlist implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,49 +32,5 @@ public class Wishlist implements Serializable {
     private Game game;
 
     private int priority;
-
-    public Wishlist() {
-    }
-
-    public Wishlist(int wishlistId, User user, Game game, int priority) {
-        this.wishlistId = wishlistId;
-        this.user = user;
-        this.game = game;
-        this.priority = priority;
-    }
-
-    // Getter and setter methods
-
-    public int getWishlistId() {
-        return wishlistId;
-    }
-
-    public void setWishlistId(int wishlistId) {
-        this.wishlistId = wishlistId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
 }
 

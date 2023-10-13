@@ -10,9 +10,13 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "payment_methods")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentMethod implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,48 +31,4 @@ public class PaymentMethod implements Serializable {
     private int methodType;
 
     private String details;
-
-    public PaymentMethod() {
-    }
-
-    public PaymentMethod(int paymentMethodsId, User user, int methodType, String details) {
-        this.paymentMethodsId = paymentMethodsId;
-        this.user = user;
-        this.methodType = methodType;
-        this.details = details;
-    }
-
-    // Getter and setter methods
-
-    public int getPaymentMethodsId() {
-        return paymentMethodsId;
-    }
-
-    public void setPaymentMethodsId(int paymentMethodsId) {
-        this.paymentMethodsId = paymentMethodsId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getMethodType() {
-        return methodType;
-    }
-
-    public void setMethodType(int methodType) {
-        this.methodType = methodType;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
 }
