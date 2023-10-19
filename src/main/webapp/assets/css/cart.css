@@ -118,7 +118,7 @@ br {
         bottom: 30%; 
         position: absolute; 
         color: #999999; 
-        font-size: 40px; 
+        font-size: 20px; 
         font-family: Inter; 
         font-weight: 500; 
         word-wrap: break-word;
@@ -128,7 +128,7 @@ br {
         left: 70%; 
         bottom: 20%; 
         position: absolute; 
-        font-size: 80px; 
+        font-size: 20px; 
         font-family: Inter; 
         font-weight: 700; 
         word-wrap: break-word;
@@ -165,6 +165,50 @@ br {
     background-color: #2b475e;
     color: #48a0de;
 }
+.button {
+    padding: 0 15px;
+    font-size: 15px;
+    line-height: 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button-primary {
+    background-color: #759305;
+    color: #bce57c;
+}
+
+.button-primary:hover {
+    background-color: #73a824;
+}
+
+.button-secondary {
+    background-color: #2b475e;
+    color: #48a0de;
+}
+
+.button-secondary:hover {
+    background-color: #3c5c7a;
+}
 
 
+#message-container {
+    display: none;
+}
 
+#message-container.active {
+    display: block;
+}
+
+#message {
+    background-color: #3749cd;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid;
+}
+
+#message-text {
+    font-weight: bold;
+}
