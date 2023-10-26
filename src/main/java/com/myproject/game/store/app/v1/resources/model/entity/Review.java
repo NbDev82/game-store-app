@@ -22,8 +22,15 @@ public class Review implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private int reviewId;
+    private Long reviewId;
+    
+    private int rating;
+    
+    @Column(name = "review_text")
+    private String reviewText;
 
+    @Column(name = "review_date")
+    private Timestamp reviewDate;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -31,13 +38,5 @@ public class Review implements Serializable {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-
-    private int rating;
-
-    @Column(name = "review_text")
-    private String reviewText;
-
-    @Column(name = "review_date")
-    private Timestamp reviewDate;
 }
 

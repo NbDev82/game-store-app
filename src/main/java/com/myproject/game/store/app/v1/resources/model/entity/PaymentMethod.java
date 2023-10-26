@@ -8,7 +8,9 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  *
  * @author Van Hoang
  */
+import com.myproject.game.store.app.v1.resources.model.enums.EMethod;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -20,15 +22,19 @@ import lombok.*;
 public class PaymentMethod implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_methods_id")
-    private int paymentMethodsId;
+    @Column(name = "payment_method_id")
+    private Long paymentMethodId;
 
+    @Column(name = "method_type")
+    private EMethod methodType;
+
+    @Embedded
+    private DetailPaymentMethod details;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name = "method_type")
-    private int methodType;
-
-    private String details;
+    
+    @OneToMany(mappedBy = "paymentMethod", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 }

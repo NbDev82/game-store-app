@@ -10,7 +10,7 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.List;
 import lombok.*;
 
 @Entity
@@ -20,17 +20,28 @@ import lombok.*;
 @AllArgsConstructor
 public class Order implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
-    private int orderId;
+    private Long orderId;
 
-    @Column(name = "user_id")
-    private int userId;
-
-    @Column(name = "order_date")
-    private Timestamp orderDate;
-
-    @Column(name = "total_amount")
-    private int totalAmount;
+    @Column(name= "amount",nullable = false)
+    private int amount;
+    
+    private String data;
+    
+    @JoinColumn(nullable = false)
+    private boolean status;
+    
+    @OneToMany
+    @JoinColumn(name = "game_id", nullable =false)
+    private List<Game> games;
+    
+    @ManyToOne
+    @JoinColumn(name= "owner_id",nullable = false)
+    private User owner_gameUser;
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 }
 
