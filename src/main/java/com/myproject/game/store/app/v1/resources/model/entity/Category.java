@@ -10,6 +10,7 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  */
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import lombok.*;
 
 @Entity
@@ -21,14 +22,12 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private int categoryId;
-
-    @Column(name = "category_type")
-    private int categoryType;
+    private Long categoryId;
 
     @Column(name = "category_name")
     private String categoryName;
 
-
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Game> games;
 }
 

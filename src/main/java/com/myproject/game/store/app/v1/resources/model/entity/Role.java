@@ -4,29 +4,28 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.util.List;
+import javax.persistence.*;
+import lombok.*;
+
 /**
  *
  * @author Van Hoang
  */
-import java.io.Serializable;
-import javax.persistence.*;
-import lombok.*;
-
 @Entity
-@Table(name = "wallets")
+@Table(name = "account")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Wallet implements Serializable {
+public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wallet_id")
-    private int walletId;
-
-    private int balance;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private Long roleId;
     
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name= "role_name")
+    private String roleName;
+    
+    @ManyToMany(mappedBy = "roles")
+    private List<Account> accounts;
 }
-

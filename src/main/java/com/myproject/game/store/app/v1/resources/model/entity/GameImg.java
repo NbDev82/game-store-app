@@ -19,11 +19,13 @@ import lombok.*;
 @AllArgsConstructor
 public class GameImg implements Serializable {
     @Id
+    private Long img_id;
+    
+    @Column(name = "img_link")
+    private String imgLink;
+    
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-
-    @Lob
-    private byte[] img;
 }
 

@@ -4,33 +4,35 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
-/**
- *
- * @author Van Hoang
- */
-import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
 import lombok.*;
 
+/**
+ *
+ * @author Van Hoang
+ */
 @Entity
-@Table(name = "libraries")
+@Table(name = "account")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Library implements Serializable {
+public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "library_id")
-    private int libraryId;
-
+    @Column(name = "session_id")
+    private Long sessionId;
+    
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+    
+    @Column(name = "last_activity")
+    private Timestamp lastActivity;
+    
+    @Column(name = "expiration_time")
+    private Timestamp expirationTime;
+    
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Column(name = "library_name")
-    private String libraryName;
-
-    @Column(name = "create_date")
-    private Timestamp createDate;
+    @JoinColumn(name = "account_id")
+    private Account account;
 }
