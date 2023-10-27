@@ -13,7 +13,7 @@ import lombok.*;
  * @author Van Hoang
  */
 @Entity
-@Table(name = "account")
+@Table(name = "sessions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
