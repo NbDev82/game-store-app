@@ -23,6 +23,9 @@ public class Cart {
     @JoinColumn(name = "cart_id")
     private Long cartId;
     
+    @Column(name = "total_price")
+    private int totalPrice;
+    
     @OneToOne(mappedBy = "cart")
     @JoinColumn(name = "user_id")
     private User user;

@@ -13,7 +13,7 @@ import lombok.*;
  * @author Van Hoang
  */
 @Entity
-@Table(name = "account")
+@Table(name = "password_reset_request")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -14,7 +14,7 @@ import javax.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
