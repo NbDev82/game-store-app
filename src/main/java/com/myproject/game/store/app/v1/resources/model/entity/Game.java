@@ -87,5 +87,8 @@ public class Game implements Serializable {
     
     @ManyToMany(mappedBy = "wishList",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<User> wishedUsers;
+    
+    @ManyToMany(mappedBy = "games")
+    private List<Cart> carts;
 }
 
