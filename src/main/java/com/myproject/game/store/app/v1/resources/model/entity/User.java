@@ -34,6 +34,10 @@ public class User implements Serializable {
     @JoinColumn(name = "account_id")
     private Account account;
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+    
     @ManyToMany
     @JoinTable(
         name = "Ignore_List", 
