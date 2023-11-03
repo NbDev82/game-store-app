@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.dao;
 
+import com.myproject.game.store.app.v1.resources.model.entity.Cart;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import java.util.List;
 
@@ -12,7 +13,10 @@ import java.util.List;
  * @author Van Hoang
  */
 public interface CartDAO {
-    public List<Game> ShowOrderItemByUserId(int id);
-    public boolean  deleteAllItemFromCartByUserId(int id);
-    public boolean  remove(int id);
+    public boolean removeAllItem(Long cartId);
+    public boolean remove(Long userId, Long gameId);
+
+    public Cart getCart(Long id);
+    public Cart getCartByUserId(Long userId);
+    
 }
