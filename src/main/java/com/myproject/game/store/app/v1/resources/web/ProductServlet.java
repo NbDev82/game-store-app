@@ -16,6 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class ProductSerlet extends HttpServlet{
+public class ProductServlet extends HttpServlet{
     
 }
