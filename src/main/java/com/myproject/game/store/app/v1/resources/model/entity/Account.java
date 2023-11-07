@@ -22,10 +22,9 @@ import lombok.*;
 @AllArgsConstructor
 public class Account implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_id")
     private Long accountId;
-    
-    
     
     @Column(name = "user_name")
     private String userName;
