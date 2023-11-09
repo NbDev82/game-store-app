@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class Account implements Serializable{
     @Id
     @Column(name = "account_id")
     private Long accountId;
@@ -42,20 +43,17 @@ public class Account {
     @Column(name = "last_login")
     private Timestamp lastLogin;
     
-    @OneToOne(mappedBy = "account")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-    
-    @OneToMany(mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Session> sessions;
     
     @OneToMany(mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PasswordResetRequest> passwordResetRequest;
     
     @ManyToMany
     @JoinTable(
-        name = "Acccount_Roles", 
+        name = "acccount_role", 
         joinColumns = @JoinColumn(name = "account_id"), 
-        inverseJoinColumns = @JoinColumn(name = "game_id"))
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 }

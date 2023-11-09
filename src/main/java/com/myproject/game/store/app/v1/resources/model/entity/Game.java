@@ -31,8 +31,6 @@ public class Game implements Serializable {
     @Embedded
     private Introduction details;
 
-    private String description;
-
     @Column(name = "release_date")
     private Timestamp releaseDate;
 
@@ -51,44 +49,49 @@ public class Game implements Serializable {
     @Column(name = "pub_name")
     private String pubName;
     
+    @Column(name = "percent_pos")
+    private int percentPos;
+    
+    @Column(name = "global_review")
+    private String globalReview;
+    
+    @Column(name = "numb_review")
+    private int numbReview;
+    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-        name = "langguage_game", 
+        name = "language_game", 
         joinColumns = @JoinColumn(name = "game_id"), 
-        inverseJoinColumns = @JoinColumn(name = "lang_id"))
+        inverseJoinColumns = @JoinColumn(name = "language_id"))
     private List<LanguageSupport> languageSupports;
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "system_id")
-    private System system;
-    
-    @OneToMany(mappedBy = "game",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Review> reviews;
-    
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "system_game",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "system_id"))
+    private List<System> systems;
     
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GameImg> gameimgs;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-        name = "categoryId_gameId", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "game_id"))
+        name = "category_game", 
+        joinColumns = @JoinColumn(name = "game_id"), 
+        inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
     
-    @ManyToMany(mappedBy= "library", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> library;
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Wish> wishes;
     
-    @ManyToMany(mappedBy = "ignoreList")
-    private List<User> ignoredByUsers;
-    
-    @ManyToMany(mappedBy = "wishList",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> wishedUsers;
-    
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "cart_game", 
+        joinColumns = @JoinColumn(name = "game_id"), 
+        inverseJoinColumns = @JoinColumn(name = "cart_id"))
     private List<Cart> carts;
+    
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 }
 

@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -13,18 +14,20 @@ import lombok.*;
  * @author Van Hoang
  */
 @Entity
-@Table(name = "Language_Support")
+@Table(name = "language_support")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LanguageSupport {
+public class LanguageSupport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "language_id")
     private Long languageId;
     
     @Column(name = "language_name")
-    private String name;
+    private String languageName;
+    
+    private String support;
     
     @ManyToMany(mappedBy = "languageSupports",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Game> games;

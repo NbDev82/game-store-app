@@ -4,14 +4,18 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
 /**
  *
  * @author Van Hoang
  */
 @Embeddable
-class Introduction {
+class Introduction implements Serializable{
+    @JoinColumn(name = "game_name")
+    private String gameName;
     private String title;
     private String content;
     private String warning;
