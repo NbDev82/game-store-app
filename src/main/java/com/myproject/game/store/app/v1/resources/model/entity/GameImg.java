@@ -19,7 +19,8 @@ import lombok.*;
 @AllArgsConstructor
 public class GameImg implements Serializable {
     @Id
-    private Long img_id;
+    @Column(name = "img_id")
+    private Long imgId;
     
     @Column(name = "img_link")
     private String imgLink;

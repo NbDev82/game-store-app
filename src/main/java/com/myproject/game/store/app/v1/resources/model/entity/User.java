@@ -30,50 +30,19 @@ public class User implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
     
-    @ManyToMany
-    @JoinTable(
-        name = "Ignore_List", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private List<Game> ignoreList;
-    
-    @ManyToMany
-    @JoinTable(
-        name = "Wish_List", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private List<Game> wishList;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Wish> wishList;  
     
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+    private List<CardMethod> cardMethods;
     
-    @ManyToMany
-    @JoinTable(
-        name = "Library", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private List<Game> library;
-    
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<PaymentMethod> paymentMethods;
-    
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Review> reviews;
-    
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Game> sellGames;
-    
-    @OneToOne
-    @JoinColumn(name = "wallet_id")
-    private Wallet wallet;
-    
+    @OneToOne(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Wallet wallet; 
 }
 

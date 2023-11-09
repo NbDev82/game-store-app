@@ -4,35 +4,36 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Van Hoang
  */
 @Entity
-@Table(name = "sessions")
+@Table(name = "invoices")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Session {
+public class Invoice implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "session_id")
-    private Long sessionId;
+    @Column(name = "invoice_id")
+    private Long invoiceId;
     
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    private boolean status;
     
-    @Column(name = "last_activity")
-    private Timestamp lastActivity;
+    @Column(name = "total_amount")
+    private int totalAmount;
     
-    @Column(name = "expiration_time")
-    private Timestamp expirationTime;
+    private Timestamp created;
     
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

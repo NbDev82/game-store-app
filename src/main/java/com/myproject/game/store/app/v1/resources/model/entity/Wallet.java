@@ -9,6 +9,7 @@ package com.myproject.game.store.app.v1.resources.model.entity;
  * @author Van Hoang
  */
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -17,16 +18,14 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Wallet implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wallet_id")
-    private int walletId;
-
+public class Wallet extends PaymentMethod implements Serializable {
     private int balance;
     
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
+    @OneToMany(mappedBy = "wallet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
 

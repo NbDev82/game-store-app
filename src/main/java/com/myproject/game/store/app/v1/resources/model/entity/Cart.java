@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -13,11 +14,11 @@ import lombok.*;
  * @author Van Hoang
  */
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+public class Cart implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JoinColumn(name = "cart_id")
@@ -26,15 +27,13 @@ public class Cart {
     @Column(name = "total_price")
     private int totalPrice;
     
-    @OneToOne(mappedBy = "cart")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "cart_item",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id")
-    )
+    @ManyToMany(mappedBy = "carts", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Game> games;
+    
+    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
