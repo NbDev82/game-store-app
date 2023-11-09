@@ -24,19 +24,19 @@ public class Review implements Serializable {
     @Column(name = "review_id")
     private Long reviewId;
     
-    private int rating;
+    private int score;
     
-    @Column(name = "review_text")
-    private String reviewText;
+    private String comment;
 
-    @Column(name = "review_date")
-    private Timestamp reviewDate;
-    @ManyToOne
+    @Column(name = "date_statement")
+    private Timestamp dateStatement;
+    
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_item_id")
+    private OrderItem orderItem;
+    
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Game game;
 }
 

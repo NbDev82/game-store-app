@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
@@ -17,11 +18,14 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class System {
+public class System implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "system_id")
     private Long systemId;
+    
+    @Column(name = "type_requirement")
+    private String typeRequirement;
     
     @Column(name ="os_name", nullable = false)
     private String operatingSystemName;
@@ -32,12 +36,13 @@ public class System {
     
     private String graphic;
     
-    private String direct_x;
+    @Column(name = "direct_x")
+    private String directX;
     
     private String network;
     
     private String storage;
     
-    @OneToMany(mappedBy = "system",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "systems",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Game> games;
 }

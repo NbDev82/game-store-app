@@ -4,6 +4,7 @@
  */
 package com.myproject.game.store.app.v1.resources.model.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
 import lombok.*;
@@ -17,7 +18,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordResetRequest {
+public class PasswordResetRequest implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name= "request_id")
@@ -35,6 +36,6 @@ public class PasswordResetRequest {
     private boolean isVerified;
     
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private Account account;
 }
