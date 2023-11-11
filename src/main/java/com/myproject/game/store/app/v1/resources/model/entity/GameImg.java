@@ -14,7 +14,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "game_imgs")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameImg implements Serializable {

@@ -15,7 +15,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "carts")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart implements Serializable{

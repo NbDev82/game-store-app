@@ -15,7 +15,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role implements Serializable{

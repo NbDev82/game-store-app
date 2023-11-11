@@ -16,7 +16,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order implements Serializable{
@@ -25,7 +26,7 @@ public class Order implements Serializable{
     @Column(name = "order_id")
     private Long orderId;
     
-    private String status;
+    private boolean status;
     
     @Column(name = "total_amount", nullable = false)
     private int totalAmount;
@@ -59,4 +60,13 @@ public class Order implements Serializable{
     @JoinColumn(name = "card_id", nullable = false)
     private CardMethod card;
     
+    public Order(boolean status, int totalAmount, int tax, String securityCode, Timestamp created, Timestamp due, boolean expired) {
+        this.status = status;
+        this.totalAmount = totalAmount;
+        this.tax = tax;
+        this.securityCode = securityCode;
+        this.created = created;
+        this.due = due;
+        this.expired = expired;
+    }   
 }

@@ -15,7 +15,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "systems")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class System implements Serializable{

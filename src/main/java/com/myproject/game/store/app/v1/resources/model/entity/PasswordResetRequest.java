@@ -15,7 +15,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "password_reset_request")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PasswordResetRequest implements Serializable{
