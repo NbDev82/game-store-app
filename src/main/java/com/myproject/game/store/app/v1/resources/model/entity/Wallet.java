@@ -15,7 +15,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "wallets")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wallet extends PaymentMethod implements Serializable {

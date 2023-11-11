@@ -16,7 +16,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "account")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account implements Serializable{

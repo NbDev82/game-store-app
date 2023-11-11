@@ -14,7 +14,8 @@ import javax.persistence.*;
 import lombok.*;
 
 @MappedSuperclass
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentMethod implements Serializable {

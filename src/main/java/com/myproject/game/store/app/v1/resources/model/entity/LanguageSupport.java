@@ -15,7 +15,8 @@ import lombok.*;
  */
 @Entity
 @Table(name = "language_support")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class LanguageSupport implements Serializable {

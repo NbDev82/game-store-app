@@ -15,7 +15,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "reviews")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review implements Serializable {
