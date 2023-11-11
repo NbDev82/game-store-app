@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 /**
@@ -19,7 +19,8 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "cards")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardMethod extends PaymentMethod implements Serializable{
@@ -28,7 +29,7 @@ public class CardMethod extends PaymentMethod implements Serializable{
     
     @Column(name = "card_number")
     private String cardNumber;
-    
+ 
     @Column(name = "expired_date")
     private Timestamp expiredDate;
     

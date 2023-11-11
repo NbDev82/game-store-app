@@ -8,7 +8,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "wish_list")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wish implements Serializable{

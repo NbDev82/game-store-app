@@ -16,7 +16,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "games")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game implements Serializable {
@@ -28,8 +29,20 @@ public class Game implements Serializable {
     @Column(name = "main_img_id")
     private Long mainImgId;
     
-    @Embedded
-    private Introduction details;
+    @Column(name = "game_name")
+    private String gameName;
+    
+    @Column(name = "title")
+    private String title;
+    
+    @Column(name = "content")
+    private String content;
+    
+    @Column(name = "warning")
+    private String warning;
+    
+    @Column(name = "award")
+    private String award;
 
     @Column(name = "release_date")
     private Timestamp releaseDate;
