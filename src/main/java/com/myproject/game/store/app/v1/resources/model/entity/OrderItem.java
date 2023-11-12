@@ -40,7 +40,7 @@ public class OrderItem implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
-    
+
     public OrderItem(int amount, String data, Game game) {
         this.amount = amount;
         this.data = data;
