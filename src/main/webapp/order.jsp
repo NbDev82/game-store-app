@@ -20,7 +20,7 @@
                     transform: translatex(0);
                     opacity: 1;
                 }
-                #btn-1:not(:checked) ~ .slides .slide:nth-child(1) {
+                #btn-${index}:not(:checked) ~ .slides .slide:nth-child(${index}) {
                     animation-name: swap-out;
                     animation-duration: 300ms;
                     animation-timing-function: linear;
