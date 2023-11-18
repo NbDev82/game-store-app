@@ -156,7 +156,7 @@ public class CartServlet extends HttpServlet {
         String cartId = request.getParameter("cartId");
         Cart cart = cartDAO.getCart(Long.valueOf(cartId));
         Order order = orderDAO.createOrder(cart);
-        request.setAttribute("order", order);
+        session.setAttribute("order", order);
         sc.getRequestDispatcher(url)
                 .forward(request, response);
     }

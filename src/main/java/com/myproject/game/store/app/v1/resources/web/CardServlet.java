@@ -1,0 +1,147 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package com.myproject.game.store.app.v1.resources.web;
+
+import com.myproject.game.store.app.v1.resources.dao.CardDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.CardDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.CardMethod;
+import com.myproject.game.store.app.v1.resources.model.entity.Order;
+import com.myproject.game.store.app.v1.resources.model.entity.User;
+import com.myproject.game.store.app.v1.resources.model.enums.EMethod;
+import converter.CardTypeConverter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Van Hoang
+ */
+@WebServlet(name = "CardServlet", urlPatterns = {"/card"})
+public class CardServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CardServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CardServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        log(action);
+        String url = "/cart.jsp";
+        if(action == null){
+            action="home";
+        }
+        if(action.equals("home")){
+            url = "/index.jsp";
+        } else if(action.equals("addCard")){
+            log("this is addCart action");
+            url = addCard(request, response);
+        }
+        getServletContext()
+            .getRequestDispatcher(url)
+            .forward(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    
+    public String addCard(HttpServletRequest request, HttpServletResponse response){
+        String url = "/error.jsp";
+        CardDAO cardDAO = new CardDAOImpl();
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        HttpSession session = request.getSession();
+        boolean isSuccess = false;
+        if(isValid(email, password)){
+            String cardTypeString = request.getParameter("cardType");
+            EMethod cardType = CardTypeConverter.convertToEMethod(cardTypeString);
+            String cardNumber = request.getParameter("cardNumber");
+            String securityCode = request.getParameter("securityCode");
+            String isVerifiedString = request.getParameter("select");
+            Order order = (Order)session.getAttribute("order");
+            User user = order.getCart().getUser();
+            log(cardType.name());
+            log(cardNumber);
+            log(isVerifiedString);
+            log(user.getUserId().toString());
+            boolean isVerified = isVerifiedString.equals("on");
+            CardMethod cardMethod = new CardMethod(cardType, cardNumber, securityCode, isVerified, user);
+            
+            cardMethod = cardDAO.persist(cardMethod, user);
+            if(cardMethod != null){
+                order.getCart().getUser().getCardMethods().add(cardMethod);
+                url = "/order.jsp";
+            }
+            
+            log(String.valueOf(order.getTotalAmount()));
+            request.setAttribute("order", order);
+        }
+        return url;
+    }
+    
+    public boolean isValid(String email, String password){
+        return true;
+    }
+}
