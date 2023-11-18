@@ -57,7 +57,7 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -75,7 +75,7 @@ public class OrderServlet extends HttpServlet {
         log(action);
         String url = "/index.jsp";
         if(action.equals("addPaymentMethod")){
-            url = "/checkout.jsp";
+            url = "/add-card.jsp";
         }else if(action.equals("checkout")){
             url = "/purchase.jsp";
         }
