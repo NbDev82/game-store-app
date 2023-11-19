@@ -80,7 +80,6 @@ public class CardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        log(action);
         String url = "/cart.jsp";
         if(action == null){
             action="home";
@@ -88,7 +87,6 @@ public class CardServlet extends HttpServlet {
         if(action.equals("home")){
             url = "/index.jsp";
         } else if(action.equals("addCard")){
-            log("this is addCart action");
             url = addCard(request, response);
         }
         getServletContext()
@@ -113,7 +111,6 @@ public class CardServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        boolean isSuccess = false;
         if(isValid(email, password)){
             String cardTypeString = request.getParameter("cardType");
             EMethod cardType = CardTypeConverter.convertToEMethod(cardTypeString);
@@ -122,26 +119,23 @@ public class CardServlet extends HttpServlet {
             String isVerifiedString = request.getParameter("select");
             Order order = (Order)session.getAttribute("order");
             User user = order.getCart().getUser();
-            log(cardType.name());
-            log(cardNumber);
-            log(isVerifiedString);
-            log(user.getUserId().toString());
             boolean isVerified = isVerifiedString.equals("on");
             CardMethod cardMethod = new CardMethod(cardType, cardNumber, securityCode, isVerified, user);
-            
             cardMethod = cardDAO.persist(cardMethod, user);
             if(cardMethod != null){
                 order.getCart().getUser().getCardMethods().add(cardMethod);
                 url = "/order.jsp";
             }
-            
-            log(String.valueOf(order.getTotalAmount()));
             request.setAttribute("order", order);
         }
         return url;
     }
     
     public boolean isValid(String email, String password){
+//        AccountDAO accountDAO = new AccountDAOImpl();
+//        return accountDAO.validateAccount(email, password);
         return true;
+
+        //get function of Khoa
     }
 }
