@@ -40,5 +40,10 @@ public class CardDAOImpl implements CardDAO{
             em.close();
         }
     }
-    
+
+    @Override
+    public CardMethod getCardById(Long cardId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        return em.find(CardMethod.class, cardId);
+    }
 }
