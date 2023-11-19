@@ -4,7 +4,8 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
-import com.myproject.game.store.app.v1.resources.dao.impl.AccountDB;
+import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -89,6 +90,7 @@ public class LoginServlet extends HttpServlet {
         else if (action.equals("login")) {
             String userName = request.getParameter("userName");
             String passwordHash = request.getParameter("passwordHash");
+            AccountDAO accDao = new AccountDAOImpl();
             
             String message;
             Account acc = new Account();
@@ -97,13 +99,15 @@ public class LoginServlet extends HttpServlet {
             log(userName);
             log(passwordHash);
 
-            if (AccountDB.validateUser(acc.getUserName(), acc.getPasswordHash())) {
+            if (accDao.validateAccount(acc.getUserName(), acc.getPasswordHash())) {
                 message = "";
                 log("correct account");
                 url = "/cart.jsp";
             }
             else {
                 message = "Invalid username or password!!!";
+                acc.setUserName("");
+                acc.setPasswordHash("");
                 log(message);
                 url = "/login.jsp";
             }

@@ -85,11 +85,10 @@
           </div>
         </div>
         <div class="login1">
-          <div class="logincontainer1">
-                
+          <div class="logincontainer1">   
               <form class="create_new_account" action="createAcc" method="get">
                   <c:choose>
-                    <c:when test="${inValidEmail}">
+                    <c:when test="${inValidEmail or inValidNumber or notCheck}">
                         <div id="error_display" style="background-image: none; background-color: rgba(0, 0, 0, 0.5);">
                             Please enter a valid email address.
                             <br>
@@ -110,23 +109,46 @@
                         <div class="form_row form_row_flex">
                             <div class="form_row_content">
                                 <label for="email">Your email</label>
-                                <input type="email" maxlength="255" 
-                                       name="email" value="${user.email}">
+                                <c:choose>
+                                    <c:when test="${inValidEmail}">
+                                        <input type="email" maxlength="255" 
+                                               name="email" value="${email}" class="inValid">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="email" maxlength="255" 
+                                               name="email" value="${email}">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
-                        <div class="faorm_row form_row_flex">
-                            <div class="form_row_content">
-                                <label for="email">Confirm your email</label>
-                                <input type="email" maxlength="255" 
-                                       name="confirmMail" value="${confirmMail}">
-                            </div>
-                        </div>
-                            
                         <div class="form_row form_row_flex">
                             <div class="form_row_content">
                                 <label for="email">Confirm your email</label>
-                                <input type="text" maxlength="255" 
-                                       name="f" value="">
+                                <c:choose>
+                                    <c:when test="${inValidEmail}">
+                                        <input type="email" maxlength="255" 
+                                               name="confirmMail" value="${confirmMail}" class="inValid">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="email" maxlength="255" 
+                                               name="confirmMail" value="${confirmMail}">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>  
+                        <div class="form_row form_row_flex">
+                            <div class="form_row_content">
+                                <label for="email">Your number</label>
+                                <c:choose>
+                                    <c:when test="${inValidNumber}">
+                                        <input type="text" maxlength="255" 
+                                               name="phoneNumber" value="${phoneNumber}" class="inValid">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="text" maxlength="255" 
+                                               name="phoneNumber" value="${phoneNumber}">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
 
@@ -135,7 +157,18 @@
                             <input type="hidden" name="action" value="submit_agree">
                             <div class="agp_box">
                               <label id="label_agree">
-                                <input type="checkbox" name="agree_check">
+                                <%
+                                  Boolean isAgreed = (Boolean) session.getAttribute("isAgreed");
+                                  boolean isChecked = Boolean.TRUE.equals(isAgreed);
+                                %>
+                                <c:choose>
+                                    <c:when test="${notCheck}">
+                                        <input type="checkbox" name="agreeCheck" class="inValid" <%= isChecked ? "checked" : "" %>>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" name="agreeCheck" <%= isChecked ? "checked" : "" %>>
+                                    </c:otherwise>
+                                </c:choose>
                                 I am 13 years of age or older and agree to the terms of the <a href="*" target="_blank">Game store agreement</a> and the <a href="*" target="_blank">Community policy</a>.
                               </label>
                             </div>

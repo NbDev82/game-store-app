@@ -86,6 +86,7 @@
         <div class="login1">
           <div class="logincontainer1">
               <form class="create_new_account" action="createAcc" method="post">
+                  <input type="hidden" name="action" value="doneCreateAcc">
                   <div id="account_form_box">
                     <div class="join_form">
                         <div class="sign_in_title">Create new account</div>
@@ -100,7 +101,7 @@
                             <div class="form_row_content">
                                 <label for="passwordHash">Password</label>
                                 <input type="password" maxlength="255" 
-                                       name="passwordHash" value="${acc.passwordHash}">
+                                       name="password" value="${password}">
                             </div>
                         </div>
                             
@@ -111,6 +112,8 @@
                                        name="confirmPassword" value="${confirmPassword}">
                             </div>
                         </div>
+                            
+                        <div class="formerror1"><i>${messageAddInfor}</i></div>
 
                         <div class="form_row">
                         <div class="verified_email">

@@ -4,8 +4,14 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
+import com.myproject.game.store.app.v1.resources.dao.*;
+import com.myproject.game.store.app.v1.resources.dao.impl.*;
+import com.myproject.game.store.app.v1.resources.model.entity.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,35 +81,83 @@ public class CreateAccServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         boolean inValidEmail = false;
+        boolean inValidNumber = false;
+        boolean notCheck = false;
         log(action);
         if (action==null)
             action="createAcc";
-        
         String url = "/signIn.jsp";
         if (action.equals("createAcc"))
             url = "/signIn.jsp";
-        else if (action.equals("continue")) {
+        else  {
             String email = request.getParameter("email");
             String confirmMail = request.getParameter("confirmMail");
-            String agree_check = request.getParameter("agree_check");
-            log (agree_check);
-            boolean isAgree = "on".equals(agree_check);
-            if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail) || !isAgree) {
-                log(email);
-                log(confirmMail);
-                log(Boolean.toString(email.equals(confirmMail)));
-                log(Boolean.toString(isAgree));
-                log("Inside true invalid");
-                inValidEmail = true;
-                url = "/signIn.jsp";
+            String phoneNumber = request.getParameter("phoneNumber");
+            String agreeCheck = request.getParameter("agreeCheck");
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            String confirmPassword = request.getParameter("confirmPassword");
+            String message = request.getParameter("message");
+            
+            boolean isAgreed = "on".equals(agreeCheck);
+            AccountDAO accDao = new AccountDAOImpl();
+            Account acc = new Account();
+            User user = new User();
+            
+            if (action.equals("continue")) {
+                if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail))
+                    inValidEmail = true;
+                if (!isAgreed)
+                    notCheck = true;
+                if (!isValidPhoneNumber(phoneNumber))
+                    inValidNumber = true;
+                if (inValidEmail || notCheck || inValidNumber) {
+                    log(email);
+                    log(confirmMail);
+                    log(Boolean.toString(isAgreed));
+                    log("Inside true invalid");
+                    url = "/signIn.jsp";
+                }
+                else {
+                    url = "/addAccInfor.jsp";
+                }
             }
-            else {
-                log("Inside false invalid");
-                inValidEmail = false;
-                url = "/addAccInfor.jsp";
+            else if (action.equals("doneCreateAcc")) {
+                if (password.equals(confirmPassword) == false || password.isBlank()) {
+                    message = "Password does not match or is blank!!!";
+                    url = "/addAccInfor.jsp";
+                } 
+                else {
+                    message = "";
+                    user.setPhoneNumber((String)session.getAttribute("phoneNumber"));
+                    String salt = accDao.generateSalt();
+                    acc.setEmail((String)session.getAttribute("email"));
+                    acc.setUserName(userName);
+                    acc.setSalt(salt);
+                    acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
+                    acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
+                    acc.setUser(user);
+                    try {
+                        if (accDao.insertAccount(acc))
+                            url = "/index.html";
+                    }
+                    catch (Exception e) {
+                        log(e.getMessage());
+                        message = e.getMessage();
+                        url = "/addAccInfor.jsp";
+                    }
+                }
             }
-            request.setAttribute("inValidEmail", inValidEmail);
-            log(Boolean.toString(inValidEmail));
+            session.setAttribute("acc", acc);
+            session.setAttribute("user", user);
+            session.setAttribute("email", email);
+            session.setAttribute("confirmMail", confirmMail);
+            session.setAttribute("phoneNumber", phoneNumber);
+            session.setAttribute("messageAddInfor", message);
+            session.setAttribute("inValidEmail", inValidEmail);
+            session.setAttribute("inValidNumber", inValidNumber);
+            session.setAttribute("isAgreed", isAgreed);
+            session.setAttribute("notCheck", notCheck);
         }
         
         getServletContext()
@@ -121,4 +175,16 @@ public class CreateAccServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Boolean isValidPhoneNumber(String phoneNumber) {
+        try {
+            String regex = "^\\d{10}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(phoneNumber);
+            return matcher.matches();
+        }
+        catch (Exception e) {
+            log(e.getMessage());
+            return false;
+        }
+    }
 }

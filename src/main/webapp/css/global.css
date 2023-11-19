@@ -42,6 +42,7 @@ body {
   --color-steelblue: #417a9b;
   --color-lightskyblue: #66c0f4;
   --color-textlabel: #b8b6b4;
+  --color-error: #ff0000b3;
 
   /* Gaps */
   --gap-3xs: 10px;

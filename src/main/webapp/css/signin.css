@@ -305,8 +305,8 @@
 }
 .formerror1 {
   position: relative;
-  width: 397.4px;
-  height: 17.6px;
+  font-size: 15px;
+  color: var(--color-error);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -766,4 +766,8 @@ a {
 
 .hidden {
     display: none;
+}
+
+.inValid {
+    border: 1px solid red !important;
 }
