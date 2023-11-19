@@ -38,4 +38,11 @@ public class Invoice implements Serializable{
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private Order order;
+
+    public Invoice(boolean status, int totalAmount, Timestamp created, Order order) {
+        this.status = status;
+        this.totalAmount = totalAmount;
+        this.created = created;
+        this.order = order;
+    }
 }
