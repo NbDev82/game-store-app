@@ -14,6 +14,7 @@
         <title>Đơn đặt hàng</title>
         <link rel ="stylesheet" href="assets/css/order.css" type = "text/css"/>
         <link rel="icon" href="assets/icons/cargo.png" type="image/x-icon">
+        <script src="assets/js/order-js.js"></script>
         <style>
             <c:forEach var="index" begin="1" end="${fn:length(order.cart.user.cardMethods)}">
                 #btn-${index}:checked ~ .slides .slide:nth-child(${index}) {
@@ -130,7 +131,8 @@
                                 </div>
                                 <ul class="slides">
                                     <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
-                                        <li class="slide">
+                                        <li class="slide" id="slide-${status.index+1}">
+                                            <input type="hidden" name="cardId" value="${card.paymentMethodId}">
                                             <div class="card-method">
                                                 <div class="card-method__info">
                                                     <div class="card-method__logo"></div>
@@ -199,16 +201,17 @@
         <div class="card checkout">
              <div class="footer">
                 <label class="price">${order.tax + order.totalAmount} VNĐ</label>
-                <c:choose>
-                    <c:when test="${order.status == false}">
-                        <form action="order" method="post">
-                            <button type="submit" class="button" role="button" style="background-color: #467b74; color: #000000;">
-                                <input type="hidden" name="action" value="checkout">
-                                <span>Checkout</span>
-                            </button>
-                        </form>
-                    </c:when>
-                </c:choose>
+                <c:if test="${order.status == false}">
+                    <form id ="checkoutForm" action="checkout" method="post">
+                        <button type="submit" class="button" role="button" style="background-color: #467b74; color: #000000;"
+                                onclick="getCardId()">
+                            <input type="hidden" name="action" value="checkout">
+                            <input id="submitCardId" type="hidden" name="cardId" value="">
+                            <input type="hidden" name="amount" value="${order.tax + order.totalAmount}">
+                            <span>Checkout</span>
+                        </button>
+                    </form>
+                </c:if>
             </div>
         </div>
     </div>
