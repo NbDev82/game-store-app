@@ -9,6 +9,7 @@ import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.CartDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,6 +71,8 @@ public class CartServlet extends HttpServlet {
         String url ="/404.jsp";
         int parameterCount = parameters.size();
         if(parameterCount == 0){
+            //Long userId = ....
+            //get User of Khoa
             url = getListCartItems(request, response, Long.valueOf(1));
             getServletContext()
                 .getRequestDispatcher(url)
@@ -92,21 +95,20 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        log(action);
-        String url = "/index.jsp";
-        if (action == null) {
-            action = "cart";  // default action
+        if(action == null) {
+            action = "shop";  // default action
         }
-        if (action.equals("shop")) {            
-            url = "/index.jsp";    // the "index" page
+        if(action.equals("shop")) {            
+            getServletContext()
+                    .getRequestDispatcher("/index.jsp")
+                    .forward(request, response);  // the "index" page
         }else if(action.equals("clearCart")){
             clearCart(request,response);
-        }else if (action.equals("removeItem")){
+        }else if(action.equals("removeItem")){
             removeItemFromCart(request,response);
-        }
-        else if(action.equals("createOrder")){
+        }else if(action.equals("createOrder")){
             createOrder(request, response);
-        } else{
+        }else{
             badRequest(request, response);
         }
     }
@@ -133,10 +135,9 @@ public class CartServlet extends HttpServlet {
         String url = "/index.jsp";
         try{
             CartDAO cartDAO = new CartDAOImpl();
-            boolean isRemoveSuccess = cartDAO.remove(cartId,gameId);
-            Cart cart = cartDAO.getCart(cartId);
+            Cart cart = cartDAO.remove(cartId,gameId);
             url = "/cart.jsp";
-            if(!isRemoveSuccess){
+            if(cart == null){
                 url = "/error.jsp";
             }
             session.setAttribute("cart", cart);
@@ -148,34 +149,34 @@ public class CartServlet extends HttpServlet {
     }
     
     public void createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext sc = getServletContext();
         HttpSession session = request.getSession();
         String url = "/order.jsp";
         CartDAO cartDAO = new CartDAOImpl();
         OrderDAO orderDAO = new OrderDAOImpl();
-        String cartId = request.getParameter("cartId");
-        Cart cart = cartDAO.getCart(Long.valueOf(cartId));
+        Long cartId = Long.valueOf((String)request.getParameter("cartId"));
+        Cart cart = cartDAO.getCart(cartId);
         Order order = orderDAO.createOrder(cart);
         session.setAttribute("order", order);
-        sc.getRequestDispatcher(url)
+        getServletContext()
+                .getRequestDispatcher(url)
                 .forward(request, response);
     }
     
     public void clearCart(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
-        boolean isSuccess = false;
+        HttpSession session = request.getSession();
+        CartDAO cartDAO = new CartDAOImpl();
         String message= null;
         String url= "/cart.jsp";
-        CartDAO cartDAO = new CartDAOImpl();
-        isSuccess = cartDAO.removeAllItem(Long.valueOf(1));
-        Cart cart = cartDAO.getCartByUserId(Long.valueOf(1));
-        if(isSuccess)
+        Long cartId = Long.valueOf((String)request.getParameter("cartId"));
+        Cart cart = cartDAO.removeAllItem(cartId);
+        if(cart != null)
             message="Clear cart succesfully!";
         else{
             message="Failed to clear cart!";
             url = "/error.jsp";
         }
-        request.setAttribute("cart", cart);
+        session.setAttribute("cart", cart);
         request.setAttribute("message", message);
         getServletContext()
             .getRequestDispatcher(url)
@@ -183,9 +184,10 @@ public class CartServlet extends HttpServlet {
     }
     
     public String getListCartItems(HttpServletRequest request, HttpServletResponse response, Long id){
+        HttpSession session = request.getSession();
         CartDAO cartDAO = new CartDAOImpl();
         Cart cart = cartDAO.getCart(id);
-        request.setAttribute("cart", cart);
+        session.setAttribute("cart", cart);
         if(cart != null){
             return "/cart.jsp";
         }
