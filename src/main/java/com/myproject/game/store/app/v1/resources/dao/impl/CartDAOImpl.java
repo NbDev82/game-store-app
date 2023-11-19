@@ -28,7 +28,7 @@ public class CartDAOImpl implements CartDAO{
                 CartDAOImpl.class.getName());
     
     @Override
-    public boolean removeAllItem(Long cartId) {
+    public Cart removeAllItem(Long cartId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         Cart cart = em.find(Cart.class, cartId);
         if(cart != null){
@@ -43,39 +43,39 @@ public class CartDAOImpl implements CartDAO{
                 cart.getGames().clear();
                 em.merge(cart);
                 trans.commit();
-                return true;
+                return cart;
             }catch(Exception e){
                 logger.log(Level.WARNING, e.getMessage());
                 trans.rollback();
-                return false;
+                return null;
             } finally{
                 em.close();
             }
         }
         else{
             em.close();
-            return false;
+            return null;
         }
     }
 
     @Override
-    public boolean remove(Long cartId, Long gameId) {
+    public Cart remove(Long cartId, Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
         Game game = em.find(Game.class, gameId);
-        cart.getGames().remove(game);
-        game.getCarts().remove(cart);
         try{
-            trans.begin();  
+            trans.begin();
+            cart.getGames().remove(game);
+            game.getCarts().remove(cart);
             em.merge(cart);
             em.merge(game);
             trans.commit();
-            return true;
+            return cart;
         }catch(Exception e){
             logger.log(Level.WARNING, e.getMessage());
             trans.rollback();
-            return false;
+            return null;
         } finally{
             em.close();
         }

@@ -13,4 +13,6 @@ import com.myproject.game.store.app.v1.resources.model.entity.User;
  */
 public interface CardDAO {
     CardMethod persist(CardMethod card, User user);
+
+    public CardMethod getCardById(Long cardId);
 }
