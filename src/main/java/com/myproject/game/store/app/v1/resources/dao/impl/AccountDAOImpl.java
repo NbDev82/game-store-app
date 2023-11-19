@@ -18,7 +18,7 @@ import javax.persistence.*;
  */
 public class AccountDAOImpl implements AccountDAO{
     @Override
-    public boolean validateAccount(String userName, String providedPassword) {
+    public Account validateAccount(String userName, String providedPassword) {
         Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a WHERE a.userName = :userName";
@@ -38,16 +38,15 @@ public class AccountDAOImpl implements AccountDAO{
                 logger.info(storedPasswordHash);
                 logger.info(providedPasswordHash);
                 if (storedPasswordHash.equals(providedPasswordHash)) {
-                    return true;
+                    return account;
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
-            return false;
         } finally {
             em.close();
         }
-        return false;
+        return null;
     }
     
     @Override

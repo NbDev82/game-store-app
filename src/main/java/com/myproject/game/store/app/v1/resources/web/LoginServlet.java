@@ -75,48 +75,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        log("Get in to dopost!!!");
         String action = request.getParameter("action");
-        log(action);
         if (action == null)
             action = "logout";
         
-        String url = "/login.jsp";
-
-        if (action.equals("logout")) {
-            url = "/login.jsp";
-        }
-        else if (action.equals("login")) {
-            String userName = request.getParameter("userName");
-            String passwordHash = request.getParameter("passwordHash");
-            AccountDAO accDao = new AccountDAOImpl();
-            
-            String message;
-            Account acc = new Account();
-            acc.setUserName(userName);
-            acc.setPasswordHash(passwordHash);
-            log(userName);
-            log(passwordHash);
-
-            if (accDao.validateAccount(acc.getUserName(), acc.getPasswordHash())) {
-                message = "";
-                log("correct account");
-                url = "/cart.jsp";
-            }
-            else {
-                message = "Invalid username or password!!!";
-                acc.setUserName("");
-                acc.setPasswordHash("");
-                log(message);
-                url = "/login.jsp";
-            }
-            request.setAttribute(("message"), message);
-            session.setAttribute("acc", acc);
-        }
-        else if (action.equals("createAcc")) {
-            url = "/signIn.jsp";
-        }
+        String url = processAction(action, request, response);
         
         getServletContext()
                 .getRequestDispatcher(url)
@@ -132,5 +95,46 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    private String processAction(String action, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String url = "/login.jsp";
+        switch (action) {
+            case "logout":
+                url = "/login.jsp";
+                break;
+            case "login":
+                url = handleLoginAction(request, response);
+                break;
+            case "createAcc":
+                url = "/signIn.jsp";
+                break;
+            default:
+                break;
+        }
+        return url;
+    }
+    
+    private String handleLoginAction(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String url = "";
+        String userName = request.getParameter("userName");
+        String passwordHash = request.getParameter("passwordHash");
+        AccountDAO accDao = new AccountDAOImpl();
+        String message;
+        Account acc = accDao.validateAccount(userName, passwordHash);
+        if (acc != null) {
+            message = "";
+            url = "/cart.jsp";
+            session.setAttribute("acc", acc);
+        }
+        else {
+            message = "Invalid username or password!!!";
+            url = "/login.jsp";
+        }   
+        request.setAttribute(("message"), message);
+        return url;
+    }
 }

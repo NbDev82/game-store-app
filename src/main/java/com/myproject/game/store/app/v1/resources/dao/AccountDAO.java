@@ -12,7 +12,7 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
  * @author admin
  */
 public interface AccountDAO {
-    boolean validateAccount(String userName, String providedPassword);
+    Account validateAccount(String userName, String providedPassword);
     String hashPassword(String password, String salt);
     String generateSalt();
     boolean insertAccount(Account acc);

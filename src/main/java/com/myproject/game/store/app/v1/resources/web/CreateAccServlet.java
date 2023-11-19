@@ -78,93 +78,14 @@ public class CreateAccServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        boolean inValidEmail = false;
-        boolean inValidNumber = false;
-        boolean notCheck = false;
-        log(action);
         if (action==null)
             action="createAcc";
-        String url = "/signIn.jsp";
-        if (action.equals("createAcc"))
-            url = "/signIn.jsp";
-        else  {
-            String email = request.getParameter("email");
-            String confirmMail = request.getParameter("confirmMail");
-            String phoneNumber = request.getParameter("phoneNumber");
-            String agreeCheck = request.getParameter("agreeCheck");
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password");
-            String confirmPassword = request.getParameter("confirmPassword");
-            String message = request.getParameter("message");
-            
-            boolean isAgreed = "on".equals(agreeCheck);
-            AccountDAO accDao = new AccountDAOImpl();
-            Account acc = new Account();
-            User user = new User();
-            
-            if (action.equals("continue")) {
-                if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail))
-                    inValidEmail = true;
-                if (!isAgreed)
-                    notCheck = true;
-                if (!isValidPhoneNumber(phoneNumber))
-                    inValidNumber = true;
-                if (inValidEmail || notCheck || inValidNumber) {
-                    log(email);
-                    log(confirmMail);
-                    log(Boolean.toString(isAgreed));
-                    log("Inside true invalid");
-                    url = "/signIn.jsp";
-                }
-                else {
-                    url = "/addAccInfor.jsp";
-                }
-            }
-            else if (action.equals("doneCreateAcc")) {
-                if (password.equals(confirmPassword) == false || password.isBlank()) {
-                    message = "Password does not match or is blank!!!";
-                    url = "/addAccInfor.jsp";
-                } 
-                else {
-                    message = "";
-                    user.setPhoneNumber((String)session.getAttribute("phoneNumber"));
-                    String salt = accDao.generateSalt();
-                    acc.setEmail((String)session.getAttribute("email"));
-                    acc.setUserName(userName);
-                    acc.setSalt(salt);
-                    acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
-                    acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
-                    acc.setUser(user);
-                    try {
-                        if (accDao.insertAccount(acc))
-                            url = "/index.html";
-                    }
-                    catch (Exception e) {
-                        log(e.getMessage());
-                        message = e.getMessage();
-                        url = "/addAccInfor.jsp";
-                    }
-                }
-            }
-            session.setAttribute("acc", acc);
-            session.setAttribute("user", user);
-            session.setAttribute("email", email);
-            session.setAttribute("confirmMail", confirmMail);
-            session.setAttribute("phoneNumber", phoneNumber);
-            session.setAttribute("messageAddInfor", message);
-            session.setAttribute("inValidEmail", inValidEmail);
-            session.setAttribute("inValidNumber", inValidNumber);
-            session.setAttribute("isAgreed", isAgreed);
-            session.setAttribute("notCheck", notCheck);
-        }
-        
+        String url = processAction(action, request, response);
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
@@ -186,5 +107,96 @@ public class CreateAccServlet extends HttpServlet {
             log(e.getMessage());
             return false;
         }
+    }
+        
+    private String processAction (String action, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String url = "/signIn.jsp";
+        switch (action) {
+            case "continue":
+                url = handleContinueAction(request, response);
+                break;
+            case "doneCreateAcc":
+                url = handleDoneCreateAcc(request, response);
+                break;
+            default:
+                break;
+        }
+        return url;
+    }
+    
+    private String handleContinueAction(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String url = "";
+        
+        String email = request.getParameter("email");
+        String confirmMail = request.getParameter("confirmMail");
+        String agreeCheck = request.getParameter("agreeCheck");
+        String phoneNumber = request.getParameter("phoneNumber");
+        boolean inValidEmail = false;
+        boolean inValidNumber = false;
+        boolean notCheck = false;
+        boolean isAgreed = "on".equals(agreeCheck);
+        
+        if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail))
+                    inValidEmail = true;
+            if (!isAgreed)
+                notCheck = true;
+            if (!isValidPhoneNumber(phoneNumber))
+                inValidNumber = true;
+            if (inValidEmail || notCheck || inValidNumber)
+                url = "/signIn.jsp";
+            else
+                url = "/addAccInfor.jsp";
+        
+        session.setAttribute("email", email);
+        session.setAttribute("confirmMail", confirmMail);
+        session.setAttribute("phoneNumber", phoneNumber);
+        session.setAttribute("inValidEmail", inValidEmail);
+        session.setAttribute("inValidNumber", inValidNumber);
+        session.setAttribute("isAgreed", isAgreed);
+        session.setAttribute("notCheck", notCheck);
+        return url;
+    }
+    
+    private String handleDoneCreateAcc (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String message = request.getParameter("messageAddInfor");
+        String userName = request.getParameter("userName");
+        String url = "";
+        
+        if (password.equals(confirmPassword) == false || password.isBlank()) {
+            message = "Password does not match or is blank!!!";
+            url = "/addAccInfor.jsp";
+        } else {
+            AccountDAO accDao = new AccountDAOImpl();
+            Account acc = new Account();
+            User user = new User();
+            message = "";
+            user.setPhoneNumber((String)session.getAttribute("phoneNumber"));
+            String salt = accDao.generateSalt();
+            acc.setEmail((String)session.getAttribute("email"));
+            acc.setUserName(userName);
+            acc.setSalt(salt);
+            acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
+            acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
+            acc.setUser(user);
+            try {
+                if (accDao.insertAccount(acc))
+                    url = "/index.html";
+                session.setAttribute("acc", acc);
+                session.setAttribute("user", user);
+            }
+            catch (Exception e) {
+                message = e.getMessage();
+                url = "/addAccInfor.jsp";
+            }
+        }
+        session.setAttribute("messageAddInfor", message);
+        return url;
     }
 }
