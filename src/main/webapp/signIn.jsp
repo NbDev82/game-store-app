@@ -135,7 +135,7 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                        </div>  
+                        </div> 
                         <div class="form_row form_row_flex">
                             <div class="form_row_content">
                                 <label for="email">Your number</label>
@@ -150,29 +150,31 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                        </div>
-
+                        </div>                        
                         <div class="form_row">
-                          <div class="agree_policy">
-                            <input type="hidden" name="action" value="submit_agree">
-                            <div class="agp_box">
-                              <label id="label_agree">
-                                <%
-                                  Boolean isAgreed = (Boolean) session.getAttribute("isAgreed");
-                                  boolean isChecked = Boolean.TRUE.equals(isAgreed);
-                                %>
-                                <c:choose>
-                                    <c:when test="${notCheck}">
-                                        <input type="checkbox" name="agreeCheck" class="inValid" <%= isChecked ? "checked" : "" %>>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="checkbox" name="agreeCheck" <%= isChecked ? "checked" : "" %>>
-                                    </c:otherwise>
-                                </c:choose>
-                                I am 13 years of age or older and agree to the terms of the <a href="*" target="_blank">Game store agreement</a> and the <a href="*" target="_blank">Community policy</a>.
-                              </label>
+                            <div class="agree_policy">
+                              <input type="hidden" name="action" value="submit_agree">
+                              <div class="agp_box">
+                                <label id="label_agree">
+                                  <%
+                                    Boolean isAgreed = (Boolean) session.getAttribute("isAgreed");
+                                    boolean isChecked = Boolean.TRUE.equals(isAgreed);
+                                  %>
+                                  <c:choose>
+                                      <c:when test="${notCheck}">
+                                          <input type="checkbox" name="agreeCheck" class="inValid" <%= isChecked ? "checked" : "" %>>
+                                      </c:when>
+                                      <c:otherwise>
+                                          <input type="checkbox" name="agreeCheck" <%= isChecked ? "checked" : "" %>>
+                                      </c:otherwise>
+                                  </c:choose>
+                                  I am 13 years of age or older and agree to the terms of the <a href="*" target="_blank">Game store agreement</a> and the <a href="*" target="_blank">Community policy</a>.
+                                </label>
+                              </div>
                             </div>
-                          </div>
+                                  
+                            <div class="formerror1"><i>${messageContinueError}</i></div>
+                            
                             <div class="verified_email">
                                 <button class="submitbutton continue_button" type="submit">
                                     <span>Continue</span>

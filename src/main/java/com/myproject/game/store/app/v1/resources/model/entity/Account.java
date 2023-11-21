@@ -26,9 +26,10 @@ public class Account implements Serializable{
     @Column(name = "account_id")
     private Long accountId;
     
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique=true)
     private String userName;
     
+    @Column(unique=true)
     private String email;
     
     @Column(name = "password_hash")

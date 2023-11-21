@@ -9,7 +9,6 @@ import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import java.security.*;
 import java.util.*;
-import java.util.logging.Logger;
 import javax.persistence.*;
 
 /**
@@ -19,7 +18,6 @@ import javax.persistence.*;
 public class AccountDAOImpl implements AccountDAO{
     @Override
     public Account validateAccount(String userName, String providedPassword) {
-        Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a WHERE a.userName = :userName";
         TypedQuery<Account> q = em.createQuery(qString, Account.class);
@@ -29,14 +27,9 @@ public class AccountDAOImpl implements AccountDAO{
             Account account = (Account) q.getSingleResult();
             if (account != null) {
                 String storedSalt = account.getSalt();
-                logger.info(storedSalt);
                 String storedPasswordHash = account.getPasswordHash();
                 
                 String providedPasswordHash = hashPassword(providedPassword, storedSalt);
-                System.out.println(providedPasswordHash);
-                System.out.println(storedPasswordHash);
-                logger.info(storedPasswordHash);
-                logger.info(providedPasswordHash);
                 if (storedPasswordHash.equals(providedPasswordHash)) {
                     return account;
                 }
@@ -82,7 +75,6 @@ public class AccountDAOImpl implements AccountDAO{
     public boolean insertAccount(Account acc) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        
         try {
             trans.begin();
             em.persist(acc);
@@ -94,5 +86,62 @@ public class AccountDAOImpl implements AccountDAO{
         } finally {
             em.close();
         }
+    }
+    
+    @Override
+    public boolean emailExisted(String email) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.email = :email");
+            query.setParameter("email", email);
+            List<Account> accounts = query.getResultList();
+            em.getTransaction().commit();
+            return !accounts.isEmpty();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return true;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public boolean usernameExisted(String userName) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.userName = :userName");
+            query.setParameter("userName", userName);
+            List<Account> accounts = query.getResultList();
+            em.getTransaction().commit();
+            return !accounts.isEmpty();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return true;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public boolean validatePassword(String password) {
+        if (password.length() < 9) {
+            return false;
+        } else if (!password.matches(".*\\d.*")) {
+            return false;
+        } else if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }else if (!password.matches(".*\\W.*")) {
+            return false;
+        }
+
+        return true;
     }
 }

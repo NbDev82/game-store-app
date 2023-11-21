@@ -104,7 +104,6 @@ public class CreateAccServlet extends HttpServlet {
             return matcher.matches();
         }
         catch (Exception e) {
-            log(e.getMessage());
             return false;
         }
     }
@@ -128,31 +127,42 @@ public class CreateAccServlet extends HttpServlet {
     private String handleContinueAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String url = "";
-        
+        String url = "";        
         String email = request.getParameter("email");
         String confirmMail = request.getParameter("confirmMail");
         String agreeCheck = request.getParameter("agreeCheck");
-        String phoneNumber = request.getParameter("phoneNumber");
+        String phoneNumber = request.getParameter("phoneNumber");       
+        String messageContinueError = request.getParameter("messageContinueError");      
         boolean inValidEmail = false;
         boolean inValidNumber = false;
         boolean notCheck = false;
         boolean isAgreed = "on".equals(agreeCheck);
+        AccountDAO accDao = new AccountDAOImpl();
         
-        if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail))
-                    inValidEmail = true;
-            if (!isAgreed)
-                notCheck = true;
-            if (!isValidPhoneNumber(phoneNumber))
-                inValidNumber = true;
-            if (inValidEmail || notCheck || inValidNumber)
-                url = "/signIn.jsp";
-            else
-                url = "/addAccInfor.jsp";
-        
+        if (!isAgreed) {
+            messageContinueError = "Please agree our policy to continue...";
+            notCheck = true;
+        }
+        if (!isValidPhoneNumber(phoneNumber)) {
+            messageContinueError = "Phone number must include 10 numeric characters...";
+            inValidNumber = true;
+        }
+        if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail) || accDao.emailExisted(email)) {
+            messageContinueError = "Email does not match or is blank!!!";
+            inValidEmail = true;
+            if (accDao.emailExisted(email))
+                messageContinueError = "Email existed!!!";
+        }
+        if (inValidEmail || notCheck || inValidNumber)
+            url = "/signIn.jsp";
+        else {
+            messageContinueError = "";
+            url = "/addAccInfor.jsp";
+        }       
         session.setAttribute("email", email);
         session.setAttribute("confirmMail", confirmMail);
         session.setAttribute("phoneNumber", phoneNumber);
+        session.setAttribute("messageContinueError", messageContinueError);
         session.setAttribute("inValidEmail", inValidEmail);
         session.setAttribute("inValidNumber", inValidNumber);
         session.setAttribute("isAgreed", isAgreed);
@@ -163,40 +173,56 @@ public class CreateAccServlet extends HttpServlet {
     private String handleDoneCreateAcc (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        String message = request.getParameter("messageAddInfor");
-        String userName = request.getParameter("userName");
+        String messageDoneCreateAccError = request.getParameter("message");
         String url = "";
+        AccountDAO accDao = new AccountDAOImpl();
         
-        if (password.equals(confirmPassword) == false || password.isBlank()) {
-            message = "Password does not match or is blank!!!";
+        if (accDao.usernameExisted(userName)) {
+            messageDoneCreateAccError = "Username existed!!!";
+            url = "/addAccInfor.jsp";
+        } else if (password.equals(confirmPassword) == false || password.isBlank()) {
+            messageDoneCreateAccError = "Password does not match or is blank!!!";
+            url = "/addAccInfor.jsp";
+        } else if (!accDao.validatePassword(password)) {
+            messageDoneCreateAccError = "Password needs a special character, uppercase letter, number, and 9+ characters";
             url = "/addAccInfor.jsp";
         } else {
-            AccountDAO accDao = new AccountDAOImpl();
-            Account acc = new Account();
             User user = new User();
-            message = "";
             user.setPhoneNumber((String)session.getAttribute("phoneNumber"));
             String salt = accDao.generateSalt();
-            acc.setEmail((String)session.getAttribute("email"));
-            acc.setUserName(userName);
-            acc.setSalt(salt);
-            acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
-            acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
-            acc.setUser(user);
+            String email = (String)session.getAttribute("email");
+            Account acc = addAcc(userName, password, salt, email, user);
             try {
                 if (accDao.insertAccount(acc))
-                    url = "/index.html";
+                    url = "/login.jsp";
+                messageDoneCreateAccError = "";
                 session.setAttribute("acc", acc);
                 session.setAttribute("user", user);
             }
             catch (Exception e) {
-                message = e.getMessage();
+                messageDoneCreateAccError = e.getMessage();
                 url = "/addAccInfor.jsp";
             }
         }
-        session.setAttribute("messageAddInfor", message);
+        session.setAttribute("userName", userName);
+        session.setAttribute("password", password);
+        session.setAttribute("confirmPassword", confirmPassword);
+        session.setAttribute("messageDoneCreateAccError", messageDoneCreateAccError);
         return url;
+    }
+    
+    private Account addAcc(String userName, String password, String salt, String email, User user) {
+        Account acc = new Account();
+        AccountDAO accDao = new AccountDAOImpl();
+        acc.setEmail(email);
+        acc.setUserName(userName);
+        acc.setSalt(salt);
+        acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
+        acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
+        acc.setUser(user);
+        return acc;
     }
 }

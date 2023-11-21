@@ -94,9 +94,10 @@
                             <div class="form_row_content">
                                 <label for="userName">User name</label>
                                 <input type="text" maxlength="255" 
-                                       name="userName" value="${acc.userName}">
+                                       name="userName" value="${userName}">
                             </div>
                         </div>
+                                                    
                         <div class="faorm_row form_row_flex">
                             <div class="form_row_content">
                                 <label for="passwordHash">Password</label>
@@ -113,7 +114,7 @@
                             </div>
                         </div>
                             
-                        <div class="formerror1"><i>${messageAddInfor}</i></div>
+                        <div class="formerror1"><i>${messageDoneCreateAccError}</i></div>
 
                         <div class="form_row">
                         <div class="verified_email">
