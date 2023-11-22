@@ -17,6 +17,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.logging.Level; 
 import java.util.logging.Logger;
+import javax.transaction.Transaction;
 
 /**
  *
@@ -108,5 +109,35 @@ public class CartDAOImpl implements CartDAO{
             em.close();
         }
         return cart;
+    }
+
+    @Override
+    public boolean addItem(Long cartId, Game game) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        Cart cart = em.find(Cart.class, cartId);
+        try{
+            trans.begin();
+            cart.getGames().add(game);
+            game.getCarts().add(cart);
+            em.merge(cart);
+            em.merge(game);
+            trans.commit();
+            return true;
+        } catch (Exception e){
+            logger.warning(e.getMessage());
+            trans.rollback();
+            return false;
+        }finally{
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean addItem(Long cartId, Long gameId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Game game = em.find(Game.class, gameId);
+        em.close();
+        return addItem(cartId,game);
     }
 }

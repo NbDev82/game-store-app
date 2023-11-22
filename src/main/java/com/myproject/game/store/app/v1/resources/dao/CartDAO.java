@@ -5,6 +5,7 @@
 package com.myproject.game.store.app.v1.resources.dao;
 
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 
 /**
  *
@@ -15,5 +16,7 @@ public interface CartDAO {
     public Cart remove(Long cartId, Long gameId);
     public Cart getCart(Long id);
     public Cart getCartByUserId(Long userId);
+    public boolean addItem(Long cartId, Game game);
+    public boolean addItem(Long cartId, Long gameId);
     
 }
