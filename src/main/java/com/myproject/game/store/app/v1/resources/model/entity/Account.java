@@ -22,14 +22,14 @@ import lombok.*;
 @AllArgsConstructor
 public class Account implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_id")
     private Long accountId;
     
-    
-    
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique=true)
     private String userName;
     
+    @Column(unique=true)
     private String email;
     
     @Column(name = "password_hash")
