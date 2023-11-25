@@ -8,6 +8,7 @@ import com.myproject.game.store.app.v1.resources.dao.CartDAO;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.CartDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
@@ -67,16 +68,22 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         Map<String, String[]> parameters = request.getParameterMap();
         String url ="/404.jsp";
         int parameterCount = parameters.size();
         if(parameterCount == 0){
-            //Long userId = ....
-            //get User of Khoa
-            url = getListCartItems(request, response, Long.valueOf(1));
-            getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+            Account acc = (Account)session.getAttribute("acc");
+            if(acc == null){
+                session.setAttribute("preUrl", request.getContextPath()+"/cart");
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+            }else{
+                Long userId = acc.getUser().getUserId();
+                url = getListCartItems(request, response, userId);
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
+            }
         }else{
             doPost(request, response);
         }
@@ -183,16 +190,17 @@ public class CartServlet extends HttpServlet {
             .forward(request, response);
     }
     
-    public String getListCartItems(HttpServletRequest request, HttpServletResponse response, Long id){
+    public String getListCartItems(HttpServletRequest request, HttpServletResponse response, Long userId){
+        String url = "/cart.jsp";
         HttpSession session = request.getSession();
         CartDAO cartDAO = new CartDAOImpl();
-        Cart cart = cartDAO.getCart(id);
+        Cart cart = cartDAO.getCartByUserId(userId);
+        if(cart == null){
+            cart = cartDAO.createCart(userId);
+        }
+        if(cart == null)
+            url=request.getContextPath()+"/error.jsp";
         session.setAttribute("cart", cart);
-        if(cart != null){
-            return "/cart.jsp";
-        }
-        else{
-            return "/404.jsp";
-        }
+        return url;
     }
 }
