@@ -5,12 +5,11 @@
 package com.myproject.game.store.app.v1.resources.dao;
 
 import com.myproject.game.store.app.v1.resources.model.entity.Invoice;
-import com.myproject.game.store.app.v1.resources.model.entity.Order;
 
 /**
  *
  * @author Van Hoang
  */
 public interface InvoiceDAO {
-    public Invoice createInvoice(Order order);
+    public Invoice createInvoice(Long orderId, Long cardId);
 }

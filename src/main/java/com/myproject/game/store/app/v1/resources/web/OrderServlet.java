@@ -4,6 +4,9 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
+import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -78,6 +82,8 @@ public class OrderServlet extends HttpServlet {
             url = "/add-card.jsp";
         }else if(action.equals("checkout")){
             url = "/thanks.jsp";
+        }if(action.equals("getOrder")){
+            url = getOrder(request, response);
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -92,4 +98,15 @@ public class OrderServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    public String getOrder(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        OrderDAO orderDAO = new OrderDAOImpl();
+        String url = "/order.jsp";
+        String orderIdString = request.getParameter("orderId");
+        Long orderId = Long.valueOf(orderIdString);
+        Order order = orderDAO.getOrderByOrderId(orderId);
+        session.setAttribute("order", order);
+        return url;
+    }
 }

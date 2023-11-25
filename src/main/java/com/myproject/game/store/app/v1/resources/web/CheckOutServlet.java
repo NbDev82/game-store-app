@@ -137,7 +137,7 @@ public class CheckOutServlet extends HttpServlet {
         boolean isSuccess = false;
         if(cardCode.equals(securityCode)){
             Order order = (Order)session.getAttribute("order");
-            Invoice invoice = invoiceDAO.createInvoice(order);
+            Invoice invoice = invoiceDAO.createInvoice(order.getOrderId(),card.getPaymentMethodId());
             if(invoice != null){
                 session.setAttribute("invoice", invoice);
                 isSuccess = true;
