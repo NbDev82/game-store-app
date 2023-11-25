@@ -39,4 +39,12 @@ public class CardMethod extends PaymentMethod implements Serializable{
     
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    public CardMethod(EMethod cardType, String cardNumber, String securityCode, boolean verified, User user) {
+            super.setMethodType(true);
+            super.setSecurityCode(securityCode);
+            super.setVerified(verified);
+            this.cardNumber = cardNumber;
+            this.cardType = cardType;
+    }
 }

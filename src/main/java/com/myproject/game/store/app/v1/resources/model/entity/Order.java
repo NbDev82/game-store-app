@@ -41,7 +41,7 @@ public class Order implements Serializable{
     private Timestamp due;
    
     private boolean expired;
-    
+
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -50,14 +50,14 @@ public class Order implements Serializable{
     private Invoice invoice;
     
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<OrderItem> orderItemss;
+    private List<OrderItem> orderItems;
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "wallet_id", nullable = false)
+    @JoinColumn(name = "wallet_id", nullable = true)
     private Wallet wallet;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "card_id", nullable = false)
+    @JoinColumn(name = "card_id", nullable = true)
     private CardMethod card;
     
     public Order(boolean status, int totalAmount, int tax, String securityCode, Timestamp created, Timestamp due, boolean expired) {
