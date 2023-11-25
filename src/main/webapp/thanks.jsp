@@ -36,6 +36,11 @@
                     </div>
                 </c:when>
                 <c:otherwise>
+                    <c:if test="${message != null}">
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong> <h2 name="message">${message}</h2>
+                        </div>
+                    </c:if>
                     <div class="container" style="text-align: center;">
                         <p  style="color: whitesmoke; font-size: 25px;">Type your security code of your card!!</p>
                         <input style="background-color: #e8f0fe;" type="password" name="securityCode" placeholder="Enter security code" required>

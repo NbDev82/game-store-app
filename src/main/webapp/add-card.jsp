@@ -25,9 +25,14 @@
             <div class="container" style="text-align: center;">
                 <img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016">
             </div>
+            <c:if test="${message != null}">
+                <div class="alert alert-danger">
+                    <strong>Error: </strong> <h2 name="message">${message}</h2>
+                </div>
+            </c:if>
             <div class="container smallFont">
-                <label ><b>Recipient Email</b></label>
-                <input style="background-color: #e8f0fe;" type="text" name="email" placeholder="Enter Recipient Email" required>
+                <label ><b>Recipient Username</b></label>
+                <input style="background-color: #e8f0fe;" type="text" name="username" placeholder="Enter Recipient Username" required>
                 <label><b>Confirm Your Password</b></label>
                 <input style="background-color:#e8f0fe;" type="password" name="password" placeholder="Enter Password" required>
                 <br> <br>

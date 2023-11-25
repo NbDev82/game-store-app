@@ -8,7 +8,6 @@ function validateForm() {
     var condition = cardNumber.length === 16;
     if (condition) {
         var form = document.getElementById('submitForm');
-        alert("sucessfull!")
         form.submit(); // Gửi form
     }else{
         alert("Please enter a valid 16-digit card number")
