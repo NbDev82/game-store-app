@@ -52,14 +52,14 @@ public class OrderDAOImpl implements OrderDAO{
                 items.add(ordI);
                 ordI.setOrder(order);
                 totalPrice += ordI.getAmount();
-//                game.getCarts().remove(cart);
+                game.getCarts().remove(cart);
             }
             order.setTotalAmount(totalPrice);
             order.setTax((int) Math.round(totalPrice * 0.1));
             order.setOrderItems(items);
             order.setCart(cart);
             cart.getOrders().add(order);
-//            cart.getGames().clear();
+            cart.getGames().clear();
             em.merge(cart);
             transaction.commit();
         } catch (Exception e) {
