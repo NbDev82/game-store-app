@@ -78,12 +78,12 @@ public class LoginServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null)
             action = "logout";
-        
         String url = processAction(action, request, response);
-        
-        getServletContext()
+        if(url != null && !url.isEmpty()){
+            getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
+        }
     }
 
     /**
@@ -98,7 +98,6 @@ public class LoginServlet extends HttpServlet {
     
     private String processAction(String action, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         String url = "/login.jsp";
         switch (action) {
             case "logout":
@@ -126,9 +125,15 @@ public class LoginServlet extends HttpServlet {
         String message;
         Account acc = accDao.validateAccount(userName, passwordHash);
         if (acc != null) {
-            message = "";
-            url = "/cart.jsp";
             session.setAttribute("acc", acc);
+            message = "";
+            String preUrl = (String)session.getAttribute("preUrl");
+            if(preUrl == null || preUrl.isEmpty()){
+                url = "/index.jsp";
+            }else{
+                response.sendRedirect(preUrl);
+                return "";
+            }
         }
         else {
             message = "Invalid username or password!!!";

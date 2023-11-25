@@ -4,8 +4,11 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
+import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.CardDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.CardDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.CardMethod;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
 import com.myproject.game.store.app.v1.resources.model.entity.User;
@@ -108,10 +111,10 @@ public class CardServlet extends HttpServlet {
     public String addCard(HttpServletRequest request, HttpServletResponse response){
         String url = "/error.jsp";
         CardDAO cardDAO = new CardDAOImpl();
-        String email = request.getParameter("email");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        if(isValid(email, password)){
+        if(isValid(username, password)){
             String cardTypeString = request.getParameter("cardType");
             EMethod cardType = CardTypeConverter.convertToEMethod(cardTypeString);
             String cardNumber = request.getParameter("cardNumber");
@@ -127,15 +130,16 @@ public class CardServlet extends HttpServlet {
                 url = "/order.jsp";
             }
             request.setAttribute("order", order);
+        }else{
+            url="/add-card.jsp";
+            request.setAttribute("message", "Username or password is not valid!");
         }
         return url;
     }
     
-    public boolean isValid(String email, String password){
-//        AccountDAO accountDAO = new AccountDAOImpl();
-//        return accountDAO.validateAccount(email, password);
-        return true;
-
-        //get function of Khoa
+    public boolean isValid(String username, String password){
+        AccountDAO accountDAO = new AccountDAOImpl();
+        Account acc = accountDAO.validateAccount(username, password);
+        return acc != null;
     }
 }

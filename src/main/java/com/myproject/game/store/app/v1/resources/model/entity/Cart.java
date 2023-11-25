@@ -27,7 +27,7 @@ public class Cart implements Serializable{
     
     @Column(name = "total_price")
     private int totalPrice;
-    
+  
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
@@ -37,4 +37,10 @@ public class Cart implements Serializable{
     
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
+    
+    public Cart(int totalPrice, User user) {
+        this.totalPrice = totalPrice;
+        this.user = user;
+    }
+  
 }

@@ -112,10 +112,16 @@ public class CheckOutServlet extends HttpServlet {
         CardDAO cardDAO = new CardDAOImpl();
         String url = "/thanks.jsp";
         String amount = request.getParameter("amount");
-        Long cardId = Long.valueOf((String)request.getParameter("cardId"));
-        CardMethod card = cardDAO.getCardById(cardId);
-        session.setAttribute("card", card);
-        session.setAttribute("amount", amount);
+        String CartIdString = (String)request.getParameter("cardId");
+        if(CartIdString !=null && CartIdString != ""){
+            Long cardId = Long.valueOf(CartIdString);
+            CardMethod card = cardDAO.getCardById(cardId);
+            session.setAttribute("card", card);
+            session.setAttribute("amount", amount);
+        }else{
+            request.setAttribute("message", "Please choose your payment method!!");
+            url = "/order.jsp";
+        }
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
@@ -137,6 +143,8 @@ public class CheckOutServlet extends HttpServlet {
                 isSuccess = true;
 //                emailService.transform(invoice);
             }
+        }else{
+            request.setAttribute("message", "Security code not match!!!");
         }
         request.setAttribute("isSuccess", isSuccess);
         getServletContext()

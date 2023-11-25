@@ -77,7 +77,7 @@ public class OrderServlet extends HttpServlet {
         if(action.equals("addPaymentMethod")){
             url = "/add-card.jsp";
         }else if(action.equals("checkout")){
-            url = "/purchase.jsp";
+            url = "/thanks.jsp";
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
