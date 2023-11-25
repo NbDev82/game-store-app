@@ -13,5 +13,5 @@ import com.myproject.game.store.app.v1.resources.model.entity.Order;
  */
 public interface OrderDAO {
     public Order createOrder(Cart cart);
-    
+    public Order getOrderByOrderId(Long orderId);
 }
