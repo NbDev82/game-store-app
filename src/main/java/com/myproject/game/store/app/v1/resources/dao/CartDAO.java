@@ -18,5 +18,6 @@ public interface CartDAO {
     public Cart getCartByUserId(Long userId);
     public boolean addItem(Long cartId, Game game);
     public boolean addItem(Long cartId, Long gameId);
+    public Cart createCart(Long userId);
     
 }

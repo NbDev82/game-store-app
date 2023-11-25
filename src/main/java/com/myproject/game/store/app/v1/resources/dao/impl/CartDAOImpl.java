@@ -140,4 +140,26 @@ public class CartDAOImpl implements CartDAO{
         em.close();
         return addItem(cartId,game);
     }
+
+    @Override
+    public Cart createCart(Long userId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        User user = em.find(User.class, userId);
+        Cart cart = null;
+        if(user != null)
+            cart = new Cart(0,user);
+        try{
+            trans.begin();
+            em.persist(cart);
+            trans.commit();
+            return cart;
+        }catch(Exception e){
+            logger.warning(e.getMessage());
+            trans.rollback();
+            return null;
+        } finally{
+            em.close();
+        }
+    }
 }
