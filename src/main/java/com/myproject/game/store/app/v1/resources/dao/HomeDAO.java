@@ -15,10 +15,5 @@ import java.util.List;
  */
 public interface HomeDAO {
     public List<Game> getAllGames();
-    // truyen vao game_id lay ra toan bo img
-//    public List<GameImg> getAllImgOfGameById(Long gameId);
-//    // truyen vao game_id va lay ra cac category quan
-//    public List<Category> getAllCategoryOfGameById(Long gameId);
-    // Lay toan bo categories
     public List<Category> getAllCategories();
 }

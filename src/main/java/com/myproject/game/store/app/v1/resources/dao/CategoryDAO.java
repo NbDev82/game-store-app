@@ -11,6 +11,5 @@ import com.myproject.game.store.app.v1.resources.model.entity.Category;
  * @author HP
  */
 public interface CategoryDAO {
-    //    lay toan bo thong tin ve game thong qua  gameId 
     public Category getCategoryById(Long categoryId);
 }

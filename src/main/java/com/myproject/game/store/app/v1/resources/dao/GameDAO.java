@@ -12,6 +12,5 @@ import java.util.List;
  * @author HP
  */
 public interface GameDAO {
-//    lay toan bo thong tin ve game thong qua  gameId 
     public Game getGameById(Long gameId);
 }
