@@ -89,18 +89,6 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="assets/css/hombase.css">
         <link rel="stylesheet" href="assets/css/home.css">
-        <!--        <script>
-                function calMinusPricePercent(init,discount){
-                    var init = parseFloat(init);
-                    var discount = parseFloat(discount)
-                    if (init >=0 && discount >=0){
-                        return parseInt( ((initial - discount) / initial) * 100 );
-                    }
-                    else{
-                        return 0;
-                    }
-                }
-                </script>-->
         <script type="text/javascript" src="js/index.js"></script>
         <link rel="stylesheet" href="assets/css/home.css">
     </head>
@@ -205,16 +193,6 @@
                                          style="height: 350px; background-image: url( 'https://cdn.akamai.steamstatic.com/steam/clusters/frontpage/8ad799076d8330ab5503472c/page_bg_mobile_english.jpg?t=1698557339' ), linear-gradient( to right, rgb( 0,0,0) 50%, rgb(0,0,0) 50% );">
                                     </div>
                                 </div>
-                                <!--                                container home content-->
-                                
-<!--                                <div class="home_page_takeover_link">
-                                    <a class="home_page_takeover_sizer"
-                                       href="https://store.steampowered.com/category/scream?snr=1_4_4__118&snr=1_4_4__118"
-                                       data-panel="{&quot;autoFocus&quot;:true,&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
-                                       style="height: 385px;">
-                                        <img src="https://store.akamai.steamstatic.com/public/images/blank.gif">
-                                    </a>
-                                </div>-->
                                 <div class="home_cluster_ctn home_ctn">                                 
                                     <div class="home_page_content">  
                                         <style>
@@ -321,8 +299,6 @@
                                                 font-weight: 500;
                                             }
                                         </style>
-                                        <!-- <h2 class="home_page_content_title">Featured &amp; Recommended</h2>-->
-                                        <!--<h1>My cool products</h1>-->
                                         
                                         <h1>${FirstTitle}</h1>
                                         <div class="list">
@@ -405,7 +381,6 @@
                             </div>
                         </div>  
                     </div>
-                    <!--yeu cau dang nhap-->
                     <div class="home_ctn home_content_ctn bottom_content">
                         <div id="homecontent_anchor"></div>
                         <div id="content_callout" class="page_content_ctn dark" data-usability-scroll="120">

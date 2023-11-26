@@ -397,11 +397,6 @@
                                             strRequiredVersion = "10.1.0";
 
                                     </script>
-                                    <!-- Information of Game -->
-                                    <!-- Pictures, videos and Information Game -->
-                                    <!-- Information of Game includes: -->
-                                    <!-- Title of Gmae: is the content (<200 words about Game) -->
-                                    <!-- Recent Review -->
                                     <div class="game_background_glow">
                                         <div data-panel="{&quot;autoFocus&quot;:true,&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
                                              class="responsive_page_header_img" style="display: none;">
@@ -1430,17 +1425,6 @@
                                                 <span>Open in GameStore</span>
                                             </a>
                                         </div>
-
-
-
-
-
-
-
-
-
-
-
                                         <div class="responsive_block_header responsive_apppage_details_left">Features</div>
                                         <div class="block responsive_apppage_details_left" id="category_block">
                                             <div data-panel="{&quot;type&quot;:&quot;PanelGroup&quot;}"
