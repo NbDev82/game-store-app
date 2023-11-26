@@ -5,9 +5,12 @@
 package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.connection.DBUtil;
+import com.myproject.game.store.app.v1.resources.dao.CategoryDAO;
 import com.myproject.game.store.app.v1.resources.dao.HomeDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.CategoryDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl;
-import com.myproject.game.store.app.v1.resources.model.entity.*;
+import com.myproject.game.store.app.v1.resources.model.entity.Category;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -18,15 +21,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Van Hoang
+ * @author HP
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "CategoryServlet", urlPatterns = {"/category"})
+public class CategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +39,24 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { 
-        String url="/index.jsp";
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String cateId=request.getParameter("cateid");
+        Long id = Long.valueOf(cateId);
+        CategoryDAO categoryDAO = new CategoryDAOImpl();
         HomeDAO homeDAO=new HomeDAOImpl();
-        List<Game> listGames=homeDAO.getAllGames();
-        List<Game> listGameSPE_OFF=homeDAO.getAllGames();
+        Category cate = categoryDAO.getCategoryById(id);
+        String FirstTitle=cate.getCategoryName();
+        List<Game> listGamesByCategory=cate.getGames();
         List<Category> listCategories=homeDAO.getAllCategories();
-        String FirstTitle="Featured &amp; Recommended";
+        List<Game> listGameSPE_OFF=homeDAO.getAllGames();
+        request.setAttribute("cate", cate);
         request.setAttribute("FirstTitle",FirstTitle );
-        request.setAttribute("listGames", listGames);
+        request.setAttribute("listGames", listGamesByCategory);
         request.setAttribute("listCategories", listCategories);
         request.setAttribute("listGameSPE_OFF", listGameSPE_OFF);
-        request.getRequestDispatcher(url).forward(request,response);
+        String url = "/index.jsp";
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,8 +71,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        doPost(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -80,7 +85,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request,response);
+        processRequest(request, response);
     }
 
     /**
@@ -92,5 +97,5 @@ public class HomeServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

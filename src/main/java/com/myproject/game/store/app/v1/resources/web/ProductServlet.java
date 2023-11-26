@@ -5,11 +5,16 @@
 package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.connection.DBUtil;
+import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import com.myproject.game.store.app.v1.resources.dao.HomeDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl;
-import com.myproject.game.store.app.v1.resources.model.entity.*;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
+import com.myproject.game.store.app.v1.resources.model.entity.LanguageSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.in;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,15 +23,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author Van Hoang
+ * @author HP
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "ProductServlet", urlPatterns = {"/game"})
+public class ProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +41,27 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { 
-        String url="/index.jsp";
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HomeDAO homeDAO=new HomeDAOImpl();
-        List<Game> listGames=homeDAO.getAllGames();
-        List<Game> listGameSPE_OFF=homeDAO.getAllGames();
-        List<Category> listCategories=homeDAO.getAllCategories();
-        String FirstTitle="Featured &amp; Recommended";
-        request.setAttribute("FirstTitle",FirstTitle );
-        request.setAttribute("listGames", listGames);
-        request.setAttribute("listCategories", listCategories);
-        request.setAttribute("listGameSPE_OFF", listGameSPE_OFF);
+        String url="/product.jsp";
+        response.setContentType("text/html;charset=UTF-8");
+        Long id = Long.valueOf(request.getParameter("gameId"));
+        GameDAO gameDAO= new GameDAOImpl();
+        Game game = gameDAO.getGameById(id);
+        List<String> supports = new ArrayList<String>();
+        List<String> languageNames= new ArrayList<String>();
+//      List<String> supports = List.of("Interface", "Full Audio", "Subtitles");  
+        for (LanguageSupport i : game.getLanguageSupports()){
+            if(!supports.contains(i.getSupport()))
+                supports.add(i.getSupport());
+        }
+        for (LanguageSupport i : game.getLanguageSupports()){
+            if(!languageNames.contains(i.getLanguageName()))
+                languageNames.add(i.getLanguageName());
+        }
+        request.setAttribute("game", game);
+        request.setAttribute("supports", supports);
+        request.setAttribute("languageNames", languageNames);
         request.getRequestDispatcher(url).forward(request,response);
     }
 
@@ -65,7 +77,6 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         doPost(request, response);
     }
 
@@ -80,7 +91,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request,response);
+        processRequest(request, response);
     }
 
     /**
@@ -92,5 +103,5 @@ public class HomeServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

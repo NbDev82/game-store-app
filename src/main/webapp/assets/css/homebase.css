@@ -1,0 +1,54 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 30, 2023, 10:56:59 PM
+    Author     : HP
+*/
+
+.home_page_body_ctn .has_takeover mobile_static_set .mobile_sizer_set .mobile_video_set{
+    .fullscreen-bg {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .fullscreen-bg__video {
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .fullscreen-bg__video_mobile {
+        display: none;
+    }
+
+    .store_bg_overlay {
+        width: 1850px;
+        height: 450px;
+        z-index: 800;
+        position: absolute;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    .gradient_width {
+        width: 200px;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .gradient_left {
+        position: absolute;
+        left: 0;
+        background: -webkit-gradient(linear, right top, left top, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 1)));
+    }
+
+    .gradient_right {
+        position: absolute;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 1)));
+        right: 0;
+    }
+}

@@ -4,16 +4,13 @@
  */
 package com.myproject.game.store.app.v1.resources.dao;
 
-import com.myproject.game.store.app.v1.resources.model.entity.Category;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
-import com.myproject.game.store.app.v1.resources.model.entity.GameImg;
 import java.util.List;
 
 /**
  *
- * @author Van Hoang
+ * @author HP
  */
-public interface HomeDAO {
-    public List<Game> getAllGames();
-    public List<Category> getAllCategories();
+public interface GameDAO {
+    public Game getGameById(Long gameId);
 }
