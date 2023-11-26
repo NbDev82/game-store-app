@@ -23,8 +23,6 @@ public class GameDAOImpl implements GameDAO {
     static final Logger logger
             = Logger.getLogger(
                     GameDAOImpl.class.getName());
-
-    //    tim product thong qua id
     @Override
     public Game getGameById(Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
