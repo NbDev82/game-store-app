@@ -43,10 +43,7 @@ public class ProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        EntityManagerFactory emf = DBUtil.getEmFactory();
-        EntityManager em = emf.createEntityManager();
         String url="/product.jsp";
-        em.close();
         response.setContentType("text/html;charset=UTF-8");
         Long id = Long.valueOf(request.getParameter("gameId"));
         GameDAO gameDAO= new GameDAOImpl();

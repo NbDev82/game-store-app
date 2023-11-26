@@ -38,11 +38,8 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        EntityManagerFactory emf = DBUtil.getEmFactory();
-        EntityManager em = emf.createEntityManager();
+            throws ServletException, IOException { 
         String url="/index.jsp";
-        em.close();
         response.setContentType("text/html;charset=UTF-8");
         HomeDAO homeDAO=new HomeDAOImpl();
         List<Game> listGames=homeDAO.getAllGames();
