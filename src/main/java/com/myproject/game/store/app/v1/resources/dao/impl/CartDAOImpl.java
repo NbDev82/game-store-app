@@ -13,11 +13,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.logging.Level; 
 import java.util.logging.Logger;
-import javax.transaction.Transaction;
 
 /**
  *
@@ -75,6 +73,8 @@ public class CartDAOImpl implements CartDAO{
             cart.getGames().remove(game);
             cart.setTotalPrice(cartPrice);
             em.merge(cart);
+            game.getCarts().remove(cart);
+            em.merge(game);
             trans.commit();
             return cart;
         }catch(Exception e){
@@ -116,7 +116,7 @@ public class CartDAOImpl implements CartDAO{
     }
 
     @Override
-    public boolean addItem(Long cartId, Game game) {
+    public Cart addItem(Long cartId, Game game) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
@@ -127,30 +127,30 @@ public class CartDAOImpl implements CartDAO{
             int totalPrice = cart.getTotalPrice() + gamePrice;
             if(totalPrice<0)
                 totalPrice = 0;
-//            game.getCarts().add(cart);
-//            em.merge(game);
+            game.getCarts().add(cart);
+            em.merge(game);
             cart.getGames().add(game);
             cart.setTotalPrice(totalPrice);
             em.merge(cart);
             trans.commit();
-            return true;
+            return cart;
         } catch (Exception e){
             logger.warning(e.getMessage());
             trans.rollback();
-            return false;
+            return null;
         }finally{
             em.close();
         }
     }
 
     @Override
-    public boolean addItem(Long cartId, Long gameId) {
+    public Cart addItem(Long cartId, Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try{
             Game game = em.find(Game.class, gameId);
             Cart cart = em.find(Cart.class, cartId);
             if(cart.getGames().contains(game))
-                return true;
+                return cart;
             return addItem(cartId,game);
         }finally{
             em.close();
@@ -158,7 +158,7 @@ public class CartDAOImpl implements CartDAO{
     }
 
     @Override
-    public Cart createCart(Long userId) {
+    public boolean createCart(Long userId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         User user = em.find(User.class, userId);
@@ -168,12 +168,14 @@ public class CartDAOImpl implements CartDAO{
         try{
             trans.begin();
             em.persist(cart);
+            user.setCart(cart);
+            em.merge(user);
             trans.commit();
-            return cart;
+            return true;
         }catch(Exception e){
             logger.warning(e.getMessage());
             trans.rollback();
-            return null;
+            return false;
         } finally{
             em.close();
         }

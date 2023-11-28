@@ -10,7 +10,7 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import java.security.*;
 import java.util.*;
 import javax.persistence.*;
-
+import java.util.logging.Logger;
 /**
  *
  * @author admin
@@ -143,5 +143,13 @@ public class AccountDAOImpl implements AccountDAO{
         }
 
         return true;
+    }
+
+    @Override
+    public Account getAccountById(Long accountId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Account acc = em.find(Account.class, accountId);
+        em.close();
+        return acc;
     }
 }
