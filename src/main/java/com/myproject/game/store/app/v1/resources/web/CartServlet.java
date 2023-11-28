@@ -69,24 +69,34 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Map<String, String[]> parameters = request.getParameterMap();
         String url ="/404.jsp";
-        int parameterCount = parameters.size();
-        if(parameterCount == 0){
-            Account acc = (Account)session.getAttribute("acc");
-            if(acc == null){
-                session.setAttribute("preUrl", request.getContextPath()+"/cart");
-                response.sendRedirect(request.getContextPath() + "/login.jsp");
-            }else{
-                Long userId = acc.getUser().getUserId();
-                url = getListCartItems(request, response, userId);
-                getServletContext()
-                    .getRequestDispatcher(url)
-                    .forward(request, response);
-            }
+        Account acc = (Account)session.getAttribute("acc");
+        if(acc == null){
+            session.setAttribute("preUrl", request.getContextPath()+"/cart");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }else{
             doPost(request, response);
-        }
+            
+        }     
+//        HttpSession session = request.getSession();
+//        Map<String, String[]> parameters = request.getParameterMap();
+//        String url ="/404.jsp";
+//        int parameterCount = parameters.size();
+//        if(parameterCount == 0){
+//            Account acc = (Account)session.getAttribute("acc");
+//            if(acc == null){
+//                session.setAttribute("preUrl", request.getContextPath()+"/cart");
+//                response.sendRedirect(request.getContextPath() + "/login.jsp");
+//            }else{
+//                Long userId = acc.getUser().getUserId();
+//                url = getListCartItems(request, response, userId);
+//                getServletContext()
+//                    .getRequestDispatcher(url)
+//                    .forward(request, response);
+//            }
+//        }else{
+//            doPost(request, response);
+//        }
             
     }
 
@@ -103,18 +113,18 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if(action == null) {
-            action = "shop";  // default action
+            action = "cart";  // default action
         }
-        if(action.equals("shop")) {            
-            getServletContext()
-                    .getRequestDispatcher("/index.jsp")
-                    .forward(request, response);  // the "index" page
+        if(action.equals("cart")) {   
+            getListCartItems(request,response);
         }else if(action.equals("clearCart")){
             clearCart(request,response);
         }else if(action.equals("removeItem")){
             removeItemFromCart(request,response);
         }else if(action.equals("createOrder")){
             createOrder(request, response);
+        }else if(action.equals("addToCart")){
+            addToCart(request, response);
         }else{
             badRequest(request, response);
         }
@@ -163,10 +173,10 @@ public class CartServlet extends HttpServlet {
         Long cartId = Long.valueOf((String)request.getParameter("cartId"));
         Cart cart = cartDAO.getCart(cartId);
         Order order = orderDAO.createOrder(cart);
+        if(order == null)
+            url= request.getContextPath() + "/home";
         session.setAttribute("order", order);
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+        requestDispatcher(url,request,response);
     }
     
     public void clearCart(HttpServletRequest request, HttpServletResponse response) 
@@ -190,9 +200,11 @@ public class CartServlet extends HttpServlet {
             .forward(request, response);
     }
     
-    public String getListCartItems(HttpServletRequest request, HttpServletResponse response, Long userId){
-        String url = "/cart.jsp";
+    public void getListCartItems(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        Account acc = (Account)session.getAttribute("acc");
+        String url = "/cart.jsp";
+        Long userId = acc.getUser().getUserId();
         CartDAO cartDAO = new CartDAOImpl();
         Cart cart = cartDAO.getCartByUserId(userId);
         if(cart == null){
@@ -201,6 +213,43 @@ public class CartServlet extends HttpServlet {
         if(cart == null)
             url=request.getContextPath()+"/error.jsp";
         session.setAttribute("cart", cart);
-        return url;
+        requestDispatcher(url,request,response);
+    }
+
+    public void addToCart(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        CartDAO cartDAO = new CartDAOImpl();
+        String url ="/404.jsp";
+        Account acc = (Account)session.getAttribute("acc");
+        String gameIdString = request.getParameter("gameId");
+        if(acc == null){
+            session.setAttribute("preUrl", request.getContextPath()+"/game?gameId="+gameIdString);
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }else{
+            if(gameIdString != null){
+                Long gameId = Long.valueOf(gameIdString);
+                Cart cart = acc.getUser().getCart();
+                Long cartId = cart.getCartId();
+                if(cartDAO.addItem(cartId, gameId)){
+                    getListCartItems(request,response);
+                    url="";
+                }
+                else
+                    url = "/error.jsp";
+            }else{
+                url = "/error.jsp";
+            }
+            requestDispatcher(url,request,response);
+        }   
+    }
+    public void requestDispatcher(String url, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServletException{
+        if(url != null && !url.isEmpty()){
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
+        }
     }
 }

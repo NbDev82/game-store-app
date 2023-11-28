@@ -80,9 +80,12 @@ public class LoginServlet extends HttpServlet {
             action = "logout";
         String url = processAction(action, request, response);
         if(url != null && !url.isEmpty()){
-            getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
         }
     }
 
@@ -100,9 +103,10 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String url = "/login.jsp";
         switch (action) {
-            case "logout":
-                url = "/login.jsp";
+            case "logout":{
+                url = handleLogoutAction(request, response);
                 break;
+            }
             case "login":
                 url = handleLoginAction(request, response);
                 break;
@@ -129,17 +133,24 @@ public class LoginServlet extends HttpServlet {
             message = "";
             String preUrl = (String)session.getAttribute("preUrl");
             if(preUrl == null || preUrl.isEmpty()){
-                url = "/index.jsp";
+                url = request.getContextPath()+"/home";
             }else{
-                response.sendRedirect(preUrl);
-                return "";
+                url= preUrl;
             }
+            return url;
         }
         else {
             message = "Invalid username or password!!!";
             url = "/login.jsp";
         }   
         request.setAttribute(("message"), message);
+        return url;
+    }
+
+    private String handleLogoutAction(HttpServletRequest request, HttpServletResponse response) {
+        String url = "/login.jsp"; 
+        HttpSession session = request.getSession();
+        session.setAttribute("acc", null);
         return url;
     }
 }

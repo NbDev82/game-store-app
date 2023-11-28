@@ -49,7 +49,7 @@
                             <input type="hidden" name="amount" value="${order.tax + order.totalAmount}">
                             <span>Checkout</span>
                         </button>
-                        <a href="index.html">
+                        <a href="home">
                             <button type="button" class="btn btn-success">Back to home page</button>
                         </a>
                     </div>

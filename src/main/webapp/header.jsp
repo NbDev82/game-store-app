@@ -42,7 +42,7 @@
                         <a class="submenuitem" href="#">News</a>
                         <a class="submenuitem" href="#">Stats</a>
                         <c:choose>
-                            <c:when test="${not empty sessionScope.Account}">
+                            <c:when test="${acc !=null}">
                                 <a class="submenuitem" href="#">About</a>
                             </c:when>
                             <c:otherwise>
@@ -64,10 +64,10 @@
                     </div>
 
                     <c:choose>
-                        <c:when test="${not empty sessionScope.Account}">
+                        <c:when test="${acc != null}">
                             <a class="menuitem supernav username persona_name_text_content " href="#"
                                data-tooltip-type="selector" data-tooltip-content=".submenu_username">
-                                ${account.userName} </a>
+                                ${acc.userName} </a>
                             <div class="submenu_username" style="display: none;" data-submenuid="username">
                                 <a class="submenuitem" href="#">Activity</a>
                                 <a class="submenuitem" href="#">Profile</a>
@@ -110,7 +110,7 @@
                     <div id="global_action_menu">
                         <!-- Come to Install Page -->
                         <c:choose>
-                            <c:when test="${not empty sessionScope.Account}">
+                            <c:when test="${acc != null}">
                                 <a class="header_installsteam_btn header_installsteam_btn_gray" href="#">
                                     <div class="header_installsteam_btn_content">
                                         Install GameStore
@@ -126,7 +126,7 @@
                                 <!--User name-->
                                 <span class="pulldown global_action_link persona_name_text_content" id="account_pulldown"
                                       onclick="ShowMenu(this, 'account_dropdown', 'right', 'bottom', true);">
-                                    ${Account.userName}
+                                    ${acc.userName}
                                 </span>
                                 <!--hidden control User-->
                                 <div class="popup_block_new" id="account_dropdown" style="display: none;">
@@ -135,7 +135,7 @@
                                             profile</a>
                                         <!-- User Name  -->
                                         <a class="popup_menu_item" href="#">Account
-                                            details: <span class="account_name">${Account.userName}</span>
+                                            details: <span class="account_name">${acc.userName}</span>
                                         </a>
                                         <a class="popup_menu_item" href="#">Store
                                             preferences</a>
@@ -228,7 +228,7 @@
                                             </div>
                                         </div>
                                         <!-- Sign out -> return header no login -->
-                                        <a class="popup_menu_item" href="#">Sign out of account...</a>
+                                        <a class="popup_menu_item" href="logAcc?action=logout">Sign out of account...</a>
                                     </div>
                                 </div>
                                 <script type="text/javascript">
@@ -242,7 +242,7 @@
                                     </div>
                                 </a>
                                 <!-- Comback Login Page -->
-                                <a class="global_action_link" href="#">login</a>
+                                <a class="global_action_link" href="login.jsp">login</a>
 
                                 &nbsp;|&nbsp;
                                 <span class="pulldown global_action_link" id="language_pulldown"

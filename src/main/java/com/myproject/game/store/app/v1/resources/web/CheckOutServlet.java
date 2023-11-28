@@ -102,9 +102,7 @@ public class CheckOutServlet extends HttpServlet {
     }// </editor-fold>
 
     private void backToHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        getServletContext()
-                .getRequestDispatcher("/index.jsp")
-                .forward(request, response);
+        requestDispatcher(request.getContextPath()+"/home",request,response);
     }
     
     private void checkOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -122,9 +120,7 @@ public class CheckOutServlet extends HttpServlet {
             request.setAttribute("message", "Please choose your payment method!!");
             url = "/order.jsp";
         }
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+        requestDispatcher(url,request,response);
     }
 
     private void checkCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -147,9 +143,16 @@ public class CheckOutServlet extends HttpServlet {
             request.setAttribute("message", "Security code not match!!!");
         }
         request.setAttribute("isSuccess", isSuccess);
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+        requestDispatcher(url,request,response);
     }
-
+    public void requestDispatcher(String url, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServletException{
+        if(url != null && !url.isEmpty()){
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
+        }
+    }
 }

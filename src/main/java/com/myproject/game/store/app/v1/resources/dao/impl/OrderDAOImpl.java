@@ -33,6 +33,8 @@ public class OrderDAOImpl implements OrderDAO{
     public Order createOrder(Cart cart) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         List<Game> games = cart.getGames();
+        if(cart.getGames().isEmpty())
+            return null;
         int totalPrice = 0;
         Order order = new Order();     
         List<OrderItem> items = new ArrayList<OrderItem>();      

@@ -42,6 +42,7 @@ public class CartDAOImpl implements CartDAO{
                     em.merge(game);
                 }
                 cart.getGames().clear();
+                cart.setTotalPrice(0);
                 em.merge(cart);
                 trans.commit();
                 return cart;
@@ -65,12 +66,15 @@ public class CartDAOImpl implements CartDAO{
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
         Game game = em.find(Game.class, gameId);
+        int gamePrice = game.isDiscount()?game.getDiscountPrice(): game.getInitialPrice(); 
+        int cartPrice = cart.getTotalPrice() - gamePrice;
+        if(cartPrice<0)
+            cartPrice=0;
         try{
             trans.begin();
             cart.getGames().remove(game);
-            game.getCarts().remove(cart);
+            cart.setTotalPrice(cartPrice);
             em.merge(cart);
-            em.merge(game);
             trans.commit();
             return cart;
         }catch(Exception e){
@@ -116,12 +120,18 @@ public class CartDAOImpl implements CartDAO{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
+        int gamePrice = game.isDiscount()?game.getDiscountPrice(): game.getInitialPrice();  
+        
         try{
             trans.begin();
+            int totalPrice = cart.getTotalPrice() + gamePrice;
+            if(totalPrice<0)
+                totalPrice = 0;
+//            game.getCarts().add(cart);
+//            em.merge(game);
             cart.getGames().add(game);
-            game.getCarts().add(cart);
+            cart.setTotalPrice(totalPrice);
             em.merge(cart);
-            em.merge(game);
             trans.commit();
             return true;
         } catch (Exception e){
@@ -136,9 +146,15 @@ public class CartDAOImpl implements CartDAO{
     @Override
     public boolean addItem(Long cartId, Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Game game = em.find(Game.class, gameId);
-        em.close();
-        return addItem(cartId,game);
+        try{
+            Game game = em.find(Game.class, gameId);
+            Cart cart = em.find(Cart.class, cartId);
+            if(cart.getGames().contains(game))
+                return true;
+            return addItem(cartId,game);
+        }finally{
+            em.close();
+        }
     }
 
     @Override
