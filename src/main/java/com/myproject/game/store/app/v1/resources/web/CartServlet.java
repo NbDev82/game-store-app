@@ -229,13 +229,20 @@ public class CartServlet extends HttpServlet {
             if(gameIdString != null){
                 Long gameId = Long.valueOf(gameIdString);
                 Cart cart = acc.getUser().getCart();
-                Long cartId = cart.getCartId();
-                if(cartDAO.addItem(cartId, gameId)){
-                    getListCartItems(request,response);
-                    url="";
+                if(cart == null){
+                    cart = cartDAO.createCart(acc.getUser().getUserId());
                 }
-                else
-                    url = "/error.jsp";
+                if(cart == null)
+                    url=request.getContextPath()+"/error.jsp";
+                else{
+                    Long cartId = cart.getCartId();
+                    if(cartDAO.addItem(cartId, gameId)){
+                        getListCartItems(request,response);
+                        url="";
+                    }
+                    else
+                        url = "/error.jsp";
+                }
             }else{
                 url = "/error.jsp";
             }
