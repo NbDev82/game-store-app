@@ -1677,20 +1677,29 @@
                                                                         Free to Play
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        ${game.discountPrice}đ
+                                                                        <c:choose>
+                                                                            <c:when test="${game.isDiscount()}">
+                                                                                ${game.discountPrice}đ
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                ${game.initialPrice}đ
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </div>
                                                             <!--add to cart-->
-                                                            <div class="btn_addtocart">
-                                                                <a data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
-                                                                   class="btn_green_steamui btn_medium"
-                                                                   href="/"
-                                                                   id="btn_add_to_cart_275946" style="margin-top: -1px">
-                                                                    <span>Add to Cart</span>
-                                                                </a>
-
-                                                            </div>
+                                                            <form action="cart" method="post">
+                                                                <input type="hidden" name="action" value="addToCart">
+                                                                <input type="hidden" name="gameId" value="${game.gameId}">
+                                                                <div class="btn_addtocart">
+                                                                    <button data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+                                                                       class="btn_green_steamui btn_medium"
+                                                                       id="btn_add_to_cart_275946" style="margin-top: -1px">
+                                                                        <span>Add to Cart</span>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -4,17 +4,17 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
+import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.CartDAO;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.CartDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
-import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,25 +69,14 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Map<String, String[]> parameters = request.getParameterMap();
         String url ="/404.jsp";
-        int parameterCount = parameters.size();
-        if(parameterCount == 0){
-            Account acc = (Account)session.getAttribute("acc");
-            if(acc == null){
-                session.setAttribute("preUrl", request.getContextPath()+"/cart");
-                response.sendRedirect(request.getContextPath() + "/login.jsp");
-            }else{
-                Long userId = acc.getUser().getUserId();
-                url = getListCartItems(request, response, userId);
-                getServletContext()
-                    .getRequestDispatcher(url)
-                    .forward(request, response);
-            }
+        Account acc = (Account)session.getAttribute("acc");
+        if(acc == null){
+            session.setAttribute("preUrl", request.getContextPath()+"/cart");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         }else{
             doPost(request, response);
-        }
-            
+        }     
     }
 
     /**
@@ -103,18 +92,18 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if(action == null) {
-            action = "shop";  // default action
+            action = "cart";  // default action
         }
-        if(action.equals("shop")) {            
-            getServletContext()
-                    .getRequestDispatcher("/index.jsp")
-                    .forward(request, response);  // the "index" page
+        if(action.equals("cart")) {   
+            getListCartItems(request,response);
         }else if(action.equals("clearCart")){
             clearCart(request,response);
         }else if(action.equals("removeItem")){
             removeItemFromCart(request,response);
         }else if(action.equals("createOrder")){
             createOrder(request, response);
+        }else if(action.equals("addToCart")){
+            addToCart(request, response);
         }else{
             badRequest(request, response);
         }
@@ -163,10 +152,10 @@ public class CartServlet extends HttpServlet {
         Long cartId = Long.valueOf((String)request.getParameter("cartId"));
         Cart cart = cartDAO.getCart(cartId);
         Order order = orderDAO.createOrder(cart);
+        if(order == null)
+            url= request.getContextPath() + "/home";
         session.setAttribute("order", order);
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+        requestDispatcher(url,request,response);
     }
     
     public void clearCart(HttpServletRequest request, HttpServletResponse response) 
@@ -190,17 +179,74 @@ public class CartServlet extends HttpServlet {
             .forward(request, response);
     }
     
-    public String getListCartItems(HttpServletRequest request, HttpServletResponse response, Long userId){
-        String url = "/cart.jsp";
+    public void getListCartItems(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        Account acc = (Account)session.getAttribute("acc");
+        String url = "/cart.jsp";
+        Long userId = acc.getUser().getUserId();
         CartDAO cartDAO = new CartDAOImpl();
         Cart cart = cartDAO.getCartByUserId(userId);
         if(cart == null){
-            cart = cartDAO.createCart(userId);
+            if(cartDAO.createCart(userId)){
+                cart=cartDAO.getCartByUserId(userId);
+            }else{
+                url=request.getContextPath()+"/error.jsp";
+            }
         }
-        if(cart == null)
-            url=request.getContextPath()+"/error.jsp";
         session.setAttribute("cart", cart);
-        return url;
+        requestDispatcher(url,request,response);
+    }
+
+    public void addToCart(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        CartDAO cartDAO = new CartDAOImpl();
+        AccountDAO accountDAO = new AccountDAOImpl();
+        String url ="/404.jsp";
+        Account acc = (Account)session.getAttribute("acc");
+        String gameIdString = request.getParameter("gameId");
+        if(acc == null){
+            session.setAttribute("preUrl", request.getContextPath()+"/game?gameId="+gameIdString);
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        }else{
+            if(gameIdString != null){
+                Long gameId = Long.valueOf(gameIdString);
+                Cart cart = acc.getUser().getCart();
+                log(String.valueOf(acc.getUser().getCart() == null) );
+                Long userId = acc.getUser().getUserId();
+                if(cart == null){
+                    if(cartDAO.createCart(userId)){
+                        cart = cartDAO.getCartByUserId(userId);
+                        acc = accountDAO.getAccountById(acc.getAccountId());
+                        session.setAttribute("acc", acc);
+                    }
+                }
+                if(cart == null){
+                    url=request.getContextPath()+"/error.jsp";
+                }else{
+                    Long cartId = cart.getCartId();
+                    cart = cartDAO.addItem(cartId, gameId);
+                    if(cart == null){
+                        url = "/error.jsp";
+                    }else{
+                       session.setAttribute("cart", cart);
+                       url="/cart.jsp"; 
+                    }      
+                }
+            }else{
+                url = "/error.jsp";
+            }
+            requestDispatcher(url,request,response);
+        }   
+    }
+    
+    public void requestDispatcher(String url, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServletException{
+        if(url != null && !url.isEmpty()){
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
+        }
     }
 }

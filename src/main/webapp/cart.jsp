@@ -34,7 +34,7 @@
                         <image class="empty_img" src="assets/img/emptyCart.png">
                     </div>
                     <div class="empty_img">
-                        <a href="/game-store-app-v1" class="btn btn-purchase pull-left" style="margin-top: 15px; margin-left: 20px">
+                        <a href="/game-store-app-v1/home" class="btn btn-purchase pull-left" style="margin-top: 15px; margin-left: 20px">
                             <input class="btn btn-purchase" value="Continue Shopping">
                         </a>
                     </div>
@@ -80,6 +80,7 @@
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <form action="cart" method="post">
                                     <button type="submit" class="button" style=" margin-left: 37%; margin-top:2%;height: 50px ;">
+                                        <input type="hidden" name="cartId" value="${cart.cartId}">
                                         <input type="hidden" name="action" value="clearCart">
                                         <span style="color: whitesmoke; font-weight: 600;">Clear Cart</span>
                                     </button>
@@ -96,7 +97,7 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <button type="submit" class="button" style=" margin-left: 37%; margin-top:2%;height: 50px ;">
-                                    <a href="/game-store-app-v1">
+                                    <a href="/game-store-app-v1/home">
                                     <span style="color: whitesmoke; font-weight: 600;">Continue Shopping</span>
                                 </button>
                             </div>

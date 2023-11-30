@@ -13,11 +13,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.logging.Level; 
 import java.util.logging.Logger;
-import javax.transaction.Transaction;
 
 /**
  *
@@ -42,6 +40,7 @@ public class CartDAOImpl implements CartDAO{
                     em.merge(game);
                 }
                 cart.getGames().clear();
+                cart.setTotalPrice(0);
                 em.merge(cart);
                 trans.commit();
                 return cart;
@@ -65,11 +64,16 @@ public class CartDAOImpl implements CartDAO{
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
         Game game = em.find(Game.class, gameId);
+        int gamePrice = game.isDiscount()?game.getDiscountPrice(): game.getInitialPrice(); 
+        int cartPrice = cart.getTotalPrice() - gamePrice;
+        if(cartPrice<0)
+            cartPrice=0;
         try{
             trans.begin();
             cart.getGames().remove(game);
-            game.getCarts().remove(cart);
+            cart.setTotalPrice(cartPrice);
             em.merge(cart);
+            game.getCarts().remove(cart);
             em.merge(game);
             trans.commit();
             return cart;
@@ -112,37 +116,49 @@ public class CartDAOImpl implements CartDAO{
     }
 
     @Override
-    public boolean addItem(Long cartId, Game game) {
+    public Cart addItem(Long cartId, Game game) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         Cart cart = em.find(Cart.class, cartId);
+        int gamePrice = game.isDiscount()?game.getDiscountPrice(): game.getInitialPrice();  
+        
         try{
             trans.begin();
-            cart.getGames().add(game);
+            int totalPrice = cart.getTotalPrice() + gamePrice;
+            if(totalPrice<0)
+                totalPrice = 0;
             game.getCarts().add(cart);
-            em.merge(cart);
             em.merge(game);
+            cart.getGames().add(game);
+            cart.setTotalPrice(totalPrice);
+            em.merge(cart);
             trans.commit();
-            return true;
+            return cart;
         } catch (Exception e){
             logger.warning(e.getMessage());
             trans.rollback();
-            return false;
+            return null;
         }finally{
             em.close();
         }
     }
 
     @Override
-    public boolean addItem(Long cartId, Long gameId) {
+    public Cart addItem(Long cartId, Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        Game game = em.find(Game.class, gameId);
-        em.close();
-        return addItem(cartId,game);
+        try{
+            Game game = em.find(Game.class, gameId);
+            Cart cart = em.find(Cart.class, cartId);
+            if(cart.getGames().contains(game))
+                return cart;
+            return addItem(cartId,game);
+        }finally{
+            em.close();
+        }
     }
 
     @Override
-    public Cart createCart(Long userId) {
+    public boolean createCart(Long userId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         User user = em.find(User.class, userId);
@@ -152,12 +168,14 @@ public class CartDAOImpl implements CartDAO{
         try{
             trans.begin();
             em.persist(cart);
+            user.setCart(cart);
+            em.merge(user);
             trans.commit();
-            return cart;
+            return true;
         }catch(Exception e){
             logger.warning(e.getMessage());
             trans.rollback();
-            return null;
+            return false;
         } finally{
             em.close();
         }
