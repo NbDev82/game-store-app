@@ -1,4 +1,11 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
+var check = false;
+
+$(document).ready(function(){
+
+    window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
+
+    $(".btn").click(function(){
+        check = true;
+        $(".remove").click();
+    });
+});
