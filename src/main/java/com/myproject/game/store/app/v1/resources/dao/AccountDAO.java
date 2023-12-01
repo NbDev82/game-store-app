@@ -20,4 +20,6 @@ public interface AccountDAO {
     boolean emailExisted(String email);
     boolean validatePassword(String password);
     boolean usernameExisted(String userName);
+
+    public void changePassword(String email, String password);
 }
