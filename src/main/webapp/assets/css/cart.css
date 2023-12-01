@@ -346,3 +346,22 @@ h3 {
 .blue {
     background: #3598dc;
 }
+
+#message-container {
+    display: none;
+}
+
+#message-container.active {
+    display: block;
+}
+
+#message {
+    background-color: #3749cd;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid;
+}
+
+#message-text {
+    font-weight: bold;
+}

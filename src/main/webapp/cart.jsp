@@ -19,13 +19,11 @@
 </head>
 <body>
     <%@ include file="header.jsp"%>
-    <c:if test="${message != null and message.isEmpty()}">
-        <div id="message-container">
-            <div class="alert alert-success" role="alert">
-            <span id="message-text">${message}</span>
-            </div>
+    <div id="message-container">
+        <div class="alert alert-success" role="alert">
+        <span id="message-text">${message}</span>
         </div>
-    </c:if>
+    </div>
     <div class="container">
         <h1>SHOPPING CART</h1>
     </div>
@@ -86,8 +84,7 @@
                     <div class="right">
                         <h1 class="total">Total: <span>${cart.totalPrice + cart.totalPrice*0.1}</span> VNĐ</h1>
                         <form class="btn" action="cart" method="post">
-                            <input type="hidden" name="action" value="removeItem">
-                            <input type="hidden" name="gameId" value="${gameOrder.gameId}">
+                            <input type="hidden" name="action" value="clearCart">
                             <input type="hidden" name="cartId" value="${cart.cartId}">
                             <input class="h3" type="submit" value="Clear cart">
                         </form>
