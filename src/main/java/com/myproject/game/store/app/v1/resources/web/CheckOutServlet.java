@@ -5,9 +5,12 @@
 package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.dao.CardDAO;
+import com.myproject.game.store.app.v1.resources.dao.EmailDAO;
 import com.myproject.game.store.app.v1.resources.dao.InvoiceDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.CardDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.impl.EmailDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.InvoiceDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.CardMethod;
 import com.myproject.game.store.app.v1.resources.model.entity.Invoice;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
@@ -126,6 +129,7 @@ public class CheckOutServlet extends HttpServlet {
     private void checkCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         InvoiceDAO invoiceDAO = new InvoiceDAOImpl();
         HttpSession session = request.getSession();
+        Account acc = (Account)session.getAttribute("acc");
         String url = "/thanks.jsp";
         CardMethod card = (CardMethod)session.getAttribute("card");
         String cardCode = card.getSecurityCode();
@@ -135,9 +139,12 @@ public class CheckOutServlet extends HttpServlet {
             Order order = (Order)session.getAttribute("order");
             Invoice invoice = invoiceDAO.createInvoice(order.getOrderId(),card.getPaymentMethodId());
             if(invoice != null){
+                EmailDAO emailDAO = new EmailDAOImpl();
                 session.setAttribute("invoice", invoice);
                 isSuccess = true;
-//                emailService.transform(invoice);
+                String from = "congnguyenhuu0911@gmail.com";
+                String to = acc.getEmail();
+                emailDAO.sendInvoice(from, to, invoice, false);
             }
         }else{
             request.setAttribute("message", "Security code not match!!!");
