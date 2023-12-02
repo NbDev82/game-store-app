@@ -125,69 +125,70 @@
                                 </c:choose>
                             </c:when>
                             <c:otherwise>
-                                <div class="slider">
-                                    <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
-                                        <input type="radio" name="toggle" id="btn-${status.index+1}" <c:if test="${status.first}">checked</c:if>>
-                                    </c:forEach>
-                                    <div class="slider-controls">
+                                <c:if test="${paymentActive}">
+                                    <div class="slider">
                                         <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
-                                            <label for="btn-${status.index+1}"></label>
+                                            <input type="radio" name="toggle" id="btn-${status.index+1}" <c:if test="${status.first}">checked</c:if>>
                                         </c:forEach>
-                                    </div>
-                                    <ul class="slides">
-                                        <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
-                                            <li class="slide" id="slide-${status.index+1}">
-                                                <input type="hidden" name="cardId" value="${card.paymentMethodId}">
-                                                <div class="card-method">
-                                                    <div class="card-method__info">
-                                                        <div class="card-method__logo"></div>
-                                                        <div class="card-method__chip">
-                                                            <svg class="card-method__chip-lines" role="img" width="20px" height="20px" viewBox="0 0 100 100" aria-label="Chip">
-                                                                <g opacity="0.8">
-                                                                    <polyline points="0,50 35,50" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="0,20 20,20 35,35" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="50,0 50,35" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="65,35 80,20 100,20" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="100,50 65,50" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="35,35 65,35 65,65 35,65 35,35" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="0,80 20,80 35,65" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="50,100 50,65" fill="none" stroke="#000" stroke-width="2" />
-                                                                    <polyline points="65,65 80,80 100,80" fill="none" stroke="#000" stroke-width="2" />
-                                                                </g>
-                                                            </svg>
-                                                            <div class="card-method__chip-texture"></div>
+                                        <div class="slider-controls">
+                                            <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
+                                                <label for="btn-${status.index+1}"></label>
+                                            </c:forEach>
+                                        </div>
+                                        <ul class="slides">
+                                            <c:forEach var="card" items="${order.cart.user.cardMethods}" varStatus="status">
+                                                <li class="slide" id="slide-${status.index+1}">
+                                                    <input type="hidden" name="cardId" value="${card.paymentMethodId}">
+                                                    <div class="card-method">
+                                                        <div class="card-method__info">
+                                                            <div class="card-method__logo"></div>
+                                                            <div class="card-method__chip">
+                                                                <svg class="card-method__chip-lines" role="img" width="20px" height="20px" viewBox="0 0 100 100" aria-label="Chip">
+                                                                    <g opacity="0.8">
+                                                                        <polyline points="0,50 35,50" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="0,20 20,20 35,35" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="50,0 50,35" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="65,35 80,20 100,20" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="100,50 65,50" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="35,35 65,35 65,65 35,65 35,35" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="0,80 20,80 35,65" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="50,100 50,65" fill="none" stroke="#000" stroke-width="2" />
+                                                                        <polyline points="65,65 80,80 100,80" fill="none" stroke="#000" stroke-width="2" />
+                                                                    </g>
+                                                                </svg>
+                                                                <div class="card-method__chip-texture"></div>
+                                                            </div>
+                                                            <div class="card-method__type">debit</div>
+                                                            <div class="card-method__number">
+                                                                <span class="card-method__digit-group">${card.cardNumber.substring(0, 4)}</span>
+                                                                <span class="card-method__digit-group">${card.cardNumber.substring(4, 8)}</span>
+                                                                <span class="card-method__digit-group">${card.cardNumber.substring(8, 12)}</span>
+                                                                <span class="card-method__digit-group">${card.cardNumber.substring(12, 16)}</span>
+                                                            </div>
+                                                            <div class="card-method__valid-thru" aria-label="Valid thru">Valid<br>thru</div>
+                                                            <div class="card-method__exp-date">
+                                                                <time datetime="${card.expiredDate}">
+                                                                        <fmt:parseDate value="${card.expiredDate}" pattern="yyyy-MM-dd" var="parsedDate" />
+                                                                        <fmt:formatDate value="${parsedDate}" pattern="MM/yy" var="formattedDate" />
+                                                                        ${formattedDate}
+                                                                </time>
+                                                            </div>
+                                                            <div class="card-method__name" aria-label="Dee Stroyer">${card.user.firstName} ${card.user.lastName}</div>
+                                                            <div class="card-method__name" aria-label="Dee Stroyer">${card.cardType}</div>
                                                         </div>
-                                                        <div class="card-method__type">debit</div>
-                                                        <div class="card-method__number">
-                                                            <span class="card-method__digit-group">${card.cardNumber.substring(0, 4)}</span>
-                                                            <span class="card-method__digit-group">${card.cardNumber.substring(4, 8)}</span>
-                                                            <span class="card-method__digit-group">${card.cardNumber.substring(8, 12)}</span>
-                                                            <span class="card-method__digit-group">${card.cardNumber.substring(12, 16)}</span>
-                                                        </div>
-                                                        <div class="card-method__valid-thru" aria-label="Valid thru">Valid<br>thru</div>
-                                                        <div class="card-method__exp-date">
-                                                            <time datetime="${card.expiredDate}">
-                                                                    <fmt:parseDate value="${card.expiredDate}" pattern="yyyy-MM-dd" var="parsedDate" />
-                                                                    <fmt:formatDate value="${parsedDate}" pattern="MM/yy" var="formattedDate" />
-                                                                    ${formattedDate}
-                                                            </time>
-                                                        </div>
-                                                        <div class="card-method__name" aria-label="Dee Stroyer">${card.user.firstName} ${card.user.lastName}</div>
-                                                        <div class="card-method__name" aria-label="Dee Stroyer">${card.cardType}</div>
+                                                        <div class="card-method__texture"></div>
                                                     </div>
-                                                    <div class="card-method__texture"></div>
-                                                </div>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </div>
-                                <form action="order" method="post">
-                                    <button type="submit" class="button" role="button">
-                                        <input type="hidden" name="action" value="addPaymentMethod">
-                                        <span>Thêm phương thức thanh toán</span>
-                                    </button><br><br>
-                                </form>
-
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                    <form action="order" method="post">
+                                        <button type="submit" class="button" role="button">
+                                            <input type="hidden" name="action" value="addPaymentMethod">
+                                            <span>Thêm phương thức thanh toán</span>
+                                        </button><br><br>
+                                    </form>
+                                </c:if>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -206,7 +207,7 @@
             <div class="card checkout">
                  <div class="footer">
                     <label class="price">${order.tax + order.totalAmount} VNĐ</label>
-                    <c:if test="${order.status == false}">
+                    <c:if test="${order.status == false and paymentActive}">
                         <form id ="checkoutForm" action="checkout" method="post">
                             <button type="submit" class="button" role="button" style="background-color: #467b74; color: #000000;"
                                     onclick="getCardId()">

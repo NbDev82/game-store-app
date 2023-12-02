@@ -150,10 +150,16 @@ public class CartServlet extends HttpServlet {
         CartDAO cartDAO = new CartDAOImpl();
         OrderDAO orderDAO = new OrderDAOImpl();
         Long cartId = Long.valueOf((String)request.getParameter("cartId"));
+        
+        String role = request.getParameter("role");
+        boolean paymentActive = true;
+        if(role != null)
+            paymentActive = role.equals("admin")?false:true;
         Cart cart = cartDAO.getCart(cartId);
         Order order = orderDAO.createOrder(cart);
         if(order == null)
             url= request.getContextPath() + "/home";
+        request.setAttribute("paymentActive", paymentActive);
         session.setAttribute("order", order);
         requestDispatcher(url,request,response);
     }

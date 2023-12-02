@@ -103,9 +103,13 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession();
         OrderDAO orderDAO = new OrderDAOImpl();
         String url = "/order.jsp";
-        String orderIdString = request.getParameter("orderId");
-        Long orderId = Long.valueOf(orderIdString);
-        Order order = orderDAO.getOrderByOrderId(orderId);
+        String securityCode = request.getParameter("securityCode");
+        String role = request.getParameter("role");
+        boolean paymentActive = true;
+        if(role != null)
+            paymentActive = role.equals("admin")?false:true;
+        Order order = orderDAO.getOrderBySecurityCode(securityCode);
+        request.setAttribute("paymentActive", paymentActive);
         session.setAttribute("order", order);
         return url;
     }
