@@ -62,6 +62,7 @@ public class OrderDAOImpl implements OrderDAO{
             order.setCart(cart);
             cart.getOrders().add(order);
             cart.getGames().clear();
+            cart.setTotalPrice(0);
             em.merge(cart);
             transaction.commit();
         } catch (Exception e) {
