@@ -5,6 +5,7 @@
 package com.myproject.game.store.app.v1.resources.dao;
 
 import com.myproject.game.store.app.v1.resources.model.entity.Invoice;
+import java.io.UnsupportedEncodingException;
 
 /**
  *
@@ -12,4 +13,5 @@ import com.myproject.game.store.app.v1.resources.model.entity.Invoice;
  */
 public interface EmailDAO {
     boolean sendInvoice(String from, String to, Invoice invoice, boolean bodyIsHTML);
+    boolean sendEmail(String from, String to, String subject, String body, boolean bodyIsHTML) throws UnsupportedEncodingException ;
 }

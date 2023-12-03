@@ -11,6 +11,7 @@ import com.myproject.game.store.app.v1.resources.dao.impl.EmailDAOImpl;
 import generator.OTPGenerator;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -65,7 +66,7 @@ public class PasswordResetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -80,6 +81,7 @@ public class PasswordResetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        log(action);
         String url = "/login.jsp";
         if(action.equals("resetPasswordRequest")){
             url = resetPasswordAction(request,response);
@@ -87,6 +89,15 @@ public class PasswordResetServlet extends HttpServlet {
             url = checkOTPAction(request,response);
         }else if(action.equals("resetPassword")){
             url = resetPassword(request,response);
+        }
+        
+        if(url != null && !url.isEmpty()){
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
         }
     }
 
@@ -100,11 +111,12 @@ public class PasswordResetServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String resetPasswordAction(HttpServletRequest request, HttpServletResponse response) {
+    private String resetPasswordAction(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
         
-        String url = "/reset.jsp";
+        String url = "/verifiedOtp.jsp";
         String email = request.getParameter("email");
+        log(email);
         session.setAttribute("email", email);
         
         AccountDAO accountDAO = new AccountDAOImpl();
@@ -128,8 +140,8 @@ public class PasswordResetServlet extends HttpServlet {
     private String checkOTPAction(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
-        String url = "/login.jsp";
-        String providedOTP = request.getParameter("OTP");
+        String url = "/verifiedOtp.jsp"; 
+        String providedOTP = request.getParameter("otp");
         
         AccountDAO accountDAO = new AccountDAOImpl();
         
@@ -139,7 +151,7 @@ public class PasswordResetServlet extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         String storedOTPHash = CookieUtil.getCookieValue(cookies, "OTP");
         if(providedOTPHash.equals(storedOTPHash))//chuyển qua trang đặt mật khẩu mới
-            url = "/next-step.jsp";
+            url = "/reset-password.jsp";
         else{
             session.setAttribute("email", null);
         }
@@ -151,10 +163,13 @@ public class PasswordResetServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AccountDAO accountDAO = new AccountDAOImpl();
         
-        String url = "/next-step.jsp";
+        String url = "/login.jsp";
         String email = (String)session.getAttribute("email");
         String password = request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
+        log(email);
+        log(password);
+        log(rePassword);
         if(password.equals(rePassword)){
             accountDAO.changePassword(email,password);
         }

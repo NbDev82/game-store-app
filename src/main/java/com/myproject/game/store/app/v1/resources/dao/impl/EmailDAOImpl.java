@@ -24,6 +24,7 @@ public class EmailDAOImpl implements EmailDAO{
                 = Logger.getLogger( 
                     EmailDAOImpl.class.getName());
 
+    @Override
     public boolean sendEmail(String from, String to, String subject, String body, boolean bodyIsHTML) throws UnsupportedEncodingException {
         try {
             // 1 - get a mail session

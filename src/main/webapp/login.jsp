@@ -113,7 +113,7 @@
                       </button>
                     </div>
                     <div class="formerror1"><i>${message}</i></div>
-                    <a href="*" class="textLink">
+                    <a href="forgot-password.jsp" class="textLink">
                       Help, I can't sign in
                     </a>
                   </form>
