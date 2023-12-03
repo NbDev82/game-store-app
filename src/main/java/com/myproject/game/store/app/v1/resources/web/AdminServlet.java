@@ -6,7 +6,9 @@ package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
+import com.myproject.game.store.app.v1.resources.model.entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,6 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 /**
  *
@@ -67,26 +71,27 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "/order-pending.jsp";
-        List<Order> orders = orderDAO.getAll();
-        String filter = request.getParameter("filter");
-        log(filter);
-        if(filter != null && !filter.equals("All")){
-            boolean  status;
-            if(filter.equals("Success"))
-                status= true;
-            else
-                status= false;
-            log(filter);
-            if(filter != null && !filter.isEmpty()){
-                orders = orderDAO.filterByStatus(orders, status);
+        HttpSession session = request.getSession();
+        String url = "/admin";
+        Account acc = (Account)session.getAttribute("acc");
+        boolean isAdmin = false;
+        if(acc != null){
+            for(Role r: acc.getRoles()){
+                if(r.getRoleName().equals("Admin")){
+                    isAdmin = true;
+                    break;
+                }
             }
         }
-        request.setAttribute("orders", orders);
-        request.setAttribute("filter", filter);
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+        if(acc == null){
+            session.setAttribute("preUrl", request.getContextPath()+"/admin");
+            url= request.getContextPath() + "/login.jsp";
+        }else if(!isAdmin){
+            url= request.getContextPath() + "/home";
+        }else{
+            url = processRequestAction(request, response);
+        }
+        requestDispatcher(url, request, response);
     }
 
     /**
@@ -100,7 +105,17 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        log(action);
+        String url = "/admin.jsp";
+        if(action == null)
+            action = "admin";
+        if(action.equals("admin")){
+            url = loadAdminPage(request, response);
+        } else if(action.equals("showOrder")){
+            url = getOrderManagement(request, response);
+        }
+        requestDispatcher(url, request, response);
     }
 
     /**
@@ -113,4 +128,58 @@ public class AdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public String getOrderManagement(HttpServletRequest request, HttpServletResponse response){
+        String url = "/order-pending.jsp";
+        List<Order> orders = orderDAO.getAll();
+        String filter = request.getParameter("filter");
+        if(filter != null && !filter.equals("All")){
+            boolean  status;
+            if(filter.equals("Success"))
+                status= true;
+            else
+                status= false;
+            log(filter);
+            if(filter != null && !filter.isEmpty()){
+                orders = orderDAO.filterByStatus(orders, status);
+            }
+        }
+        request.setAttribute("orders", orders);
+        request.setAttribute("filter", filter);
+        return url;
+    }
+    
+
+
+    private String processRequestAction(HttpServletRequest request, HttpServletResponse response) {
+        String action= request.getParameter("action");
+        String url="/admin.jsp";
+        if(action == null)
+            action="admin";
+        if(action.equals("admin")){
+            url = "/admin.jsp";
+        }else if(action.equals("orderManagement")){
+            url = getOrderManagement(request, response);
+        }else if(action.equals("operatorGame")){
+            
+        }else if(action.equals("showProfit")){
+            
+        }
+        return url;
+    }
+    
+    public void requestDispatcher(String url, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServletException{
+        if(url != null && !url.isEmpty()){
+            if(url.contains(request.getContextPath()))
+                response.sendRedirect(url);
+            else
+                getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
+        }
+    }
+
+    private String loadAdminPage(HttpServletRequest request, HttpServletResponse response) {
+        String url = "/admin.jsp";
+        return url;
+    }
 }

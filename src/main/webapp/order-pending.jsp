@@ -102,13 +102,15 @@ src="https://store.akamai.steamstatic.com/public/javascript/broadcast_carousel.j
                 <h1>Order Management</h1>
             </div>
             <div class= "container-select">
-                <form id="formSelect" method="get" class="select" action="admin">
+                <form id="formSelect" method="post" action="admin" class="select">
                     <input id="selected" type="hidden" name="filter">
                     <select id="filterSelect" onchange="submitForm()">
                         <option value="All" <c:if test="${filter eq 'All'}">selected</c:if> >All</option>
                         <option value="Success" <c:if test="${filter eq 'Success'}">selected</c:if>>Success</option>
                         <option value="Pending" <c:if test="${filter eq 'Pending'}">selected</c:if>>Pending</option>
                     </select>
+                    <input type="hidden" name="action" value="showOrder">
+                    <input type="submit" value="Submit">
                 </form>
             </div> 
             <div class="responsive_page_content">
