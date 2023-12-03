@@ -114,6 +114,7 @@
                                 <div class="help_page_title">Check OTP numbers we sent you in your email</div>
                                 <div>OTP numbers:</div>
                                 <input type="text" class="forgot_password" maxlength="255" name="otp">
+                                <div class="formerror1"><i>${messageOtpSupport}</i></div>
                                 <div class="verified_email">
                                     <button class="submitbutton continue_button" type="submit">
                                         <span>Verify OTP</span>

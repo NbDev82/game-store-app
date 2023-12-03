@@ -27,6 +27,15 @@ import util.CookieUtil;
  */
 @WebServlet(name = "PasswordResetServlet", urlPatterns = {"/passwordReset"})
 public class PasswordResetServlet extends HttpServlet {
+    
+    private AccountDAO accountDAO;
+    private EmailDAO emailDAO;
+    
+    @Override
+    public void init()throws ServletException {
+        accountDAO = new AccountDAOImpl();
+        emailDAO = new EmailDAOImpl();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,8 +89,9 @@ public class PasswordResetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        log(action);
+        String messageSupport = request.getParameter("messageSupport");
         String url = "/login.jsp";
         if(action.equals("resetPasswordRequest")){
             url = resetPasswordAction(request,response);
@@ -90,10 +100,12 @@ public class PasswordResetServlet extends HttpServlet {
         }else if(action.equals("resetPassword")){
             url = resetPassword(request,response);
         }
-        
         if(url != null && !url.isEmpty()){
-            if(url.contains(request.getContextPath()))
+            if(url.contains(request.getContextPath())){
+                messageSupport = "Email is not existed!!!";
+                request.setAttribute(messageSupport, "messageSupport");
                 response.sendRedirect(url);
+            }
             else
                 getServletContext()
                     .getRequestDispatcher(url)
@@ -114,46 +126,51 @@ public class PasswordResetServlet extends HttpServlet {
     private String resetPasswordAction(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
         
-        String url = "/verifiedOtp.jsp";
+        String url = "/forgot-password.jsp";
         String email = request.getParameter("email");
-        log(email);
-        session.setAttribute("email", email);
+        String messageEmailSupport = request.getParameter("messageEmailSupport");
         
-        AccountDAO accountDAO = new AccountDAOImpl();
-        EmailDAO emailDAO = new EmailDAOImpl();
-        
-        String OTP = OTPGenerator.generateOTP();
-        String OTPSalt = "hoangdeptrai";
-        String OTPHash = accountDAO.hashPassword(OTP, OTPSalt);
-        
-        emailDAO.sendEmail("gamestore@gmail.com", email, "OTP response", "This is your OTP: "+OTP, false);
-        
-        //add a cookie that stores the user's email to browser
-        Cookie c = new Cookie("OTP", OTPHash);
-        c.setMaxAge(120); // 2 phut
-        c.setPath("/");
-        response.addCookie(c);
-        
+        if (accountDAO.emailExisted(email)) {
+            url = "/verifiedOtp.jsp";
+            messageEmailSupport = "";
+            String OTP = OTPGenerator.generateOTP();
+            String OTPSalt = "hoangdeptrai";
+            String OTPHash = accountDAO.hashPassword(OTP, OTPSalt);
+
+            emailDAO.sendEmail("gamestore@gmail.com", email, "OTP response", "This is your OTP: "+OTP, false);
+
+            //add a cookie that stores the user's email to browser
+            Cookie c = new Cookie("OTP", OTPHash);
+            c.setMaxAge(120); // 2 phut
+            c.setPath("/");
+            response.addCookie(c);
+        } else {
+            messageEmailSupport = "Email does not exist!!!";
+            url = "/forgot-password.jsp";
+        }
+        session.setAttribute("email", email);       
+        session.setAttribute("messageEmailSupport", messageEmailSupport);
         return url;
     }
 
     private String checkOTPAction(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
         String url = "/verifiedOtp.jsp"; 
         String providedOTP = request.getParameter("otp");
-        
-        AccountDAO accountDAO = new AccountDAOImpl();
-        
+        String messageOtpSupport = request.getParameter("messageOtpSupport");
+                
         String OTPSalt = "hoangdeptrai";
         String providedOTPHash = accountDAO.hashPassword(providedOTP, OTPSalt);
         
         Cookie[] cookies = request.getCookies();
         String storedOTPHash = CookieUtil.getCookieValue(cookies, "OTP");
-        if(providedOTPHash.equals(storedOTPHash))//chuyển qua trang đặt mật khẩu mới
+        if(providedOTPHash.equals(storedOTPHash)) {
+            messageOtpSupport = "";
             url = "/reset-password.jsp";
+        }
         else{
-            session.setAttribute("email", null);
+            messageOtpSupport = "OTP is not corrected!!!";
+            session.setAttribute("messageOtpSupport", messageOtpSupport);
         }
         //nếu sai chuyển về trang login
         return url;
@@ -161,18 +178,28 @@ public class PasswordResetServlet extends HttpServlet {
 
     private String resetPassword(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        AccountDAO accountDAO = new AccountDAOImpl();
-        
-        String url = "/login.jsp";
+        String url = "/reset-password.jsp";
         String email = (String)session.getAttribute("email");
         String password = request.getParameter("password");
         String rePassword = request.getParameter("rePassword");
-        log(email);
-        log(password);
-        log(rePassword);
-        if(password.equals(rePassword)){
-            accountDAO.changePassword(email,password);
+        String messagePasswordChangeSupport = request.getParameter("messagePasswordChangeSupport");
+        if(password.equals(rePassword) && password.isBlank()==false){
+            if (accountDAO.validatePassword(password))
+            {   
+                accountDAO.changePassword(email,password);
+                messagePasswordChangeSupport = "";
+                url = "/login.jsp";
+            } else {
+                messagePasswordChangeSupport = "Password needs a special character, uppercase letter, number, and 9+ characters";
+            }
         }
+        else {
+            messagePasswordChangeSupport = "Password does not match, is blank or Email does not exist";
+        }
+        session.setAttribute("email", email);
+        session.setAttribute("password", password);
+        session.setAttribute("rePassword", rePassword);
+        session.setAttribute("messagePasswordChangeSupport", messagePasswordChangeSupport);
         return url;
     }
 

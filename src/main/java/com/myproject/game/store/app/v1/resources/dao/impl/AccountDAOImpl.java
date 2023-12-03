@@ -10,7 +10,6 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import java.security.*;
 import java.util.*;
 import javax.persistence.*;
-import java.util.logging.Logger;
 /**
  *
  * @author admin
@@ -19,7 +18,7 @@ public class AccountDAOImpl implements AccountDAO{
     @Override
     public Account validateAccount(String userName, String providedPassword) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "SELECT a FROM Account a WHERE a.userName = :userName";
+        String qString = "SELECT a FROM Account a WHERE a.userName = :userName or a.email = :userName";
         TypedQuery<Account> q = em.createQuery(qString, Account.class);
         q.setParameter("userName", userName);
         

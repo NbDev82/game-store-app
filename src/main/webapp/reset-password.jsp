@@ -122,7 +122,7 @@
                               <div class="form_row_content">
                                   <label for="email">Email</label>
                                   <input type="email" maxlength="255" 
-                                         name="email" value="${Email}">
+                                         name="email" value="${email}">
                               </div>
                           </div>
 
@@ -141,6 +141,8 @@
                                          name="rePassword" value="${rePassword}">
                               </div>
                           </div>
+                        <div class="formerror1"><i>${messagePasswordChangeSupport}</i></div>
+
 
                           <div class="form_row">
                           <div class="verified_email">

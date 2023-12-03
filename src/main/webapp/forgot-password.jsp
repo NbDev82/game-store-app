@@ -114,6 +114,7 @@
                                     <div class="help_page_title">I forgot my Account password</div>
                                     <div>Enter your email address or phone number:</div>
                                     <input type="email" class="forgot_password" maxlength="255" name="email" value="${email}">
+                                    <div class="formerror1"><i>${messageEmailSupport}</i></div>
                                     <div class="verified_email">
                                         <button class="submitbutton continue_button" type="submit">
                                             <span>Reset pasword</span>
