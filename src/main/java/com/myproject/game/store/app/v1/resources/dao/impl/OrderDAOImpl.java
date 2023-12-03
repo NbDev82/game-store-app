@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -75,7 +76,8 @@ public class OrderDAOImpl implements OrderDAO{
         order = getOrderBySecurityCode(order.getSecurityCode());
         return order;
     }
-
+    
+    @Override
     public Order getOrderBySecurityCode(String securityCode){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String getOrderBySecurityCodeQuery = ""
@@ -104,6 +106,27 @@ public class OrderDAOImpl implements OrderDAO{
     public Order getOrderByOrderId(Long orderId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         return em.find(Order.class, orderId);
+    }
+
+    @Override
+    public List<Order> getAll() {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String query = "SELECT o FROM Order o";
+        TypedQuery<Order> q = em.createQuery(query, Order.class);
+        List<Order> orders = null;
+        try{
+            orders = q.getResultList();
+        }catch(Exception e){
+            logger.info(e.getMessage());
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> filterByStatus(List<Order> orders, boolean status) {
+        return orders.stream()
+            .filter(order -> order.isStatus() == status)
+            .collect(Collectors.toList());
     }
     
 }
