@@ -129,6 +129,7 @@ public class CardServlet extends HttpServlet {
                 order.getCart().getUser().getCardMethods().add(cardMethod);
                 url = "/order.jsp";
             }
+            request.setAttribute("paymentActive", true);
             request.setAttribute("order", order);
         }else{
             url="/add-card.jsp";
