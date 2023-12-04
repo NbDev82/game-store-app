@@ -4,7 +4,9 @@
  */
 package com.myproject.game.store.app.v1.resources.dao;
 
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface OrderDAO {
     public List<Order> getAll();
     public List<Order> filterByStatus(List<Order> orders, boolean status);
     public Order getOrderBySecurityCode(String securityCode);
+
+    public List<Game> getOrderedGame(Long accId);
 }
