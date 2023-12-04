@@ -7,10 +7,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-    <head></head>
+    <head>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+         <link rel="stylesheet" href="assets/css/tag.css">
+    </head>
     <body>
         <!-- Container main -->
-        <div id="store_header" class="">
+        <div id="store_header" class="" >
             <!-- Content Container -->
             <div class="content">
                 <!-- Not important <controls>-->
@@ -38,8 +41,8 @@
                                  data-flyout-align="left" data-flyout-valign="bottom" data-flyout-delay="300"
                                  data-panel="{&quot;focusable&quot;:true}">
                                 <span class="pulldown">
-                                    <a class="pulldown_desktop" href="#">Your Store</a>
-                                    <a class="pulldown_mobile" href="#">Your Store</a>
+                                    <a class="pulldown_desktop" href="/game-store-app-v1/home">Your Store</a>
+                                    <a class="pulldown_mobile" href="/game-store-app-v1/home">Your Store</a>
                                     <span></span>
                                 </span>
                             </div>
@@ -77,21 +80,21 @@
                                         <div class="popup_menu_subheader responsive_hidden">Popular</div>
                                         <!-- Top seller -->
                                         <!-- Comback Home OK -->
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Top Sellers </a>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Most Played </a>
                                         <div class="category_hr responsive_hidden"></div>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             New Releases </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Upcoming Releases </a>
 
                                         <div class="popup_menu_subheader responsive_hidden">News & Updates
                                         </div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Recently Updated </a>
 
                                     </div>
@@ -101,33 +104,21 @@
                                         <div class="popup_menu_subheader responsive_hidden">Promos & Events
                                         </div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Special Offers </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Sale Events </a>
 
                                         <div class="category_hr responsive_hidden"></div>
 
-                                        <a class="popup_menu_item" href="#">
-                                            Steam Replay 2022 </a>
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
+                                            GameStore Replay 2022 </a>
 
-                                        <a class="popup_menu_item" href="#">
-                                            Steam Next Fest </a>
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
+                                            GameStore Next Fest </a>
 
                                     </div>
-
-                                    <!--
-                    <div class="popup_menu_subheader">Sale Events
-                    </div>
-
-                    <a class="popup_menu_item" href="https://store.steampowered.com/search/?specials=1&snr=1_5_9__12">
-                        Weekly Specials
-                    </a>
-                    <a class="popup_menu_item" href="https://store.steampowered.com/sale/vr_specials/?snr=1_5_9__12">
-                        Weekly VR Specials
-                    </a>
-                                    -->
                                 </div>
                             </div>
                             <!-- Categories -->
@@ -150,40 +141,40 @@
 
                                         <div class="popup_menu_subheader responsive_hidden">Special Sections
                                         </div>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="category?cateid=13">
                                             Free to Play </a>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="category?cateid=12">
                                             <span>Demos</span>
                                         </a>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="category?cateid=11">
                                             Early Access </a>
                                         <div class="category_hr responsive_hidden"></div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>Steam Deck</span>
                                         </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>Great on Deck</span>
                                         </a>
 
                                         <div class="category_hr responsive_hidden"></div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>Controller-Friendly</span>
                                         </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>Remote Play</span>
                                         </a>
 
                                         <div class="category_hr responsive_hidden"></div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>VR Titles</span>
                                         </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>VR Hardware</span>
                                         </a>
 
@@ -191,20 +182,20 @@
 
 
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Software </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             Soundtracks </a>
 
                                         <div class="category_hr responsive_hidden"></div>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             macOS </a>
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             SteamOS + Linux </a>
 
-                                        <a class="popup_menu_item" href="#">
+                                        <a class="popup_menu_item" href="/game-store-app-v1/home">
                                             <span>For PC Cafés</span>
                                         </a>
 
@@ -219,44 +210,44 @@
                                             Action </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="action">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="category?cateid=1">
                                                 Action </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="action">
-                                            <a class="popup_menu_item" href="#">Arcade
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Arcade
                                                 & Rhythm</a>
-                                            <a class="popup_menu_item" href="#">Fighting
+                                            <a class="popup_menu_item" href="category?cateid=1">Fighting
                                                 & Martial Arts</a>
-                                            <a class="popup_menu_item" href="#">First-Person
+                                            <a class="popup_menu_item" href="category?cateid=7">First-Person
                                                 Shooter</a>
-                                            <a class="popup_menu_item" href="#">Hack
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Hack
                                                 & Slash</a>
-                                            <a class="popup_menu_item" href="#">Platformer
+                                            <a class="popup_menu_item" href="category?cateid=12">Platformer
                                                 & Runner</a>
-                                            <a class="popup_menu_item" href="#">Third-Person
+                                            <a class="popup_menu_item" href="category?cateid=11">Third-Person
                                                 Shooter</a>
-                                            <a class="popup_menu_item" href="#">shmup</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">shmup</a>
                                         </div>
                                         <div class="popup_menu_item popup_genre_expand_header nonresponsive_hidden"
                                              data-genre-group="adventure">
                                             Adventure </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="adventure">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="category?cateid=2">
                                                 Adventure </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="adventure">
-                                            <a class="popup_menu_item" href="#">Adventure
+                                            <a class="popup_menu_item" href="category?cateid=2">Adventure
                                                 RPG</a>
-                                            <a class="popup_menu_item" href="#">Casual</a>
-                                            <a class="popup_menu_item" href="#">Hidden
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Casual</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Hidden
                                                 Object</a>
-                                            <a class="popup_menu_item" href="#">Metroidvania</a>
-                                            <a class="popup_menu_item" href="#">Puzzle</a>
-                                            <a class="popup_menu_item" href="#">Story-Rich</a>
-                                            <a class="popup_menu_item" href="#">Visual
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Metroidvania</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Puzzle</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Story-Rich</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Visual
                                                 Novel</a>
                                         </div>
                                     </div>
@@ -270,44 +261,44 @@
                                             Role-Playing </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="rpg">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">
                                                 Role-Playing </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="rpg">
-                                            <a class="popup_menu_item" href="#">Action
+                                            <a class="popup_menu_item" href="category?cateid=1">Action
                                                 RPG</a>
-                                            <a class="popup_menu_item" href="#">Adventure
+                                            <a class="popup_menu_item" href="category?cateid=2">Adventure
                                                 RPG</a>
-                                            <a class="popup_menu_item" href="#">JRPG</a>
-                                            <a class="popup_menu_item" href="#">Party-Based</a>
-                                            <a class="popup_menu_item" href="#">Rogue-Like</a>
-                                            <a class="popup_menu_item" href="#">Strategy
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">JRPG</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Party-Based</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Rogue-Like</a>
+                                            <a class="popup_menu_item" href="category?cateid=4">Strategy
                                                 RPG</a>
-                                            <a class="popup_menu_item" href="#">Turn-Based</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Turn-Based</a>
                                         </div>
                                         <div class="popup_menu_item popup_genre_expand_header nonresponsive_hidden"
                                              data-genre-group="simulation">
                                             Simulation </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="simulation">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">
                                                 Simulation </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="simulation">
-                                            <a class="popup_menu_item" href="#">Building
+                                            <a class="popup_menu_item" href="category?cateid=12">Building
                                                 & Automation</a>
-                                            <a class="popup_menu_item" href="#">Dating</a>
-                                            <a class="popup_menu_item" href="#">Farming
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Dating</a>
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Farming
                                                 & Crafting</a>
-                                            <a class="popup_menu_item" href="#">Hobby
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Hobby
                                                 & Job</a>
-                                            <a class="popup_menu_item" href="#">Life
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Life
                                                 & Immersive</a>
-                                            <a class="popup_menu_item" href="#">Sandbox
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Sandbox
                                                 & Physics</a>
-                                            <a class="popup_menu_item" href="#">Space
+                                            <a class="popup_menu_item" href="category?cateid=11">Space
                                                 & Flight</a>
                                         </div>
                                     </div>
@@ -321,23 +312,23 @@
                                             Strategy </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="strategy">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="category?cateid=4">
                                                 Strategy </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="strategy">
-                                            <a class="popup_menu_item" href="#">Card
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Card
                                                 & Board</a>
-                                            <a class="popup_menu_item" href="#">City
+                                            <a class="popup_menu_item" href="category?cateid=11">City
                                                 & Settlement</a>
-                                            <a class="popup_menu_item" href="#">Grand
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">Grand
                                                 & 4X</a>
-                                            <a class="popup_menu_item" href="#">Military</a>
-                                            <a class="popup_menu_item" href="#">Real-Time
+                                            <a class="popup_menu_item" href="category?cateid=10">Military</a>
+                                            <a class="popup_menu_item" href="category?cateid=4">Real-Time
                                                 Strategy</a>
-                                            <a class="popup_menu_item" href="#">Tower
+                                            <a class="popup_menu_item" href="category?cateid=4">Tower
                                                 Defense</a>
-                                            <a class="popup_menu_item" href="#">Turn-Based
+                                            <a class="popup_menu_item" href="category?cateid=4">Turn-Based
                                                 Strategy</a>
                                         </div>
                                         <div class="popup_menu_item popup_genre_expand_header nonresponsive_hidden"
@@ -345,23 +336,23 @@
                                             Sports & Racing </div>
                                         <div class="popup_menu_subheader popup_genre_expand_header responsive_hidden"
                                              data-genre-group="sports_and_racing">
-                                            <a class="popup_menu_item" href="#">
+                                            <a class="popup_menu_item" href="category?cateid=3">
                                                 Sports & Racing </a>
                                         </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="sports_and_racing">
-                                            <a class="popup_menu_item" href="#">All
+                                            <a class="popup_menu_item" href="category?cateid=3">All
                                                 Sports</a>
-                                            <a class="popup_menu_item" href="#">Fishing
+                                            <a class="popup_menu_item" href="category?cateid=1">Fishing
                                                 & Hunting</a>
-                                            <a class="popup_menu_item" href="#">Individual
+                                            <a class="popup_menu_item" href="category?cateid=3">Individual
                                                 Sports</a>
-                                            <a class="popup_menu_item" href="#">Racing</a>
-                                            <a class="popup_menu_item" href="#">Racing
+                                            <a class="popup_menu_item" href="category?cateid=3">Racing</a>
+                                            <a class="popup_menu_item" href="category?cateid=4">Racing
                                                 Sim</a>
-                                            <a class="popup_menu_item" href="#">Sports
+                                            <a class="popup_menu_item" href="category?cateid=3">Sports
                                                 Sim</a>
-                                            <a class="popup_menu_item" href="#">Team
+                                            <a class="popup_menu_item" href="category?cateid=3">Team
                                                 Sports</a>
                                         </div>
                                     </div>
@@ -375,16 +366,16 @@
                                             Themes </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="themes">
-                                            <a class="popup_menu_item" href="#">Anime</a>
-                                            <a class="popup_menu_item" href="#">Horror</a>
-                                            <a class="popup_menu_item" href="#">Mystery
+                                            <a class="popup_menu_item" href="category?cateid=5">Anime</a>
+                                            <a class="popup_menu_item" href="category?cateid=5">Horror</a>
+                                            <a class="popup_menu_item" href="category?cateid=10">Mystery
                                                 & Detective</a>
-                                            <a class="popup_menu_item" href="#">Open
+                                            <a class="popup_menu_item" href="category?cateid=11">Open
                                                 World</a>
-                                            <a class="popup_menu_item" href="#">Sci-Fi
+                                            <a class="popup_menu_item" href="category?cateid=3">Sci-Fi
                                                 & Cyberpunk</a>
-                                            <a class="popup_menu_item" href="#">Space</a>
-                                            <a class="popup_menu_item" href="#">Survival</a>
+                                            <a class="popup_menu_item" href="category?cateid=11">Space</a>
+                                            <a class="popup_menu_item" href="category?cateid=7">Survival</a>
                                             <div class="spacer responsive_hidden"></div>
                                         </div>
                                         <div class="popup_menu_item popup_genre_expand_header nonresponsive_hidden"
@@ -395,30 +386,30 @@
                                             Player Support </div>
                                         <div class="popup_genre_expand_content responsive_hidden"
                                              data-genre-group="social_and_players">
-                                            <a class="popup_menu_item" href="#">Co-Operative</a>
-                                            <a class="popup_menu_item" href="#">LAN</a>
-                                            <a class="popup_menu_item" href="#">Local
+                                            <a class="popup_menu_item" href="category?cateid=10">Co-Operative</a>
+                                            <a class="popup_menu_item" href="category?cateid=13">LAN</a>
+                                            <a class="popup_menu_item" href="category?cateid=7">Local
                                                 & Party</a>
-                                            <a class="popup_menu_item" href="#">MMO</a>
-                                            <a class="popup_menu_item" href="#">Multiplayer</a>
-                                            <a class="popup_menu_item" href="#">Online
+                                            <a class="popup_menu_item" href="/game-store-app-v1/home">MMO</a>
+                                            <a class="popup_menu_item" href="category?cateid=9">Multiplayer</a>
+                                            <a class="popup_menu_item" href="category?cateid=9">Online
                                                 Competitive</a>
-                                            <a class="popup_menu_item" href="#">Singleplayer</a>
+                                            <a class="popup_menu_item" href="category?cateid=8">Singleplayer</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Points Shop -->
-                            <a class="tab" href="#">
+                            <a class="tab" href="/game-store-app-v1/home">
                                 <span>Points Shop</span>
                             </a>
                             <!-- News -->
-                            <a class="tab  " href="#">
+                            <a class="tab  " href="/game-store-app-v1/home">
                                 <span>News</span>
                             </a>
                             <!-- Labs -->
-                            <a class="tab  " href="#">
+                            <a class="tab  " href="/game-store-app-v1/home">
                                 <span>Labs</span>
                             </a>
 
@@ -429,23 +420,14 @@
                                     <!-- Form search -->
                                     <!-- action="https://store.steampowered.com/search/" -->
                                     <!-- Action Search -->
-                                    <form id="searchform" name="searchform" method="get"
-                                          action="Action_Search"
-                                          onsubmit="return SearchSuggestCheckTerm(this);">
-                                        <input type="hidden" name="snr" value="1_5_9__12">
-                                        <div class="searchbox">
-                                            <input id="store_nav_search_term" name="term" type="text"
-                                                   class="default" placeholder="search" size="22"
-                                                   autocomplete="off" maxlength="64">
-                                            <a href="#" id="store_search_link"
-                                               onclick="var $Form = $J(this).parents('form');
-                                                       $Form.submit();
-                                                       return false;">
-                                                <img
-                                                    src="https://store.akamai.steamstatic.com/public/images/blank.gif">
-                                            </a>
-                                        </div>
-                                    </form>
+
+                                    <div class="searchbox" style="display: flex">
+                                        <form id="searchform" method="post" action="search" style="display: flex" >
+                                            <input name="txt" type="text" id="store_nav_search_term" placeholder="search" size="22" autocomplete="off" maxlength="64" height="155px">
+                                            <button type="submit" class="search-btn" style="height: 100%; width: 50px; margin-right: -5px"><i class="fas fa-search" ></i></button>
+                                        </form>
+
+                                    </div>
                                 </div>
                                 <!-- Hidden Action Search -->
                                 <div id="searchterm_options" class="search_suggest popup_block_new"
