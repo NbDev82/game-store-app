@@ -137,8 +137,7 @@
                                         <a class="popup_menu_item" href="#">Account
                                             details: <span class="account_name">${acc.userName}</span>
                                         </a>
-                                        <a class="popup_menu_item" href="#">Store
-                                            preferences</a>
+                                        <a class="popup_menu_item" href="cart">My cart</a>
 
                                         <span class="popup_menu_item" id="account_language_pulldown">Change language</span>
                                         <div class="popup_block_new" id="language_dropdown" style="display: none;">
