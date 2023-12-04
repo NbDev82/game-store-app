@@ -8,9 +8,11 @@ import com.myproject.game.store.app.v1.resources.connection.DBUtil;
 import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import static com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl.logger;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -23,6 +25,7 @@ public class GameDAOImpl implements GameDAO {
     static final Logger logger
             = Logger.getLogger(
                     GameDAOImpl.class.getName());
+
     @Override
     public Game getGameById(Long gameId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -35,5 +38,57 @@ public class GameDAOImpl implements GameDAO {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Game> getListGamesByString(String txtSearch) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            // Sử dụng JPQL để truy vấn từ cơ sở dữ liệu
+            String jpql = "SELECT g FROM Game g WHERE g.gameName LIKE :txtSearch";
+            TypedQuery<Game> query = em.createQuery(jpql, Game.class);
+            query.setParameter("txtSearch", "%" + txtSearch + "%"); // Tìm kiếm theo phần của chuỗi
+
+            // Thực hiện truy vấn và trả về kết quả
+            List<Game> resultList = query.getResultList();
+            return resultList;
+        } finally {
+            // Đảm bảo đóng EntityManager sau khi sử dụng
+            em.close();
+        }
+    }
+
+    @Override
+    public void RemoveGameByGameId(Long gameId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+
+        try {
+            trans.begin();
+
+            // Xóa các ràng buộc liên quan
+            em.createQuery("DELETE FROM CategoryGame cg WHERE cg.game.gameId = :gameId")
+                    .setParameter("gameId", gameId)
+                    .executeUpdate();
+
+            // Xóa game
+            Game game = em.find(Game.class, gameId);
+            em.remove(game);
+
+            trans.commit();
+        } catch (Exception e) {
+            if (trans != null && trans.isActive()) {
+                trans.rollback();
+            }
+        } finally {
+            em.close();
+        }
+    }
+    @Override
+    public void InsertGame(Long main_img_id,String game_name,String title,
+            String content,String warning,String award,Timestamp release_date, int initial_price,
+            boolean is_discount,int discount_price,String dev_name,String pub_name,int percent_pos,
+            String global_review,int numb_review){
+        
     }
 }

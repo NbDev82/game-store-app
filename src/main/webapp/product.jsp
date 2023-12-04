@@ -5,13 +5,21 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <!--other-->
+        <!--important css -->
+        <link
+            href="https://store.cloudflare.steamstatic.com/public/css/v6/search.css?v=CmbU1MkT7S1v&amp;l=english&amp;_cdn=cloudflare"
+            rel="stylesheet" type="text/css">
+        <!--end important css -->
+        <!--end other-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>View Product</title>
@@ -67,9 +75,9 @@
         src="https://store.akamai.steamstatic.com/public/javascript/dynamicstore.js?v=lgmDRJsAubdT&amp;l=english"></script>
 
         <script
-        type="text/javascript">Object.seal && [Object, Array, String, Number].map(function (builtin) {
-            Object.seal(builtin.prototype);
-        });</script>
+            type="text/javascript">Object.seal && [Object, Array, String, Number].map(function (builtin) {
+                Object.seal(builtin.prototype);
+            });</script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function (event) {
                 $J.data(document, 'x_readytime', new Date().getTime());
@@ -121,6 +129,7 @@
               content="https://cdn.akamai.steamstatic.com/steam/apps/872990/capsule_616x353.jpg?t=1597940503" />
         <link rel="stylesheet" href="assets/css/view_product.css">
         <link rel="stylesheet" href="assets/css/view_product_base.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </head>
     <body class="v6 app game_bg application responsive_page ">
         <div class="responsive_page_frame with_header">
@@ -261,67 +270,67 @@
                     <!-- Script for container -->
                     <script type="text/javascript">
 
-                                                var g_eDiscoveryQueueType = 0;
+            var g_eDiscoveryQueueType = 0;
 
-                                                GStoreItemData.AddStoreItemDataSet(
-                                                        {"rgApps": {"1260320": {"name": "Party Animals", "url_name": "Party_Animals", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1260320\/capsule_184x69.jpg?t=1697003851", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1868140": {"name": "DAVE THE DIVER", "url_name": "DAVE_THE_DIVER", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1868140\/capsule_184x69.jpg?t=1692149536", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "413150": {"name": "Stardew Valley", "url_name": "Stardew_Valley", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/413150\/capsule_184x69.jpg?t=1666917466", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "960090": {"name": "Bloons TD 6", "url_name": "Bloons_TD_6", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1399\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$13.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/960090\/capsule_184x69.jpg?t=1696882681", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "613100": {"name": "House Flipper", "url_name": "House_Flipper", "discount_block": "<div class=\"discount_block \" data-price-final=\"249\" data-bundlediscount=\"0\" data-discount=\"90\"><div class=\"discount_pct\">-90%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$24.99<\/div><div class=\"discount_final_price\">$2.49<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/613100\/capsule_184x69.jpg?t=1690812074", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "291550": {"name": "Brawlhalla", "url_name": "Brawlhalla", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free to Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/291550\/capsule_184x69.jpg?t=1697040616", "os_windows": true, "os_macos": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "1794680": {"name": "Vampire Survivors", "url_name": "Vampire_Survivors", "discount_block": "<div class=\"discount_block \" data-price-final=\"349\" data-bundlediscount=\"0\" data-discount=\"30\"><div class=\"discount_pct\">-30%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$4.99<\/div><div class=\"discount_final_price\">$3.49<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1794680\/capsule_184x69.jpg?t=1695309084", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "1290000": {"name": "PowerWash Simulator", "url_name": "PowerWash_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1290000\/capsule_184x69.jpg?t=1688055663", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "431240": {"name": "Golf With Your Friends", "url_name": "Golf_With_Your_Friends", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/431240\/capsule_184x69.jpg?t=1695665694", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1943950": {"name": "Escape the Backrooms", "url_name": "Escape_the_Backrooms", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$9.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1943950\/capsule_184x69.jpg?t=1696556336", "os_windows": true, "vr_htcvive": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1332720": {"name": "Thief Simulator 2", "url_name": "Thief_Simulator_2", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1332720\/capsule_184x69.jpg?t=1697144924", "os_windows": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "1629520": {"name": "A Little to the Left", "url_name": "A_Little_to_the_Left", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1629520\/capsule_184x69.jpg?t=1696002097", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "728880": {"name": "Overcooked! 2", "url_name": "Overcooked_2", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/728880\/capsule_184x69.jpg?t=1670442579", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "620980": {"name": "Beat Saber", "url_name": "Beat_Saber", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$29.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/620980\/capsule_184x69.jpg?t=1696624948", "os_windows": true, "vr_htcvive": true, "vr_oculusrift": true, "vr_windowsmr": true, "virtual_reality": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1202200": {"name": "Paleo Pines", "url_name": "Paleo_Pines", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$29.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1202200\/capsule_184x69.jpg?t=1695731407", "os_windows": true, "os_linux": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "286160": {"name": "Tabletop Simulator", "url_name": "Tabletop_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/286160\/capsule_184x69.jpg?t=1620412025", "os_windows": true, "os_macos": true, "os_linux": true, "vr_htcvive": true, "vr_oculusrift": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1988550": {"name": "To The Core", "url_name": "To_The_Core", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"799\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$7.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1988550\/capsule_184x69.jpg?t=1691658424", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1435790": {"name": "Escape Simulator", "url_name": "Escape_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1435790\/capsule_184x69.jpg?t=1694095488", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1476970": {"name": "IdleOn - The Idle MMO", "url_name": "IdleOn__The_Idle_MMO", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free To Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1476970\/capsule_184x69.jpg?t=1695018022", "os_windows": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1755830": {"name": "Astrea: Six-Sided Oracles", "url_name": "Astrea_SixSided_Oracles", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1755830\/capsule_184x69.jpg?t=1696455720", "os_windows": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "774171": {"name": "Muse Dash", "url_name": "Muse_Dash", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"299\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$2.99<\/div><\/div><\/div>", "descids": [1, 5], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/774171\/capsule_184x69.jpg?t=1696436630", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true, "has_adult_content_sex": true}, "880940": {"name": "Pummel Party", "url_name": "Pummel_Party", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/880940\/capsule_184x69.jpg?t=1670489597", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "322170": {"name": "Geometry Dash", "url_name": "Geometry_Dash", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"399\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$3.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/322170\/capsule_184x69.jpg?t=1624472273", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "285900": {"name": "Gang Beasts", "url_name": "Gang_Beasts", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/285900\/capsule_184x69.jpg?t=1696409760", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true, "status_string": "Early Access Now Available"}, "1267910": {"name": "Melvor Idle", "url_name": "Melvor_Idle", "discount_block": "<div class=\"discount_block \" data-price-final=\"499\" data-bundlediscount=\"0\" data-discount=\"50\"><div class=\"discount_pct\">-50%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$9.99<\/div><div class=\"discount_final_price\">$4.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1267910\/capsule_184x69.jpg?t=1694096156", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "1158160": {"name": "Coral Island", "url_name": "Coral_Island", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1158160\/capsule_184x69_alt_assets_0.jpg?t=1694836579", "os_windows": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "386940": {"name": "Ultimate Chicken Horse", "url_name": "Ultimate_Chicken_Horse", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/386940\/capsule_184x69.jpg?t=1694456160", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "627690": {"name": "Idle Champions of the Forgotten Realms", "url_name": "Idle_Champions_of_the_Forgotten_Realms", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free to Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/627690\/capsule_184x69.jpg?t=1697050369", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1677740": {"name": "Stumble Guys", "url_name": "Stumble_Guys", "discount_block": "<div class=\"discount_block empty \"><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1677740\/capsule_184x69.jpg?t=1696588681", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1135690": {"name": "Unpacking", "url_name": "Unpacking", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1135690\/capsule_184x69.jpg?t=1681259723", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}}, "rgPackages": [], "rgBundles": []});
-                        GStoreItemData.AddNavParams({
-                            recommended: "1_5_9__300",
-                            recommend_franchise: "1_5_9__316",
-                            more_from_franchise: "1_5_9__317",
-                            bundle_component_preview: "1_5_9__412",
-                            recommended_ranked_played: "1_5_9__862",
-                        });
-
-
-                        $J(function () {
-                            var $Expander = $J('#devnotes_expander');
-                            if ($Expander.length && $Expander.height() < parseInt($Expander.css('max-height'))) {
-                                $J('#devnotes_more').hide();
-                            }
-
-                            CollapseLongStrings('.dev_row .summary.column');
-
-                            InitAutocollapse();
-                            InitHorizontalAutoSliders();
-
-                            Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_right', $J('#responsive_apppage_details_right_ctn'));
-                            Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_left', $J('#responsive_apppage_details_left_ctn'));
-                            Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_reviewblock', $J('#responsive_apppage_reviewblock_ctn'));
-
-                            //hack to workaround chrome bug
-                            $J('#responsive_apppage_reviewblock_ctn').css('width', '100%');
-                            window.setTimeout(function () {
-                                $J('#responsive_apppage_reviewblock_ctn').css('width', '');
-                            }, 1);
+            GStoreItemData.AddStoreItemDataSet(
+                    {"rgApps": {"1260320": {"name": "Party Animals", "url_name": "Party_Animals", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1260320\/capsule_184x69.jpg?t=1697003851", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1868140": {"name": "DAVE THE DIVER", "url_name": "DAVE_THE_DIVER", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1868140\/capsule_184x69.jpg?t=1692149536", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "413150": {"name": "Stardew Valley", "url_name": "Stardew_Valley", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/413150\/capsule_184x69.jpg?t=1666917466", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "960090": {"name": "Bloons TD 6", "url_name": "Bloons_TD_6", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1399\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$13.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/960090\/capsule_184x69.jpg?t=1696882681", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "613100": {"name": "House Flipper", "url_name": "House_Flipper", "discount_block": "<div class=\"discount_block \" data-price-final=\"249\" data-bundlediscount=\"0\" data-discount=\"90\"><div class=\"discount_pct\">-90%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$24.99<\/div><div class=\"discount_final_price\">$2.49<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/613100\/capsule_184x69.jpg?t=1690812074", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "291550": {"name": "Brawlhalla", "url_name": "Brawlhalla", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free to Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/291550\/capsule_184x69.jpg?t=1697040616", "os_windows": true, "os_macos": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "1794680": {"name": "Vampire Survivors", "url_name": "Vampire_Survivors", "discount_block": "<div class=\"discount_block \" data-price-final=\"349\" data-bundlediscount=\"0\" data-discount=\"30\"><div class=\"discount_pct\">-30%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$4.99<\/div><div class=\"discount_final_price\">$3.49<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1794680\/capsule_184x69.jpg?t=1695309084", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "1290000": {"name": "PowerWash Simulator", "url_name": "PowerWash_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1290000\/capsule_184x69.jpg?t=1688055663", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "431240": {"name": "Golf With Your Friends", "url_name": "Golf_With_Your_Friends", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/431240\/capsule_184x69.jpg?t=1695665694", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1943950": {"name": "Escape the Backrooms", "url_name": "Escape_the_Backrooms", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$9.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1943950\/capsule_184x69.jpg?t=1696556336", "os_windows": true, "vr_htcvive": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1332720": {"name": "Thief Simulator 2", "url_name": "Thief_Simulator_2", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1332720\/capsule_184x69.jpg?t=1697144924", "os_windows": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "1629520": {"name": "A Little to the Left", "url_name": "A_Little_to_the_Left", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1629520\/capsule_184x69.jpg?t=1696002097", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "728880": {"name": "Overcooked! 2", "url_name": "Overcooked_2", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/728880\/capsule_184x69.jpg?t=1670442579", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "620980": {"name": "Beat Saber", "url_name": "Beat_Saber", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$29.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/620980\/capsule_184x69.jpg?t=1696624948", "os_windows": true, "vr_htcvive": true, "vr_oculusrift": true, "vr_windowsmr": true, "virtual_reality": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1202200": {"name": "Paleo Pines", "url_name": "Paleo_Pines", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$29.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1202200\/capsule_184x69.jpg?t=1695731407", "os_windows": true, "os_linux": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "286160": {"name": "Tabletop Simulator", "url_name": "Tabletop_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/286160\/capsule_184x69.jpg?t=1620412025", "os_windows": true, "os_macos": true, "os_linux": true, "vr_htcvive": true, "vr_oculusrift": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1988550": {"name": "To The Core", "url_name": "To_The_Core", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"799\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$7.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1988550\/capsule_184x69.jpg?t=1691658424", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1435790": {"name": "Escape Simulator", "url_name": "Escape_Simulator", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1435790\/capsule_184x69.jpg?t=1694095488", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1476970": {"name": "IdleOn - The Idle MMO", "url_name": "IdleOn__The_Idle_MMO", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free To Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1476970\/capsule_184x69.jpg?t=1695018022", "os_windows": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1755830": {"name": "Astrea: Six-Sided Oracles", "url_name": "Astrea_SixSided_Oracles", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1755830\/capsule_184x69.jpg?t=1696455720", "os_windows": true, "has_live_broadcast": true, "localized": true, "localized_english": true}, "774171": {"name": "Muse Dash", "url_name": "Muse_Dash", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"299\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$2.99<\/div><\/div><\/div>", "descids": [1, 5], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/774171\/capsule_184x69.jpg?t=1696436630", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true, "has_adult_content_sex": true}, "880940": {"name": "Pummel Party", "url_name": "Pummel_Party", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/880940\/capsule_184x69.jpg?t=1670489597", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "322170": {"name": "Geometry Dash", "url_name": "Geometry_Dash", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"399\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$3.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/322170\/capsule_184x69.jpg?t=1624472273", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "285900": {"name": "Gang Beasts", "url_name": "Gang_Beasts", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/285900\/capsule_184x69.jpg?t=1696409760", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true, "status_string": "Early Access Now Available"}, "1267910": {"name": "Melvor Idle", "url_name": "Melvor_Idle", "discount_block": "<div class=\"discount_block \" data-price-final=\"499\" data-bundlediscount=\"0\" data-discount=\"50\"><div class=\"discount_pct\">-50%<\/div><div class=\"discount_prices\"><div class=\"discount_original_price\">$9.99<\/div><div class=\"discount_final_price\">$4.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1267910\/capsule_184x69.jpg?t=1694096156", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "discount": true, "localized": true, "localized_english": true}, "1158160": {"name": "Coral Island", "url_name": "Coral_Island", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"2499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$24.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1158160\/capsule_184x69_alt_assets_0.jpg?t=1694836579", "os_windows": true, "early_access": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "386940": {"name": "Ultimate Chicken Horse", "url_name": "Ultimate_Chicken_Horse", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1499\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$14.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/386940\/capsule_184x69.jpg?t=1694456160", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "627690": {"name": "Idle Champions of the Forgotten Realms", "url_name": "Idle_Champions_of_the_Forgotten_Realms", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"0\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">Free to Play<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/627690\/capsule_184x69.jpg?t=1697050369", "os_windows": true, "os_macos": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1677740": {"name": "Stumble Guys", "url_name": "Stumble_Guys", "discount_block": "<div class=\"discount_block empty \"><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1677740\/capsule_184x69.jpg?t=1696588681", "os_windows": true, "has_live_broadcast": false, "localized": true, "localized_english": true}, "1135690": {"name": "Unpacking", "url_name": "Unpacking", "discount_block": "<div class=\"discount_block  no_discount\" data-price-final=\"1999\" data-bundlediscount=\"0\" data-discount=\"0\"><div class=\"discount_prices\"><div class=\"discount_final_price\">$19.99<\/div><\/div><\/div>", "descids": [], "small_capsulev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1135690\/capsule_184x69.jpg?t=1681259723", "os_windows": true, "os_macos": true, "os_linux": true, "has_live_broadcast": false, "localized": true, "localized_english": true}}, "rgPackages": [], "rgBundles": []});
+            GStoreItemData.AddNavParams({
+                recommended: "1_5_9__300",
+                recommend_franchise: "1_5_9__316",
+                more_from_franchise: "1_5_9__317",
+                bundle_component_preview: "1_5_9__412",
+                recommended_ranked_played: "1_5_9__862",
+            });
 
 
-                            var watcher = new CScrollOffsetWatcher($J('#app_reviews_hash'), OnLoadReviews);
-                            watcher.SetBufferHeight(0);
+            $J(function () {
+                var $Expander = $J('#devnotes_expander');
+                if ($Expander.length && $Expander.height() < parseInt($Expander.css('max-height'))) {
+                    $J('#devnotes_more').hide();
+                }
 
-                            InitPlaytimeFilterSlider();
+                CollapseLongStrings('.dev_row .summary.column');
 
-                            // on Tablet wait to do this when the window is fully loaded - see OnPageLoaded()
-                            ReparentAppLandingPageForSmallScreens();
+                InitAutocollapse();
+                InitHorizontalAutoSliders();
 
+                Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_right', $J('#responsive_apppage_details_right_ctn'));
+                Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_left', $J('#responsive_apppage_details_left_ctn'));
+                Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_reviewblock', $J('#responsive_apppage_reviewblock_ctn'));
 
-                            AddRightNavStickyPaddingOnTablet();
-
-                            var usability = InitUsabilityTracker("https:\/\/store.steampowered.com\/app\/usabilitytracking\/872990");
-                            usability.ScheduleUpload();
-
-                        });
-                        GDynamicStore.OnReady(function () {
-                            RenderMoreLikeThisBlock(["1260320", "1868140", "413150", "960090", "613100", "291550", "1794680", "1290000", "431240", "1943950", "1332720", "1629520", "728880", "620980", "1202200", "286160", "1988550", "1435790", "1476970", "1755830", "774171", "880940", "322170", "285900", "1267910", "1158160", "386940", "627690", "1677740", "1135690"], !!true);
-                            RenderFranchiseAppBlock([]);
-                            RenderMoreDLCFromBaseGameBlock([]);
-
-                        });
+                //hack to workaround chrome bug
+                $J('#responsive_apppage_reviewblock_ctn').css('width', '100%');
+                window.setTimeout(function () {
+                    $J('#responsive_apppage_reviewblock_ctn').css('width', '');
+                }, 1);
 
 
-                        function OpenTagModal() {
-                            ShowAppTagModal(872990);
-                        }
+                var watcher = new CScrollOffsetWatcher($J('#app_reviews_hash'), OnLoadReviews);
+                watcher.SetBufferHeight(0);
+
+                InitPlaytimeFilterSlider();
+
+                // on Tablet wait to do this when the window is fully loaded - see OnPageLoaded()
+                ReparentAppLandingPageForSmallScreens();
+
+
+                AddRightNavStickyPaddingOnTablet();
+
+                var usability = InitUsabilityTracker("https:\/\/store.steampowered.com\/app\/usabilitytracking\/872990");
+                usability.ScheduleUpload();
+
+            });
+            GDynamicStore.OnReady(function () {
+                RenderMoreLikeThisBlock(["1260320", "1868140", "413150", "960090", "613100", "291550", "1794680", "1290000", "431240", "1943950", "1332720", "1629520", "728880", "620980", "1202200", "286160", "1988550", "1435790", "1476970", "1755830", "774171", "880940", "322170", "285900", "1267910", "1158160", "386940", "627690", "1677740", "1135690"], !!true);
+                RenderFranchiseAppBlock([]);
+                RenderMoreDLCFromBaseGameBlock([]);
+
+            });
+
+
+            function OpenTagModal() {
+                ShowAppTagModal(872990);
+            }
 
                     </script>
 
@@ -350,7 +359,7 @@
                                             <!-- Come back home  -->
                                             <a href="/game-store-app-v1/home">All Games</a>
                                             &gt;
-                                            <a href="#">${game.categories[0].categoryName}</a>
+                                            <a href="category?cateid=${game.categories[0].categoryId}">${game.categories[0].categoryName}</a>
                                             &gt;
                                             <a href="javascript:void(0);" onclick="location.reload();">
                                                 <span itemprop="name">${game.gameName}</span>
@@ -643,686 +652,686 @@
                                                 <!-- Images and Vides container of Game -->
                                                 <div class="sp-slideshow">
                                                     <style>
-                                                    a {
-                                                        -moz-transition: color 0.3s ease-out;
-                                                        -webkit-transition: color 0.3s ease-out;
-                                                        -o-transition: color 0.3s ease-out;
-                                                        -ms-transition: color 0.3s ease-out;
-                                                        transition: color 0.3s ease-out;
-                                                    }
-                                                    .top {
-                                                        margin-bottom: 20px;
-                                                    }
-                                                    .top_content {
-                                                        width: 680px;
-                                                        text-align: center;
-                                                        font-size: 12px;
-                                                        margin: 0 auto;
-                                                        text-transform: uppercase;
-                                                    }
-                                                    .top_content a {
-                                                        color: #aaa;
-                                                        text-decoration: none;
-                                                    }
-                                                    .top_content a:hover {
-                                                        color: #fff;
-                                                    }
-                                                    @import url("normalize.css");
-                                                    /* General Demo Style */
-                                                    body {
-                                                        font-family: "Open Sans Condensed", "Arial Narrow", serif;
-                                                        background: #ddd
-                                                            url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/bg.jpg)
-                                                            repeat top left;
-                                                        font-weight: 400;
-                                                        font-size: 15px;
-                                                        color: #333;
-                                                    }
-                                                    a {
-                                                        color: #555;
-                                                        text-decoration: none;
-                                                    }
-                                                    .container {
-                                                        width: 100%;
-                                                        position: relative;
-                                                    }
-                                                    .clr {
-                                                        clear: both;
-                                                        padding: 0;
-                                                        height: 0;
-                                                        margin: 0;
-                                                    }
-                                                    .container > header {
-                                                        margin: 10px;
-                                                        padding: 20px 10px 10px 10px;
-                                                        position: relative;
-                                                        display: block;
-                                                        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-                                                        text-align: center;
-                                                    }
-                                                    .container > header h1 {
-                                                        font-size: 40px;
-                                                        line-height: 40px;
-                                                        margin: 0;
-                                                        position: relative;
-                                                        font-weight: 300;
-                                                        color: #707a8d;
-                                                        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
-                                                    }
-                                                    .container > header h1 span {
-                                                        font-weight: 700;
-                                                    }
-                                                    .container > header h2 {
-                                                        font-size: 14px;
-                                                        font-weight: 300;
-                                                        margin: 0;
-                                                        padding: 15px 0 5px 0;
-                                                        color: #4d525d;
-                                                        font-family: Cambria, Georgia, serif;
-                                                        font-style: italic;
-                                                        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9);
-                                                    }
-                                                    /* Header Style */
-                                                    .codrops-top {
-                                                        line-height: 24px;
-                                                        font-size: 11px;
-                                                        background: #fff;
-                                                        background: rgba(255, 255, 255, 0.6);
-                                                        text-transform: uppercase;
-                                                        z-index: 9999;
-                                                        position: relative;
-                                                        font-family: Cambria, Georgia, serif;
-                                                        box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
-                                                    }
-                                                    .codrops-top a {
-                                                        padding: 0px 10px;
-                                                        letter-spacing: 1px;
-                                                        color: #333;
-                                                        display: inline-block;
-                                                    }
-                                                    .codrops-top a:hover {
-                                                        background: rgba(255, 255, 255, 0.3);
-                                                    }
-                                                    .codrops-top span.right {
-                                                        float: right;
-                                                    }
-                                                    .codrops-top span.right a {
-                                                        float: left;
-                                                        display: block;
-                                                    }
-                                                    /* Demo Buttons Style */
-                                                    .codrops-demos {
-                                                        text-align: center;
-                                                        display: block;
-                                                        line-height: 30px;
-                                                        padding: 5px 0px;
-                                                    }
-                                                    .codrops-demos a {
-                                                        display: inline-block;
-                                                        margin: 0px 4px;
-                                                        padding: 0px 6px;
-                                                        color: #aaa;
-                                                        line-height: 20px;
-                                                        font-size: 13px;
-                                                        text-shadow: 1px 1px 1px #fff;
-                                                        border: 1px solid #fff;
-                                                        background: #f6f6f6; /* Old browsers */
-                                                        background: -moz-linear-gradient(
-                                                            top,
-                                                            #ffffff 0%,
-                                                            #f6f6f6 47%,
-                                                            #ededed 100%
-                                                            ); /* FF3.6+ */
-                                                        background: -webkit-gradient(
-                                                            linear,
-                                                            left top,
-                                                            left bottom,
-                                                            color-stop(0%, #ffffff),
-                                                            color-stop(47%, #f6f6f6),
-                                                            color-stop(100%, #ededed)
-                                                            ); /* Chrome,Safari4+ */
-                                                        background: -webkit-linear-gradient(
-                                                            top,
-                                                            #ffffff 0%,
-                                                            #f6f6f6 47%,
-                                                            #ededed 100%
-                                                            ); /* Chrome10+,Safari5.1+ */
-                                                        background: -o-linear-gradient(
-                                                            top,
-                                                            #ffffff 0%,
-                                                            #f6f6f6 47%,
-                                                            #ededed 100%
-                                                            ); /* Opera 11.10+ */
-                                                        background: -ms-linear-gradient(
-                                                            top,
-                                                            #ffffff 0%,
-                                                            #f6f6f6 47%,
-                                                            #ededed 100%
-                                                            ); /* IE10+ */
-                                                        background: linear-gradient(
-                                                            top,
-                                                            #ffffff 0%,
-                                                            #f6f6f6 47%,
-                                                            #ededed 100%
-                                                            ); /* W3C */
-                                                        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
-                                                        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-                                                    }
-                                                    .codrops-demos a:hover {
-                                                        color: #333;
-                                                    }
-                                                    .codrops-demos a:active {
-                                                        background: #fff;
-                                                    }
-                                                    .codrops-demos a.current-demo,
-                                                    .codrops-demos a.current-demo:hover {
-                                                        background: #fff;
-                                                        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-                                                    }
-                                                    .note {
-                                                        padding: 20px;
-                                                        text-align: center;
-                                                    }
-                                                    article,
-                                                    aside,
-                                                    details,
-                                                    figcaption,
-                                                    figure,
-                                                    footer,
-                                                    header,
-                                                    hgroup,
-                                                    nav,
-                                                    section,
-                                                    summary {
-                                                        display: block;
-                                                    }
-                                                    audio,
-                                                    canvas,
-                                                    video {
-                                                        display: inline-block;
-                                                    }
-                                                    audio:not([controls]) {
-                                                        display: none;
-                                                        height: 0;
-                                                    }
-                                                    [hidden] {
-                                                        display: none;
-                                                    }
-                                                    html {
-                                                        font-size: 100%; /* 1 */
-                                                        -webkit-text-size-adjust: 100%; /* 2 */
-                                                        -ms-text-size-adjust: 100%; /* 2 */
-                                                    }
-                                                    html,
-                                                    button,
-                                                    input,
-                                                    select,
-                                                    textarea {
-                                                        font-family: sans-serif;
-                                                    }
-                                                    body {
-                                                        margin: 0;
-                                                    }
-                                                    a:focus {
-                                                        outline: thin dotted;
-                                                    }
-                                                    a:hover,
-                                                    a:active {
-                                                        outline: 0;
-                                                    }
-                                                    h1 {
-                                                        font-size: 2em;
-                                                        margin: 0.67em 0;
-                                                    }
+                                                        a {
+                                                            -moz-transition: color 0.3s ease-out;
+                                                            -webkit-transition: color 0.3s ease-out;
+                                                            -o-transition: color 0.3s ease-out;
+                                                            -ms-transition: color 0.3s ease-out;
+                                                            transition: color 0.3s ease-out;
+                                                        }
+                                                        .top {
+                                                            margin-bottom: 20px;
+                                                        }
+                                                        .top_content {
+                                                            width: 680px;
+                                                            text-align: center;
+                                                            font-size: 12px;
+                                                            margin: 0 auto;
+                                                            text-transform: uppercase;
+                                                        }
+                                                        .top_content a {
+                                                            color: #aaa;
+                                                            text-decoration: none;
+                                                        }
+                                                        .top_content a:hover {
+                                                            color: #fff;
+                                                        }
+                                                        @import url("normalize.css");
+                                                        /* General Demo Style */
+                                                        body {
+                                                            font-family: "Open Sans Condensed", "Arial Narrow", serif;
+                                                            background: #ddd
+                                                                url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/bg.jpg)
+                                                                repeat top left;
+                                                            font-weight: 400;
+                                                            font-size: 15px;
+                                                            color: #333;
+                                                        }
+                                                        a {
+                                                            color: #555;
+                                                            text-decoration: none;
+                                                        }
+                                                        .container {
+                                                            width: 100%;
+                                                            position: relative;
+                                                        }
+                                                        .clr {
+                                                            clear: both;
+                                                            padding: 0;
+                                                            height: 0;
+                                                            margin: 0;
+                                                        }
+                                                        .container > header {
+                                                            margin: 10px;
+                                                            padding: 20px 10px 10px 10px;
+                                                            position: relative;
+                                                            display: block;
+                                                            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+                                                            text-align: center;
+                                                        }
+                                                        .container > header h1 {
+                                                            font-size: 40px;
+                                                            line-height: 40px;
+                                                            margin: 0;
+                                                            position: relative;
+                                                            font-weight: 300;
+                                                            color: #707a8d;
+                                                            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
+                                                        }
+                                                        .container > header h1 span {
+                                                            font-weight: 700;
+                                                        }
+                                                        .container > header h2 {
+                                                            font-size: 14px;
+                                                            font-weight: 300;
+                                                            margin: 0;
+                                                            padding: 15px 0 5px 0;
+                                                            color: #4d525d;
+                                                            font-family: Cambria, Georgia, serif;
+                                                            font-style: italic;
+                                                            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9);
+                                                        }
+                                                        /* Header Style */
+                                                        .codrops-top {
+                                                            line-height: 24px;
+                                                            font-size: 11px;
+                                                            background: #fff;
+                                                            background: rgba(255, 255, 255, 0.6);
+                                                            text-transform: uppercase;
+                                                            z-index: 9999;
+                                                            position: relative;
+                                                            font-family: Cambria, Georgia, serif;
+                                                            box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
+                                                        }
+                                                        .codrops-top a {
+                                                            padding: 0px 10px;
+                                                            letter-spacing: 1px;
+                                                            color: #333;
+                                                            display: inline-block;
+                                                        }
+                                                        .codrops-top a:hover {
+                                                            background: rgba(255, 255, 255, 0.3);
+                                                        }
+                                                        .codrops-top span.right {
+                                                            float: right;
+                                                        }
+                                                        .codrops-top span.right a {
+                                                            float: left;
+                                                            display: block;
+                                                        }
+                                                        /* Demo Buttons Style */
+                                                        .codrops-demos {
+                                                            text-align: center;
+                                                            display: block;
+                                                            line-height: 30px;
+                                                            padding: 5px 0px;
+                                                        }
+                                                        .codrops-demos a {
+                                                            display: inline-block;
+                                                            margin: 0px 4px;
+                                                            padding: 0px 6px;
+                                                            color: #aaa;
+                                                            line-height: 20px;
+                                                            font-size: 13px;
+                                                            text-shadow: 1px 1px 1px #fff;
+                                                            border: 1px solid #fff;
+                                                            background: #f6f6f6; /* Old browsers */
+                                                            background: -moz-linear-gradient(
+                                                                top,
+                                                                #ffffff 0%,
+                                                                #f6f6f6 47%,
+                                                                #ededed 100%
+                                                                ); /* FF3.6+ */
+                                                            background: -webkit-gradient(
+                                                                linear,
+                                                                left top,
+                                                                left bottom,
+                                                                color-stop(0%, #ffffff),
+                                                                color-stop(47%, #f6f6f6),
+                                                                color-stop(100%, #ededed)
+                                                                ); /* Chrome,Safari4+ */
+                                                            background: -webkit-linear-gradient(
+                                                                top,
+                                                                #ffffff 0%,
+                                                                #f6f6f6 47%,
+                                                                #ededed 100%
+                                                                ); /* Chrome10+,Safari5.1+ */
+                                                            background: -o-linear-gradient(
+                                                                top,
+                                                                #ffffff 0%,
+                                                                #f6f6f6 47%,
+                                                                #ededed 100%
+                                                                ); /* Opera 11.10+ */
+                                                            background: -ms-linear-gradient(
+                                                                top,
+                                                                #ffffff 0%,
+                                                                #f6f6f6 47%,
+                                                                #ededed 100%
+                                                                ); /* IE10+ */
+                                                            background: linear-gradient(
+                                                                top,
+                                                                #ffffff 0%,
+                                                                #f6f6f6 47%,
+                                                                #ededed 100%
+                                                                ); /* W3C */
+                                                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                                                            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+                                                        }
+                                                        .codrops-demos a:hover {
+                                                            color: #333;
+                                                        }
+                                                        .codrops-demos a:active {
+                                                            background: #fff;
+                                                        }
+                                                        .codrops-demos a.current-demo,
+                                                        .codrops-demos a.current-demo:hover {
+                                                            background: #fff;
+                                                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+                                                        }
+                                                        .note {
+                                                            padding: 20px;
+                                                            text-align: center;
+                                                        }
+                                                        article,
+                                                        aside,
+                                                        details,
+                                                        figcaption,
+                                                        figure,
+                                                        footer,
+                                                        header,
+                                                        hgroup,
+                                                        nav,
+                                                        section,
+                                                        summary {
+                                                            display: block;
+                                                        }
+                                                        audio,
+                                                        canvas,
+                                                        video {
+                                                            display: inline-block;
+                                                        }
+                                                        audio:not([controls]) {
+                                                            display: none;
+                                                            height: 0;
+                                                        }
+                                                        [hidden] {
+                                                            display: none;
+                                                        }
+                                                        html {
+                                                            font-size: 100%; /* 1 */
+                                                            -webkit-text-size-adjust: 100%; /* 2 */
+                                                            -ms-text-size-adjust: 100%; /* 2 */
+                                                        }
+                                                        html,
+                                                        button,
+                                                        input,
+                                                        select,
+                                                        textarea {
+                                                            font-family: sans-serif;
+                                                        }
+                                                        body {
+                                                            margin: 0;
+                                                        }
+                                                        a:focus {
+                                                            outline: thin dotted;
+                                                        }
+                                                        a:hover,
+                                                        a:active {
+                                                            outline: 0;
+                                                        }
+                                                        h1 {
+                                                            font-size: 2em;
+                                                            margin: 0.67em 0;
+                                                        }
 
-                                                    h2 {
-                                                        font-size: 1.5em;
-                                                        margin: 0.83em 0;
-                                                    }
+                                                        h2 {
+                                                            font-size: 1.5em;
+                                                            margin: 0.83em 0;
+                                                        }
 
-                                                    h3 {
-                                                        font-size: 1.17em;
-                                                        margin: 1em 0;
-                                                    }
+                                                        h3 {
+                                                            font-size: 1.17em;
+                                                            margin: 1em 0;
+                                                        }
 
-                                                    h4 {
-                                                        font-size: 1em;
-                                                        margin: 1.33em 0;
-                                                    }
+                                                        h4 {
+                                                            font-size: 1em;
+                                                            margin: 1.33em 0;
+                                                        }
 
-                                                    h5 {
-                                                        font-size: 0.83em;
-                                                        margin: 1.67em 0;
-                                                    }
+                                                        h5 {
+                                                            font-size: 0.83em;
+                                                            margin: 1.67em 0;
+                                                        }
 
-                                                    h6 {
-                                                        font-size: 0.75em;
-                                                        margin: 2.33em 0;
-                                                    }
-                                                    abbr[title] {
-                                                        border-bottom: 1px dotted;
-                                                    }
-                                                    b,
-                                                    strong {
-                                                        font-weight: bold;
-                                                    }
+                                                        h6 {
+                                                            font-size: 0.75em;
+                                                            margin: 2.33em 0;
+                                                        }
+                                                        abbr[title] {
+                                                            border-bottom: 1px dotted;
+                                                        }
+                                                        b,
+                                                        strong {
+                                                            font-weight: bold;
+                                                        }
 
-                                                    blockquote {
-                                                        margin: 1em 40px;
-                                                    }
-                                                    dfn {
-                                                        font-style: italic;
-                                                    }
-                                                    mark {
-                                                        background: #ff0;
-                                                        color: #000;
-                                                    }
-                                                    p,
-                                                    pre {
-                                                        margin: 1em 0;
-                                                    }
-                                                    pre,
-                                                    code,
-                                                    kbd,
-                                                    samp {
-                                                        font-family: monospace, serif;
-                                                        _font-family: "courier new", monospace;
-                                                        font-size: 1em;
-                                                    }
-                                                    pre {
-                                                        white-space: pre;
-                                                        white-space: pre-wrap;
-                                                        word-wrap: break-word;
-                                                    }
-                                                    q {
-                                                        quotes: none;
-                                                    }
+                                                        blockquote {
+                                                            margin: 1em 40px;
+                                                        }
+                                                        dfn {
+                                                            font-style: italic;
+                                                        }
+                                                        mark {
+                                                            background: #ff0;
+                                                            color: #000;
+                                                        }
+                                                        p,
+                                                        pre {
+                                                            margin: 1em 0;
+                                                        }
+                                                        pre,
+                                                        code,
+                                                        kbd,
+                                                        samp {
+                                                            font-family: monospace, serif;
+                                                            _font-family: "courier new", monospace;
+                                                            font-size: 1em;
+                                                        }
+                                                        pre {
+                                                            white-space: pre;
+                                                            white-space: pre-wrap;
+                                                            word-wrap: break-word;
+                                                        }
+                                                        q {
+                                                            quotes: none;
+                                                        }
 
-                                                    /* 2 */
+                                                        /* 2 */
 
-                                                    q:before,
-                                                    q:after {
-                                                        content: "";
-                                                        content: none;
-                                                    }
+                                                        q:before,
+                                                        q:after {
+                                                            content: "";
+                                                            content: none;
+                                                        }
 
-                                                    small {
-                                                        font-size: 75%;
-                                                    }
-                                                    sub,
-                                                    sup {
-                                                        font-size: 75%;
-                                                        line-height: 0;
-                                                        position: relative;
-                                                        vertical-align: baseline;
-                                                    }
+                                                        small {
+                                                            font-size: 75%;
+                                                        }
+                                                        sub,
+                                                        sup {
+                                                            font-size: 75%;
+                                                            line-height: 0;
+                                                            position: relative;
+                                                            vertical-align: baseline;
+                                                        }
 
-                                                    sup {
-                                                        top: -0.5em;
-                                                    }
+                                                        sup {
+                                                            top: -0.5em;
+                                                        }
 
-                                                    sub {
-                                                        bottom: -0.25em;
-                                                    }
+                                                        sub {
+                                                            bottom: -0.25em;
+                                                        }
 
-                                                dl,
-                                                menu,
-                                                ol,
-                                                ul {
-                                                  margin: 1em 0;
-                                                }
+                                                        dl,
+                                                        menu,
+                                                        ol,
+                                                        ul {
+                                                            margin: 1em 0;
+                                                        }
 
-                                                dd {
-                                                  margin: 0 0 0 40px;
-                                                }
-                                                menu,
-                                                ol,
-                                                ul {
-                                                  padding: 0 0 0 40px;
-                                                }
-                                                nav ul,
-                                                nav ol {
-                                                  list-style: none;
-                                                  list-style-image: none;
-                                                }
+                                                        dd {
+                                                            margin: 0 0 0 40px;
+                                                        }
+                                                        menu,
+                                                        ol,
+                                                        ul {
+                                                            padding: 0 0 0 40px;
+                                                        }
+                                                        nav ul,
+                                                        nav ol {
+                                                            list-style: none;
+                                                            list-style-image: none;
+                                                        }
 
-                                                img {
-                                                  border: 0; /* 1 */
-                                                  -ms-interpolation-mode: bicubic; /* 2 */
-                                                }
+                                                        img {
+                                                            border: 0; /* 1 */
+                                                            -ms-interpolation-mode: bicubic; /* 2 */
+                                                        }
 
-                                                svg:not(:root) {
-                                                  overflow: hidden;
-                                                }
-                                                figure {
-                                                  margin: 0;
-                                                }
-                                                form {
-                                                  margin: 0;
-                                                }
-                                                fieldset {
-                                                  border: 1px solid #c0c0c0;
-                                                  margin: 0 2px;
-                                                  padding: 0.35em 0.625em 0.75em;
-                                                }
-                                                legend {
-                                                  border: 0; /* 1 */
-                                                  padding: 0;
-                                                  white-space: normal; /* 2 */
-                                                }
-                                                button,
-                                                input,
-                                                select,
-                                                textarea {
-                                                  font-size: 100%; /* 1 */
-                                                  margin: 0; /* 2 */
-                                                  vertical-align: baseline; /* 3 */
-                                                }
-                                                button,
-                                                input {
-                                                  line-height: normal; /* 1 */
-                                                }
-                                                button,
-                                                input[type="button"],
-                                                input[type="reset"],
-                                                input[type="submit"] {
-                                                  cursor: pointer; /* 1 */
-                                                }
-                                                button[disabled],
-                                                input[disabled] {
-                                                  cursor: default;
-                                                }
-                                                input[type="checkbox"],
-                                                input[type="radio"] {
-                                                  box-sizing: border-box; /* 1 */
-                                                  padding: 0; /* 2 */
-                                                }
-                                                input[type="search"] {
-                                                  -moz-box-sizing: content-box;
-                                                  -webkit-box-sizing: content-box; /* 2 */
-                                                  box-sizing: content-box;
-                                                }
-                                                input[type="search"]::-webkit-search-decoration,
-                                                input[type="search"]::-webkit-search-cancel-button {
-                                                  -webkit-appearance: none;
-                                                }
-                                                button::-moz-focus-inner,
-                                                input::-moz-focus-inner {
-                                                  border: 0;
-                                                  padding: 0;
-                                                }
-                                                textarea {
-                                                  overflow: auto; /* 1 */
-                                                  vertical-align: top; /* 2 */
-                                                }
-                                                table {
-                                                  border-collapse: collapse;
-                                                  border-spacing: 0;
-                                                }
-                                                .sp-slideshow {
-                                                  position: relative;
-                                                  margin: 1px auto;
-                                                  width: 98%;
-                                                  max-width: 1000px;
-                                                  min-width: 260px;
-                                                  height: 100%;
+                                                        svg:not(:root) {
+                                                            overflow: hidden;
+                                                        }
+                                                        figure {
+                                                            margin: 0;
+                                                        }
+                                                        form {
+                                                            margin: 0;
+                                                        }
+                                                        fieldset {
+                                                            border: 1px solid #c0c0c0;
+                                                            margin: 0 2px;
+                                                            padding: 0.35em 0.625em 0.75em;
+                                                        }
+                                                        legend {
+                                                            border: 0; /* 1 */
+                                                            padding: 0;
+                                                            white-space: normal; /* 2 */
+                                                        }
+                                                        button,
+                                                        input,
+                                                        select,
+                                                        textarea {
+                                                            font-size: 100%; /* 1 */
+                                                            margin: 0; /* 2 */
+                                                            vertical-align: baseline; /* 3 */
+                                                        }
+                                                        button,
+                                                        input {
+                                                            line-height: normal; /* 1 */
+                                                        }
+                                                        button,
+                                                        input[type="button"],
+                                                        input[type="reset"],
+                                                        input[type="submit"] {
+                                                            cursor: pointer; /* 1 */
+                                                        }
+                                                        button[disabled],
+                                                        input[disabled] {
+                                                            cursor: default;
+                                                        }
+                                                        input[type="checkbox"],
+                                                        input[type="radio"] {
+                                                            box-sizing: border-box; /* 1 */
+                                                            padding: 0; /* 2 */
+                                                        }
+                                                        input[type="search"] {
+                                                            -moz-box-sizing: content-box;
+                                                            -webkit-box-sizing: content-box; /* 2 */
+                                                            box-sizing: content-box;
+                                                        }
+                                                        input[type="search"]::-webkit-search-decoration,
+                                                        input[type="search"]::-webkit-search-cancel-button {
+                                                            -webkit-appearance: none;
+                                                        }
+                                                        button::-moz-focus-inner,
+                                                        input::-moz-focus-inner {
+                                                            border: 0;
+                                                            padding: 0;
+                                                        }
+                                                        textarea {
+                                                            overflow: auto; /* 1 */
+                                                            vertical-align: top; /* 2 */
+                                                        }
+                                                        table {
+                                                            border-collapse: collapse;
+                                                            border-spacing: 0;
+                                                        }
+                                                        .sp-slideshow {
+                                                            position: relative;
+                                                            margin: 1px auto;
+                                                            width: 98%;
+                                                            max-width: 1000px;
+                                                            min-width: 260px;
+                                                            height: 100%;
 
-                                                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-                                                }
-                                                .sp-content {
-                                                  background: #7d7f72
-                                                    url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/grid.png)
-                                                    repeat scroll 0 0;
-                                                  position: relative;
-                                                  width: 100%;
-                                                  height: 100%;
-                                                  overflow: hidden;
-                                                }
-                                                .sp-parallax-bg {
-                                                  background: url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/map.png)
-                                                    repeat-x scroll 0 0;
-                                                  -webkit-background-size: cover;
-                                                  -moz-background-size: cover;
-                                                  background-size: cover;
-                                                  position: absolute;
-                                                  top: 0;
-                                                  left: 0;
-                                                  width: 100%;
-                                                  height: 100%;
-                                                  overflow: hidden;
-                                                }
-                                                .sp-slideshow input {
-                                                  position: absolute;
-                                                  bottom: 15px;
-                                                  left: 50%;
-                                                  width: 9px;
-                                                  height: 9px;
-                                                  z-index: 1001;
-                                                  cursor: pointer;
-                                                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-                                                  filter: alpha(opacity=0);
-                                                  opacity: 0;
-                                                }
-                                                .sp-slideshow input + label {
-                                                  position: absolute;
-                                                  bottom: 15px;
-                                                  left: 50%;
-                                                  width: 6px;
-                                                  height: 6px;
-                                                  display: block;
-                                                  z-index: 1000;
-                                                  border: 3px solid #fff;
-                                                  border: 3px solid rgba(255, 255, 255, 0.9);
-                                                  -webkit-border-radius: 50%;
-                                                  -moz-border-radius: 50%;
-                                                  border-radius: 50%;
-                                                  -webkit-transition: background-color linear 0.1s;
-                                                  -moz-transition: background-color linear 0.1s;
-                                                  -o-transition: background-color linear 0.1s;
-                                                  -ms-transition: background-color linear 0.1s;
-                                                  transition: background-color linear 0.1s;
-                                                }
-                                                .sp-slideshow input:checked + label {
-                                                  background-color: #fff;
-                                                  background-color: rgba(255, 255, 255, 0.9);
-                                                }
-                                                .sp-selector-1,
-                                                .button-label-1 {
-                                                  margin-left: -36px;
-                                                }
-                                                .sp-selector-2,
-                                                .button-label-2 {
-                                                  margin-left: -18px;
-                                                }
-                                                .sp-selector-4,
-                                                .button-label-4 {
-                                                  margin-left: 18px;
-                                                }
-                                                .sp-selector-5,
-                                                .button-label-5 {
-                                                  margin-left: 36px;
-                                                }
-                                                .sp-arrow {
-                                                  position: absolute;
-                                                  top: 50%;
-                                                  width: 28px;
-                                                  height: 38px;
-                                                  margin-top: -19px;
-                                                  display: none;
-                                                  opacity: 0.8;
-                                                  cursor: pointer;
-                                                  z-index: 1000;
-                                                  background: transparent
-                                                    url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/arrows.png)
-                                                    no-repeat;
-                                                  -webkit-transition: opacity linear 0.3s;
-                                                  -moz-transition: opacity linear 0.3s;
-                                                  -o-transition: opacity linear 0.3s;
-                                                  -ms-transition: opacity linear 0.3s;
-                                                  transition: opacity linear 0.3s;
-                                                }
-                                                .sp-arrow:hover {
-                                                  opacity: 1;
-                                                }
-                                                .sp-arrow:active {
-                                                  margin-top: -18px;
-                                                }
-                                                .sp-selector-1:checked ~ .sp-arrow.sp-a2,
-                                                .sp-selector-2:checked ~ .sp-arrow.sp-a3,
-                                                .sp-selector-3:checked ~ .sp-arrow.sp-a4,
-                                                .sp-selector-4:checked ~ .sp-arrow.sp-a5 {
-                                                  right: 15px;
-                                                  display: block;
-                                                  background-position: top right;
-                                                }
-                                                .sp-selector-2:checked ~ .sp-arrow.sp-a1,
-                                                .sp-selector-3:checked ~ .sp-arrow.sp-a2,
-                                                .sp-selector-4:checked ~ .sp-arrow.sp-a3,
-                                                .sp-selector-5:checked ~ .sp-arrow.sp-a4 {
-                                                  left: 15px;
-                                                  display: block;
-                                                  background-position: top left;
-                                                }
-                                                .sp-slideshow input:checked ~ .sp-content {
-                                                  -webkit-transition: background-position linear 0.6s,
-                                                    background-color linear 0.8s;
-                                                  -moz-transition: background-position linear 0.6s,
-                                                    background-color linear 0.8s;
-                                                  -o-transition: background-position linear 0.6s, background-color linear 0.8s;
-                                                  -ms-transition: background-position linear 0.6s,
-                                                    background-color linear 0.8s;
-                                                  transition: background-position linear 0.6s, background-color linear 0.8s;
-                                                }
-                                                .sp-slideshow input:checked ~ .sp-content .sp-parallax-bg {
-                                                  -webkit-transition: background-position linear 0.7s;
-                                                  -moz-transition: background-position linear 0.7s;
-                                                  -o-transition: background-position linear 0.7s;
-                                                  -ms-transition: background-position linear 0.7s;
-                                                  transition: background-position linear 0.7s;
-                                                }
-                                                input.sp-selector-1:checked ~ .sp-content {
-                                                  background-position: 0 0;
-                                                  background-color: #727b7f;
-                                                }
-                                                input.sp-selector-2:checked ~ .sp-content {
-                                                  background-position: -100px 0;
-                                                  background-color: #7f7276;
-                                                }
-                                                input.sp-selector-3:checked ~ .sp-content {
-                                                  background-position: -200px 0;
-                                                  background-color: #737f72;
-                                                }
-                                                input.sp-selector-4:checked ~ .sp-content {
-                                                  background-position: -300px 0;
-                                                  background-color: #79727f;
-                                                }
-                                                input.sp-selector-5:checked ~ .sp-content {
-                                                  background-position: -400px 0;
-                                                  background-color: #7d7f72;
-                                                }
-                                                input.sp-selector-1:checked ~ .sp-content .sp-parallax-bg {
-                                                  background-position: 0 0;
-                                                }
-                                                input.sp-selector-2:checked ~ .sp-content .sp-parallax-bg {
-                                                  background-position: -200px 0;
-                                                }
-                                                input.sp-selector-3:checked ~ .sp-content .sp-parallax-bg {
-                                                  background-position: -400px 0;
-                                                }
-                                                input.sp-selector-4:checked ~ .sp-content .sp-parallax-bg {
-                                                  background-position: -600px 0;
-                                                }
-                                                input.sp-selector-5:checked ~ .sp-content .sp-parallax-bg {
-                                                  background-position: -800px 0;
-                                                }
-                                                .sp-slider {
-                                                  position: relative;
-                                                  left: 0;
-                                                  width: 500%;
-                                                  height: 100%;
-                                                  list-style: none;
-                                                  margin: 0;
-                                                  padding: 0;
-                                                  -webkit-transition: left ease-in 0.8s;
-                                                  -moz-transition: left ease-in 0.8s;
-                                                  -o-transition: left ease-in 0.8s;
-                                                  -ms-transition: left ease-in 0.8s;
-                                                  transition: left ease-in 0.8s;
-                                                }
-                                                .sp-slider > li {
-                                                  color: #fff;
-                                                  width: 20%;
-                                                  -webkit-box-sizing: border-box;
-                                                  -moz-box-sizing: border-box;
-                                                  -o-box-sizing: border-box;
-                                                  -ms-box-sizing: border-box;
-                                                  box-sizing: border-box;
-                                                  height: 100%;
-                                                  padding: 0 50px;
-                                                  float: left;
-                                                  text-align: center;
-                                                  opacity: 0.4;
-                                                  -webkit-transition: opacity ease-in 0.4s 0.8s;
-                                                  -moz-transition: opacity ease-in 0.4s 0.8s;
-                                                  -o-transition: opacity ease-in 0.4s 0.8s;
-                                                  -ms-transition: opacity ease-in 0.4s 0.8s;
-                                                  transition: opacity ease-in 0.4s 0.8s;
-                                                }
-                                                .sp-slider > li img {
-                                                  -webkit-box-sizing: border-box;
-                                                  -moz-box-sizing: border-box;
-                                                  -o-box-sizing: border-box;
-                                                  -ms-box-sizing: border-box;
-                                                  box-sizing: border-box;
-                                                  display: block;
-                                                  margin: 0 auto;
-                                                  padding: 40px 0 50px 0;
-                                                  max-height: 100%;
-                                                  max-width: 100%;
-                                                }
-                                                input.sp-selector-1:checked ~ .sp-content .sp-slider {
-                                                  left: 0;
-                                                }
-                                                input.sp-selector-2:checked ~ .sp-content .sp-slider {
-                                                  left: -100%;
-                                                }
-                                                input.sp-selector-3:checked ~ .sp-content .sp-slider {
-                                                  left: -200%;
-                                                }
-                                                input.sp-selector-4:checked ~ .sp-content .sp-slider {
-                                                  left: -300%;
-                                                }
-                                                input.sp-selector-5:checked ~ .sp-content .sp-slider {
-                                                  left: -400%;
-                                                }
-                                                input.sp-selector-1:checked ~ .sp-content .sp-slider > li:first-child,
-                                                input.sp-selector-2:checked ~ .sp-content .sp-slider > li:nth-child(2),
-                                                input.sp-selector-3:checked ~ .sp-content .sp-slider > li:nth-child(3),
-                                                input.sp-selector-4:checked ~ .sp-content .sp-slider > li:nth-child(4),
-                                                input.sp-selector-5:checked ~ .sp-content .sp-slider > li:nth-child(5) {
-                                                  opacity: 1;
-                                                }
-                                                @media screen and (max-width: 840px) {
-                                                  .sp-slideshow {
-                                                    height: 345px;
-                                                  }
-                                                }
-                                                @media screen and (max-width: 680px) {
-                                                  .sp-slideshow {
-                                                    height: 285px;
-                                                  }
-                                                }
-                                                @media screen and (max-width: 560px) {
-                                                  .sp-slideshow {
-                                                    height: 235px;
-                                                  }
-                                                }
-                                                @media screen and (max-width: 320px) {
-                                                  .sp-slideshow {
-                                                    height: 158px;
-                                                  }
-                                                }
-                                                </style>     
+                                                            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                                                        }
+                                                        .sp-content {
+                                                            background: #7d7f72
+                                                                url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/grid.png)
+                                                                repeat scroll 0 0;
+                                                            position: relative;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            overflow: hidden;
+                                                        }
+                                                        .sp-parallax-bg {
+                                                            background: url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/map.png)
+                                                                repeat-x scroll 0 0;
+                                                            -webkit-background-size: cover;
+                                                            -moz-background-size: cover;
+                                                            background-size: cover;
+                                                            position: absolute;
+                                                            top: 0;
+                                                            left: 0;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            overflow: hidden;
+                                                        }
+                                                        .sp-slideshow input {
+                                                            position: absolute;
+                                                            bottom: 15px;
+                                                            left: 50%;
+                                                            width: 9px;
+                                                            height: 9px;
+                                                            z-index: 1001;
+                                                            cursor: pointer;
+                                                            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                                                            filter: alpha(opacity=0);
+                                                            opacity: 0;
+                                                        }
+                                                        .sp-slideshow input + label {
+                                                            position: absolute;
+                                                            bottom: 15px;
+                                                            left: 50%;
+                                                            width: 6px;
+                                                            height: 6px;
+                                                            display: block;
+                                                            z-index: 1000;
+                                                            border: 3px solid #fff;
+                                                            border: 3px solid rgba(255, 255, 255, 0.9);
+                                                            -webkit-border-radius: 50%;
+                                                            -moz-border-radius: 50%;
+                                                            border-radius: 50%;
+                                                            -webkit-transition: background-color linear 0.1s;
+                                                            -moz-transition: background-color linear 0.1s;
+                                                            -o-transition: background-color linear 0.1s;
+                                                            -ms-transition: background-color linear 0.1s;
+                                                            transition: background-color linear 0.1s;
+                                                        }
+                                                        .sp-slideshow input:checked + label {
+                                                            background-color: #fff;
+                                                            background-color: rgba(255, 255, 255, 0.9);
+                                                        }
+                                                        .sp-selector-1,
+                                                        .button-label-1 {
+                                                            margin-left: -36px;
+                                                        }
+                                                        .sp-selector-2,
+                                                        .button-label-2 {
+                                                            margin-left: -18px;
+                                                        }
+                                                        .sp-selector-4,
+                                                        .button-label-4 {
+                                                            margin-left: 18px;
+                                                        }
+                                                        .sp-selector-5,
+                                                        .button-label-5 {
+                                                            margin-left: 36px;
+                                                        }
+                                                        .sp-arrow {
+                                                            position: absolute;
+                                                            top: 50%;
+                                                            width: 28px;
+                                                            height: 38px;
+                                                            margin-top: -19px;
+                                                            display: none;
+                                                            opacity: 0.8;
+                                                            cursor: pointer;
+                                                            z-index: 1000;
+                                                            background: transparent
+                                                                url(https://tympanus.net/Tutorials/CSS3FluidParallaxSlideshow/images/arrows.png)
+                                                                no-repeat;
+                                                            -webkit-transition: opacity linear 0.3s;
+                                                            -moz-transition: opacity linear 0.3s;
+                                                            -o-transition: opacity linear 0.3s;
+                                                            -ms-transition: opacity linear 0.3s;
+                                                            transition: opacity linear 0.3s;
+                                                        }
+                                                        .sp-arrow:hover {
+                                                            opacity: 1;
+                                                        }
+                                                        .sp-arrow:active {
+                                                            margin-top: -18px;
+                                                        }
+                                                        .sp-selector-1:checked ~ .sp-arrow.sp-a2,
+                                                        .sp-selector-2:checked ~ .sp-arrow.sp-a3,
+                                                        .sp-selector-3:checked ~ .sp-arrow.sp-a4,
+                                                        .sp-selector-4:checked ~ .sp-arrow.sp-a5 {
+                                                            right: 15px;
+                                                            display: block;
+                                                            background-position: top right;
+                                                        }
+                                                        .sp-selector-2:checked ~ .sp-arrow.sp-a1,
+                                                        .sp-selector-3:checked ~ .sp-arrow.sp-a2,
+                                                        .sp-selector-4:checked ~ .sp-arrow.sp-a3,
+                                                        .sp-selector-5:checked ~ .sp-arrow.sp-a4 {
+                                                            left: 15px;
+                                                            display: block;
+                                                            background-position: top left;
+                                                        }
+                                                        .sp-slideshow input:checked ~ .sp-content {
+                                                            -webkit-transition: background-position linear 0.6s,
+                                                                background-color linear 0.8s;
+                                                            -moz-transition: background-position linear 0.6s,
+                                                                background-color linear 0.8s;
+                                                            -o-transition: background-position linear 0.6s, background-color linear 0.8s;
+                                                            -ms-transition: background-position linear 0.6s,
+                                                                background-color linear 0.8s;
+                                                            transition: background-position linear 0.6s, background-color linear 0.8s;
+                                                        }
+                                                        .sp-slideshow input:checked ~ .sp-content .sp-parallax-bg {
+                                                            -webkit-transition: background-position linear 0.7s;
+                                                            -moz-transition: background-position linear 0.7s;
+                                                            -o-transition: background-position linear 0.7s;
+                                                            -ms-transition: background-position linear 0.7s;
+                                                            transition: background-position linear 0.7s;
+                                                        }
+                                                        input.sp-selector-1:checked ~ .sp-content {
+                                                            background-position: 0 0;
+                                                            background-color: #727b7f;
+                                                        }
+                                                        input.sp-selector-2:checked ~ .sp-content {
+                                                            background-position: -100px 0;
+                                                            background-color: #7f7276;
+                                                        }
+                                                        input.sp-selector-3:checked ~ .sp-content {
+                                                            background-position: -200px 0;
+                                                            background-color: #737f72;
+                                                        }
+                                                        input.sp-selector-4:checked ~ .sp-content {
+                                                            background-position: -300px 0;
+                                                            background-color: #79727f;
+                                                        }
+                                                        input.sp-selector-5:checked ~ .sp-content {
+                                                            background-position: -400px 0;
+                                                            background-color: #7d7f72;
+                                                        }
+                                                        input.sp-selector-1:checked ~ .sp-content .sp-parallax-bg {
+                                                            background-position: 0 0;
+                                                        }
+                                                        input.sp-selector-2:checked ~ .sp-content .sp-parallax-bg {
+                                                            background-position: -200px 0;
+                                                        }
+                                                        input.sp-selector-3:checked ~ .sp-content .sp-parallax-bg {
+                                                            background-position: -400px 0;
+                                                        }
+                                                        input.sp-selector-4:checked ~ .sp-content .sp-parallax-bg {
+                                                            background-position: -600px 0;
+                                                        }
+                                                        input.sp-selector-5:checked ~ .sp-content .sp-parallax-bg {
+                                                            background-position: -800px 0;
+                                                        }
+                                                        .sp-slider {
+                                                            position: relative;
+                                                            left: 0;
+                                                            width: 500%;
+                                                            height: 100%;
+                                                            list-style: none;
+                                                            margin: 0;
+                                                            padding: 0;
+                                                            -webkit-transition: left ease-in 0.8s;
+                                                            -moz-transition: left ease-in 0.8s;
+                                                            -o-transition: left ease-in 0.8s;
+                                                            -ms-transition: left ease-in 0.8s;
+                                                            transition: left ease-in 0.8s;
+                                                        }
+                                                        .sp-slider > li {
+                                                            color: #fff;
+                                                            width: 20%;
+                                                            -webkit-box-sizing: border-box;
+                                                            -moz-box-sizing: border-box;
+                                                            -o-box-sizing: border-box;
+                                                            -ms-box-sizing: border-box;
+                                                            box-sizing: border-box;
+                                                            height: 100%;
+                                                            padding: 0 50px;
+                                                            float: left;
+                                                            text-align: center;
+                                                            opacity: 0.4;
+                                                            -webkit-transition: opacity ease-in 0.4s 0.8s;
+                                                            -moz-transition: opacity ease-in 0.4s 0.8s;
+                                                            -o-transition: opacity ease-in 0.4s 0.8s;
+                                                            -ms-transition: opacity ease-in 0.4s 0.8s;
+                                                            transition: opacity ease-in 0.4s 0.8s;
+                                                        }
+                                                        .sp-slider > li img {
+                                                            -webkit-box-sizing: border-box;
+                                                            -moz-box-sizing: border-box;
+                                                            -o-box-sizing: border-box;
+                                                            -ms-box-sizing: border-box;
+                                                            box-sizing: border-box;
+                                                            display: block;
+                                                            margin: 0 auto;
+                                                            padding: 40px 0 50px 0;
+                                                            max-height: 100%;
+                                                            max-width: 100%;
+                                                        }
+                                                        input.sp-selector-1:checked ~ .sp-content .sp-slider {
+                                                            left: 0;
+                                                        }
+                                                        input.sp-selector-2:checked ~ .sp-content .sp-slider {
+                                                            left: -100%;
+                                                        }
+                                                        input.sp-selector-3:checked ~ .sp-content .sp-slider {
+                                                            left: -200%;
+                                                        }
+                                                        input.sp-selector-4:checked ~ .sp-content .sp-slider {
+                                                            left: -300%;
+                                                        }
+                                                        input.sp-selector-5:checked ~ .sp-content .sp-slider {
+                                                            left: -400%;
+                                                        }
+                                                        input.sp-selector-1:checked ~ .sp-content .sp-slider > li:first-child,
+                                                        input.sp-selector-2:checked ~ .sp-content .sp-slider > li:nth-child(2),
+                                                        input.sp-selector-3:checked ~ .sp-content .sp-slider > li:nth-child(3),
+                                                        input.sp-selector-4:checked ~ .sp-content .sp-slider > li:nth-child(4),
+                                                        input.sp-selector-5:checked ~ .sp-content .sp-slider > li:nth-child(5) {
+                                                            opacity: 1;
+                                                        }
+                                                        @media screen and (max-width: 840px) {
+                                                            .sp-slideshow {
+                                                                height: 345px;
+                                                            }
+                                                        }
+                                                        @media screen and (max-width: 680px) {
+                                                            .sp-slideshow {
+                                                                height: 285px;
+                                                            }
+                                                        }
+                                                        @media screen and (max-width: 560px) {
+                                                            .sp-slideshow {
+                                                                height: 235px;
+                                                            }
+                                                        }
+                                                        @media screen and (max-width: 320px) {
+                                                            .sp-slideshow {
+                                                                height: 158px;
+                                                            }
+                                                        }
+                                                    </style>     
                                                     <input
                                                         id="button-1"
                                                         type="radio"
@@ -1399,11 +1408,11 @@
                                         <div id="responsive_apppage_details_right_ctn"></div>
                                         <div style="clear: both;"></div>
 
-                                        <div class="block responsive_apppage_details_right heading responsive_hidden">Is
+                                        <div class="block responsive_apppage_details_right heading responsive_hidden" style="min-width: 307.99px">Is
                                             this game relevant to you?</div>
                                         <div class="block responsive_apppage_details_right recommendation_noinfo responsive_hidden">
                                             <c:choose>
-                                                <c:when test="${empty sessionScope.Account}">
+                                                <c:when test="${acc == null}">
                                                     <p>
                                                         Sign in to see reasons why you may or may not like this based on your games,
                                                         friends, and curators you follow.
@@ -1481,7 +1490,7 @@
 
                                                         <c:forEach items="${supports}" var="o">            
                                                             <th class="checkcol">${o}</th>
-                                                        </c:forEach>
+                                                            </c:forEach>
                                                     </tr>
                                                     <c:forEach items="${languageNames}" var="uniqueLanguageName">
                                                         <tr class="">
@@ -1623,22 +1632,24 @@
 
                                         <div id="shareEmbedRow" class="block responsive_apppage_details_left"
                                              data-panel="{&quot;flow-children&quot;:&quot;row&quot;}">
-                                            <a class="btnv6_blue_hoverfade btn_medium" href="#"
+                                            <a class="btnv6_blue_hoverfade btn_medium" href="/game-store-app-v1/home"
                                                onclick="ShowShareDialog();
-                                                    return false;"><span>Share</span></a>
-                                            <a class="btnv6_blue_hoverfade btn_medium" href="#"
+                                                       return false;"><span>Share</span></a>
+                                            <a class="btnv6_blue_hoverfade btn_medium" href="/game-store-app-v1/home"
                                                onclick="ShowEmbedWidget(872990);
-                                                    return false;"><span>Embed</span></a>
+                                                       return false;"><span>Embed</span></a>
+                                            <!--Report this product-->
+                                            <!--href="javascript:void(0)"-->
                                             <a id="ReportAppBtn" class="btnv6_blue_hoverfade btn_medium"
-                                               href="javascript:void(0)" onclick="ShowReportDialog(872990)"><span
+                                               href="/game-store-app-v1/home" onclick="ShowReportDialog(872990)"><span
                                                     data-tooltip-text="Report this Product"><i
                                                         class="ico16 reportv6"></i>&nbsp;</span></a>
                                         </div>
 
                                         <div id="shareBtn" style="display:none;"><a class="btnv6_blue_hoverfade btn_medium"
                                                                                     onclick="ShowShareDialog();
-                                                    return false;"><span><img id="shareImg"
-                                                                                                  src="https://store.akamai.steamstatic.com/public/shared/images/icon_share_android.svg"></span></a>
+                                                                                            return false;"><span><img id="shareImg"
+                                                         src="https://store.akamai.steamstatic.com/public/shared/images/icon_share_android.svg"></span></a>
                                         </div>
                                         <div id="reportBtn" style="display:none;"><a class="btnv6_blue_hoverfade btn_medium"
                                                                                      href="javascript:void(0)" onclick="ShowReportDialog(872990)"><span><img
@@ -1694,8 +1705,8 @@
                                                                 <input type="hidden" name="gameId" value="${game.gameId}">
                                                                 <div class="btn_addtocart">
                                                                     <button data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
-                                                                       class="btn_green_steamui btn_medium"
-                                                                       id="btn_add_to_cart_275946" style="margin-top: -1px">
+                                                                            class="btn_green_steamui btn_medium"
+                                                                            id="btn_add_to_cart_275946" style="margin-top: -1px">
                                                                         <span>Add to Cart</span>
                                                                     </button>
                                                                 </div>
@@ -1814,7 +1825,7 @@
                                         <div class="block" id="recommended_block">
                                             <div class="block_header">
                                                 <div class="right">
-                                                    <a href="https://store.steampowered.com/recommended/morelike/app/872990/?snr=1_5_9__300"
+                                                    <a href="/game-store-app-v1/home"
                                                        class="deck_view_all_action_link">See all</a>
                                                 </div>
                                                 <h2>More like this</h2>
@@ -1831,13 +1842,14 @@
                                         <div class="steam_curators_block block responsive_apppage_reviewblock">
                                             <div class="block_header">
                                                 <div class="right"><a
-                                                        href="https://store.steampowered.com/curators/curatorsreviewing/?appid=872990&snr=1_5_9__top-curators">View
+                                                        href="/game-store-app-v1/home">View
                                                         all</a></div>
                                                 <h2>What Curators Say</h2>
-                                                <div class="no_curators_followed">
-                                                    4 Curators have reviewed this product. Click <a
-                                                        href="https://store.steampowered.com/curators/curatorsreviewing/?appid=872990&snr=1_5_9__top-curators">here</a>
-                                                    to see them. </div>
+                                                <c:if test="${acc == null}">
+                                                    <div class="no_curators_followed">
+                                                        4 Curators have reviewed this product. Click 
+                                                        <a href="/game-store-app-v1/logAcc">here</a> to see them. </div>
+                                                    </c:if>
                                             </div>
                                         </div>
 
@@ -1848,23 +1860,22 @@
                                     <div style="clear: both;"></div>
                                 </div>
 
-
+                                <!--Review  tag-->                    
                                 <div class="review_ctn">
+                                    <!--Review container-->
                                     <div class="page_content">
-
+                                        <!--Review hash-->
                                         <div id="app_reviews_hash" class="app_reviews_area">
                                             <h2 class="user_reviews_header no_bottom_margin">Customer reviews</h2>
-
                                             <input type="hidden" id="review_appid" value="872990">
                                             <input type="hidden" id="review_default_day_range" value="30">
                                             <input type="hidden" id="review_start_date" value="-1">
                                             <input type="hidden" id="review_end_date" value="-1">
                                             <input type="hidden" id="review_summary_num_positive_reviews" value="34">
                                             <input type="hidden" id="review_summary_num_reviews" value="36">
-
                                             <div id="review_recent_events_container" class="review_recent_events  ">
                                             </div>
-                                            <div id="review_histograms_container" class="collapsed">
+                                            <div id="review_histograms_container" class="collapsed" style="display:flex;">
                                                 <canvas id="review_graph_canvas"></canvas>
                                                 <div id="review_histogram_rollup_section" class="review_histogram_section">
                                                     <div class="user_reviews_summary_bar">
@@ -1873,7 +1884,7 @@
                                                             <span class="game_review_summary positive"
                                                                   data-tooltip-html="${game.percentPos}% of the ${game.numbReview} user reviews for this game are positive.">Positive</span>
                                                             <span>(${game.numbReview})</span>
-                                                            <a class="tooltip"
+                                                            <a class="tooltip" href="game-store-app-v1/home"
                                                                data-tooltip-text="This summary uses only reviews written by customers that purchased the game directly from Steam."><img
                                                                     src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></a>
                                                         </div>
@@ -1888,7 +1899,12 @@
                                                     <div class="user_reviews_summary_bar">
                                                         <div class="summary_section">
                                                             <div class="title">Recent Reviews:</div>
-                                                            <div class="summary_section">&nbsp;</div>
+                                                            <span class="game_review_summary positive"
+                                                                  data-tooltip-html="${game.percentPos}% of the ${game.numbReview} user reviews for this game are positive.">Positive</span>
+                                                            <span>(${game.numbReview})</span>
+                                                            <a class="tooltip" href="game-store-app-v1/home"
+                                                               data-tooltip-text="This summary uses only reviews written by customers that purchased the game directly from Steam."><img
+                                                                    src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></a>
                                                         </div>
                                                     </div>
                                                     <div class="review_histogram">
@@ -1899,6 +1915,7 @@
 
                                             <div id="reviews_filter_options"
                                                  class="user_reviews_filter_options flyout graph_collapsed">
+                                                <!--review typed-->
                                                 <div class="user_reviews_filter_menu">
                                                     <div class="title">Review Type</div>
                                                     <div class="user_reviews_filter_menu_flyout">
@@ -1919,6 +1936,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!--Purchase Type-->
                                                 <div class="user_reviews_filter_menu">
                                                     <div class="title">Purchase Type</div>
                                                     <div class="user_reviews_filter_menu_flyout">
@@ -1947,6 +1965,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!--filter language support-->
                                                 <div class="user_reviews_filter_menu">
                                                     <div class="title">Language</div>
                                                     <div class="user_reviews_filter_menu_flyout">
@@ -1962,13 +1981,14 @@
                                                             <label for="review_language_mine">Your Languages&nbsp;<span
                                                                     class="user_reviews_count">(9)</span> <a class="tooltip"
                                                                     data-tooltip-html="Your preferences are currently set to show content authored in these languages: English.&lt;br&gt;&lt;br&gt; Click 'customize' below to modify your preferences.">
-                                                                        <img src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark_dark.png"></a></label><br>
+                                                                    <img src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark_dark.png"></a></label><br>
                                                             <div class="user_reviews_customize_language"><a
                                                                     href="https://store.steampowered.com//account/languagepreferences">Customize</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!--filter date range-->
                                                 <div class="user_reviews_filter_menu" id="reviews_date_range_menu">
                                                     <div class="title">Date Range</div>
                                                     <div class="user_reviews_filter_menu_flyout">
@@ -1998,11 +2018,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!--filter play time-->
                                                 <div class="user_reviews_filter_menu">
                                                     <div class="title">Playtime</div>
                                                     <div class="user_reviews_filter_menu_flyout">
                                                         <div class="user_reviews_filter_menu_flyout_content">
-
                                                             <div class="user_reviews_steam_labs_desc">
                                                                 <a
                                                                     href="https://store.steampowered.com//communityrecommendations/"><img
@@ -2041,8 +2061,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="user_reviews_filter_display_as">
-                                                    <span class="title">Display As: </span>
+                                                <!--filter play time-->
+                                                <div class="user_reviews_filter_display_as" style="display: flex;">
+                                                    <span class="title" style="margin-top: 5px;"> Display As: </span>
                                                     <select id="review_context" onchange="ShowFilteredReviews()">
                                                         <option value="summary">Summary</option>
                                                         <option value="all">Most Helpful</option>
@@ -2050,7 +2071,7 @@
                                                         <option value="funny">Funny</option>
                                                     </select>
                                                 </div>
-
+                                                <!--Show graph-->
                                                 <div id="user_reviews_offtopic_activity_menu"
                                                      class="user_reviews_filter_menu" style="display: none" ;>
                                                     <div class="title">Off-topic Review Activity</div>
@@ -2073,9 +2094,8 @@
                                                 <div style="float: right">
                                                     <span id="review_show_graph_button"
                                                           class="btnv6_blue_hoverfade btn_small_thin review_graph_toggle"
-                                                          onclick="SetReviewsGraphVisibility(true);
-                                                            "><span>Show
-                                                            graph</span>
+                                                          onclick="SetReviewsGraphVisibility(true); 
+                                                          " style="display: flex"><span>Show graph</span>
                                                         <div class="graph_toggle_icon down">&nbsp;</div>
                                                     </span>
                                                     <span id="review_hide_graph_button"
@@ -2088,13 +2108,14 @@
 
                                                 <div style="clear: both"></div>
                                             </div>
-
+                                            <!--infor ctn-->  
+                                            
                                             <div class="reviews_info_ctn">
                                                 <div id="reviews_active_filters"
                                                      data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
                                                      class="user_reviews_active_filters"
                                                      onclick="ShowReviewSettingsModal();">
-                                                    <div id="reviews_filter_title" class="title">Filters</div>
+<!--                                                    <div id="reviews_filter_title" class="title">Filters</div>
 
                                                     <div id="reviews_filter_title_responsive" style="display:none"
                                                          class="title">
@@ -2114,18 +2135,17 @@
                                                     <div id="reviews_filter_offtopic_activity" class="active_filter"
                                                          onclick="ClearOfftopicReviewActivityFilter()">Excluding Off-topic
                                                         Review Activity</div>
-                                                    <div id="reviews_filter_playtime" class="active_filter"
-                                                         onclick="ClearReviewPlaytimeFilter()">Playtime: <span
-                                                            id="review_playtime_preset_text"></span></div>
-                                                </div>
-
+                                                                                                        <div id="reviews_filter_playtime" class="active_filter"
+                                                                                                             onclick="ClearReviewPlaytimeFilter()">Playtime: <span
+                                                                                                                id="review_playtime_preset_text"></span></div>-->
+                                                </div>                                              
                                                 <div class="user_reviews_filter_score visible"
                                                      id="user_reviews_filter_score"></div>
 
                                             </div>
 
                                             <div id="review_selected_filters"></div>
-
+                                            <!--loading-->
                                             <div id="LoadingMoreReviewsall" style="display: none"
                                                  class="loading_more_reviews">
                                                 <img src="https://store.akamai.steamstatic.com/public/shared/images/throbber.gif"
@@ -2156,7 +2176,7 @@
                                                      class="loading_more_reviews_throbber">
                                                 Loading reviews...
                                             </div>
-
+                                            <!--loading-->
 
                                             <div id="Reviews_positive" style="display: none"
                                                  class="user_reviews_container leftcol"></div>
@@ -2168,26 +2188,376 @@
                                                  class="user_reviews_container leftcol"></div>
                                             <div id="Reviews_all" style="display: none"
                                                  class="user_reviews_container leftcol"></div>
-                                            <div id="Reviews_summary" class="user_reviews_container">
+                                            <!--Main reviews-->
+                                            <div class="user_reviews_container" style="display: block; font-family: Arial;
+                                                                                                                margin: 0 auto; /* Center website */
+                                                                                                                max-width: 1300px; /* Max width */
+                                                                                                                padding: 10px;">
                                                 <div>
+                                                    <style>
 
-                                                    <div class="leftcol">
-                                                    </div>
-                                                    <div class="rightcol recent_reviews">
-                                                    </div>
-                                                    <div style="clear:left;"></div>
+                                                        .heading {
+                                                          font-size: 25px;
+                                                          margin-right: 25px;
+                                                        }
 
-                                                    <div id="ViewAllReviewssummary" class="view_all_reviews_btn leftcol">
-                                                        <div class="review_box">
-                                                            <div class="noReviewsYetTitle">There are no more reviews that
-                                                                match the filters set above</div>
-                                                            <div class="noReviewsYetSub">Adjust the filters above to see
-                                                                other reviews</div>
-                                                            <div style="clear: left; height: 40px;"></div>
+                                                        .fa {
+                                                          font-size: 25px;
+                                                        }
+
+                                                        .checked {
+                                                          color: orange;
+                                                        }
+
+                                                        /* Three column layout */
+                                                        .side {
+                                                          float: left;
+                                                          width: 15%;
+                                                          margin-top:10px;
+                                                        }
+
+                                                        .middle {
+                                                          margin-top:10px;
+                                                          float: left;
+                                                          width: 70%;
+                                                        }
+
+                                                        /* Place text to the right */
+                                                        .right {
+                                                          text-align: right;
+                                                        }
+
+                                                        /* Clear floats after the columns */
+                                                        .row:after {
+                                                          content: "";
+                                                          display: table;
+                                                          clear: both;
+                                                        }
+
+                                                        /* The bar container */
+                                                        .bar-container {
+                                                          width: 100%;
+                                                          background-color: #f1f1f1;
+                                                          text-align: center;
+                                                          color: white;
+                                                        }
+
+                                                        /* Individual bars */
+                                                        .bar-5 {
+                                                                width: 50%;
+                                                                height: 18px;
+                                                                background-color: #04AA6D;
+                                                                }
+                                                        .bar-4 {
+                                                            width: 40%;
+                                                            height: 18px;
+                                                            background-color: #2196F3;
+                                                            }
+                                                        .bar-3 {
+                                                            width: 30%;
+                                                            height: 18px;
+                                                            background-color: #00bcd4;
+                                                            }
+                                                        .bar-2 {
+                                                            width: 20%;
+                                                            height: 18px;
+                                                            background-color: #ff9800;
+                                                            }
+                                                        .bar-1 {
+                                                            width: 10%;
+                                                            height: 18px;
+                                                            background-color: #f44336;
+                                                            }
+                                                        /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+                                                        @media (max-width: 400px) {
+                                                          .side, .middle {
+                                                            width: 100%;
+                                                          }
+                                                          .right {
+                                                            display: none;
+                                                          }
+                                                        }
+                                                    </style>  
+                                                    <span class="heading">User Rating</span>
+                                                    <c:set var="totalscore" value="${game.percentPos/100*5}"></c:set>
+                                                        <c:if test="${totalscore >=1 }">
+                                                            <span class="fa fa-star checked"></span>
+                                                            <c:if test="${totalscore >=2 }">
+
+                                                                <span class="fa fa-star checked"></span>
+                                                                <c:if test="${totalscore >=3 }">
+                                                                    <span class="fa fa-star checked"></span>
+                                                                    <c:if test="${totalscore >=4 }">
+                                                                        <span class="fa fa-star checked"></span>
+                                                                        <c:if test="${totalscore >=5 }">
+                                                                            <span class="fa fa-star "></span>
+                                                                        </c:if>
+                                                                    </c:if>
+                                                                </c:if>
+                                                            </c:if>
+                                                        </c:if>
+                                                    <p><fmt:formatNumber value="${totalscore}" maxFractionDigits="2"/> average based on ${game.numbReview} reviews.</p>
+                                                    <hr style="border:1px solid #f1f1f1">
+                                                    <c:set var="numbScore5" value="50%"></c:set>
+                                                    <c:set var="numbScore4" value="40%"></c:set>
+                                                    <c:set var="numbScore3" value="30%"></c:set>
+                                                    <c:set var="numbScore2" value="20%"></c:set>
+                                                    <c:set var="numbScore1" value="10%"></c:set>
+                                                    <div class="row">
+                                                        <div class="side">
+                                                            <div>Overwhelmingly Positive</div>
+                                                        </div>
+                                                        <div class="middle">
+                                                            <div class="bar-container">
+                                                                <div class="bar-5" style="width: ${numbScore5}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="side right">
+                                                            <div>5</div>
+                                                        </div>
+                                                        <div class="side">
+                                                            <div>Very Positive(4 star)</div>
+                                                        </div>
+                                                        <div class="middle">
+                                                            <div class="bar-container">
+                                                                <div class="bar-4" style="width: ${numbScore4}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="side right">
+                                                            <div>63</div>
+                                                        </div>
+                                                        <div class="side">
+                                                            <div>Positive(3 star)</div>
+                                                        </div>
+                                                        <div class="middle">
+                                                            <div class="bar-container">
+                                                                <div class="bar-3" style="width: ${numbScore3}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="side right">
+                                                            <div>15</div>
+                                                        </div>
+                                                        <div class="side">
+                                                            <div>Mixed(2 star)</div>
+                                                        </div>
+                                                        <div class="middle">
+                                                            <div class="bar-container">
+                                                                <div class="bar-2" style="width: ${numbScore2}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="side right">
+                                                            <div>6</div>
+                                                        </div>
+                                                        <div class="side">
+                                                            <div>Negative(1 star)</div>
+                                                        </div>
+                                                        <div class="middle">
+                                                            <div class="bar-container">
+                                                                <div class="bar-1" style="width: ${numbScore1}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="side right">
+                                                            <div>20</div>
+                                                        </div>
+                                                    </div>
+                                                    <hr style="border:1px solid #f1f1f1">
+                                                    <c:choose>
+                                                        <c:when test="${acc !=null}">
+
+                                                            <!-- Hiển thị danh sách comment -->
+                                                            <div style="margin: 0px; width:100% ">
+                                                                <style>
+                                                                    .form_comment {
+                                                                        max-width: 100%;
+                                                                        margin-bottom: 20px;
+                                                                    }
+                                                                    .form_comment label {
+                                                                        display: block;
+                                                                        margin-bottom: 5px;
+                                                                        font-weight: bold;
+                                                                    }
+                                                                    .form_comment .review-textarea {
+                                                                        width: 100%;
+                                                                        height: 50px;
+                                                                        padding: 8px;
+                                                                        box-sizing: border-box;
+                                                                        border: 1px solid #ddd;
+                                                                        border-radius: 5px;
+                                                                        font-size: 15px;
+                                                                        margin-bottom: 5px;
+                                                                    }
+                                                                    .form_comment button {
+                                                                        background-color: #4CAF50;
+                                                                        color: white;
+                                                                        padding: 10px 15px;
+                                                                        border: none;
+                                                                        cursor: pointer;
+                                                                    }
+                                                                    .form_comment button:hover {
+                                                                        background-color: #45a049;
+                                                                    }
+                                                                    .review-list {
+                                                                        list-style: none;
+                                                                        padding: 0;
+                                                                    }
+                                                                    .review-item {
+                                                                        border: 1px solid #ddd;
+                                                                        padding: 10px;
+                                                                        margin-bottom: 10px;
+                                                                        border-radius: 5px;
+                                                                    }
+                                                                    .review-item strong {
+                                                                        color: #4CAF50;
+                                                                    }
+                                                                </style>
+                                                                <!-- Hiển thị danh sách comment -->
+
+                                                                <!-- Form để thêm comment mới -->
+                                                                <h2 for="rating">${acc.userName}</h2>
+                                                                <form action="review" id="commentForm" class="form_comment" method="post">
+                                                                    <div style="display: flex">
+                                                                        <h2 for="rating">Rating (1-5):</h2>
+                                                                        <input  name="score" type="number" id="rating" min="1" max="5" required style="height:30px">
+                                                                    </div>
+                                                                    <h2 for="comment">Your Review:</h2>
+                                                                    <textarea  name="txtcomment" id="comment" class="review-textarea" placeholder="Your review" maxlength="255" required>
+                                                                    </textarea>
+                                                                    <!--<button type="button" onclick="addComment()">Add a review</button>-->
+                                                                    <input type="hidden" name="action" >
+                                                                    <!--value="addReview"-->
+                                                                    <button type="submit"><span>Add a review</span></button>                                                            
+                                                                </form>
+                                                            </div>
+                                                            <hr style="border:1px solid #f1f1f1">
+                                                        </c:when>
+                                                        <c:otherwise></c:otherwise>
+                                                    </c:choose>
+                                                    <div id="search_results" class="search_results" data-gpnav="rows" >
+                                                        <div id="search_result_container" style="max-width:100%; max-width: 1024px;
+                                                                margin: 20px auto;
+                                                                font-size: 16px;
+                                                                font-family: "Poppins", sans-serif;">
+                                                            <div class="search_rule"></div>
+                                                            <div></div>
+                                                            <style>
+                                                            p { margin: 0;
+                                                            }
+                                                                              .fa.fa-star {
+                                                                                color: #fec902;
+                                                                              }
+
+                                                                              .review_message {
+                                                                                width: 100%;
+                                                                                display: inline-block;
+                                                                                margin: 10px 0;
+                                                                                display: flex;
+                                                                              }
+                                                                              .review_message-photo {
+                                                                                height: 80px;
+                                                                                width: 80px;
+                                                                                display: inline-block;
+
+                                                                                margin-right: 1.5em;
+                                                                                margin-left: 1em;
+                                                                              }
+                                                                              .review_message-box {
+                                                                                display: inline-block;
+                                                                                width: 85%;
+                                                                                background: #f6f6f6;
+                                                                                padding: 1.5em;
+                                                                                position: relative;
+                                                                              }
+                                                                              .review_message-box:after,
+                                                                              .review_message-box:before {
+                                                                                right: 100%;
+                                                                                top: 10%;
+                                                                                border: solid transparent;
+                                                                                content: " ";
+                                                                                height: 0;
+                                                                                width: 0;
+                                                                                position: absolute;
+                                                                                pointer-events: none;
+                                                                              }
+                                                                              .review_message-box:after {
+                                                                                border-right-color: #f6f6f6;
+                                                                                border-width: 25px;
+                                                                              }
+                                                                              .review_message-comment {
+                                                                                color: #9a9999;
+                                                                              }
+                                                                              .review_message-date {
+                                                                                color: #c7c7c7;
+                                                                              }
+                                                                              .review_message-author {
+                                                                                color: #c7c7c7;
+                                                                              }
+                                                                              .review_message-author strong {
+                                                                                color: black;
+                                                                              }
+                                                            </style>
+                                                            <h2 style="width: 100%;
+                                                                font-size: 1em;
+                                                                text-align: center;
+                                                                background: #34495e;
+                                                                color: #fff;
+                                                                padding: 0.5em;">All reviews</h2>
+                                                            <div id="search_resultsRows" >
+                                                                <c:forEach items="${reviews}" var="review">
+                                                                    <!--chuyen huong den profile-->
+                                                                    <a href="" style="height: 150px; box-sizing: border-box" data-ds-appid="238320" data-ds-itemkey="App_238320"
+                                                                       data-ds-tagids="[1667,3839,3978,4166,4345,1721,1662]"
+                                                                       data-ds-descids="[2,5]" data-ds-crtrids="[33520700]"
+                                                                       onmouseout="HideGameHover( this, event, 'global_hover' )"
+                                                                       class="search_result_row ds_collapse_flag " data-search-page="1"
+                                                                       data-gpnav="item" data-ds-steam-deck-compat-handled="true" style="display:flex">
+                                                                        <div id="app">
+                                                                            <div class="review_message">
+                                                                                <div class="review_message-photo">
+                                                                                    <img style="max-width: 100%;display: block;" 
+                                                                                         src="https://randomuser.me/api/portraits/men/88.jpg" />
+                                                                                </div>
+
+                                                                                <div class="review_message-box">
+                                                                                    <div class="review_message-author">
+                                                                                        <p>
+                                                                                            <strong>${review.user.account.userName}</strong> -
+                                                                                            <c:if test="${review.score >= 1 }">
+                                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                <c:if test="${review.score >= 2}">
+                                                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                    <c:if test="${review.score >= 3}">
+                                                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                        <c:if test="${review.score >= 4}">
+                                                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                            <c:if test="${review.score == 5}">
+                                                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                            </c:if>
+                                                                                                        </c:if>
+                                                                                                    </c:if>
+                                                                                                </c:if>
+                                                                                            </c:if>
+                                                                                            - ${review.score}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <div class="review_message-comment">
+                                                                                        <p>${review.comment}</p>
+                                                                                    </div>
+
+                                                                                    <div class="review_message-date">
+                                                                                        <time>
+                                                                                            <fmt:parseDate var="parsedDate" value="${review.dateStatement}" pattern="yyyy-MM-dd HH:mm:ss.SS" />
+                                                                                            <fmt:formatDate value="${parsedDate}" pattern="MMM dd, yyyy" />
+                                                                                        </time>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:forEach>
+                                                            </div>
                                                         </div>
                                                     </div>
 
-                                                    <div style="clear: both"></div>
                                                 </div>
                                             </div>
                                             <div id="Reviews_loading" class="user_reviews_container">
@@ -2203,9 +2573,9 @@
                                             <div style="clear: left"></div>
 
                                         </div>
-                                    </div>
+                                                            
+                                    </div>                     
                                 </div>
-
                                 <div id="reviewSettingsPopupCtn" style="display: none;">
                                     <div id="reviewSettingsPopupContent" class="review_settings_popup_content">
                                         <div class="review_settings_popup_header">
@@ -2216,14 +2586,11 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div data-panel="{&quot;maintainY&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;onMoveDown&quot;:&quot;BlockMovement&quot;,&quot;onMoveUp&quot;:&quot;BlockMovement&quot;,&quot;flow-children&quot;:&quot;column&quot;}"
                                  id="purchaseOptionsContentTablet" class="purchase_options_content_tablet"
                                  style="display: none;">
-
                                 <!-- game_area_purchase goes here -->
                             </div>
                         </div>
@@ -2250,7 +2617,8 @@
 
                             <div class="buttoncontainer">
                                 <a class="btnv6_blue_hoverfade btn_medium " href="#"
-                                   onclick="CreateWidget(872990); return false;"><span>Create widget</span></a>
+                                   onclick="CreateWidget(872990);
+                                           return false;"><span>Create widget</span></a>
                             </div>
                         </div>
                         <div id="widget_finished" style="display: none;">
