@@ -25,6 +25,15 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "CreateAccServlet", urlPatterns = {"/createAcc"})
 public class CreateAccServlet extends HttpServlet {
+    private AccountDAO accountDAO;
+    private UserDAO userDAO;
+    
+    @Override
+    public void init()throws ServletException {
+        accountDAO = new AccountDAOImpl();
+        userDAO = new UserDAOImpl();
+    }
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -95,19 +104,7 @@ public class CreateAccServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private Boolean isValidPhoneNumber(String phoneNumber) {
-        try {
-            String regex = "^\\d{10}$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(phoneNumber);
-            return matcher.matches();
-        }
-        catch (Exception e) {
-            return false;
-        }
-    }
-        
+    
     private String processAction (String action, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "/signIn.jsp";
@@ -137,20 +134,19 @@ public class CreateAccServlet extends HttpServlet {
         boolean inValidNumber = false;
         boolean notCheck = false;
         boolean isAgreed = "on".equals(agreeCheck);
-        AccountDAO accDao = new AccountDAOImpl();
         
         if (!isAgreed) {
             messageContinueError = "Please agree our policy to continue...";
             notCheck = true;
         }
-        if (!isValidPhoneNumber(phoneNumber)) {
+        if (!userDAO.isValidPhoneNumber(phoneNumber)) {
             messageContinueError = "Phone number must include 10 numeric characters...";
             inValidNumber = true;
         }
-        if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail) || accDao.emailExisted(email)) {
+        if (email.isEmpty() || confirmMail.isEmpty() || !email.equals(confirmMail) || accountDAO.emailExisted(email)) {
             messageContinueError = "Email does not match or is blank!!!";
             inValidEmail = true;
-            if (accDao.emailExisted(email))
+            if (accountDAO.emailExisted(email))
                 messageContinueError = "Email existed!!!";
         }
         if (inValidEmail || notCheck || inValidNumber)
@@ -216,11 +212,10 @@ public class CreateAccServlet extends HttpServlet {
     
     private Account addAcc(String userName, String password, String salt, String email, User user) {
         Account acc = new Account();
-        AccountDAO accDao = new AccountDAOImpl();
         acc.setEmail(email);
         acc.setUserName(userName);
         acc.setSalt(salt);
-        acc.setPasswordHash(accDao.hashPassword(password, acc.getSalt()));
+        acc.setPasswordHash(accountDAO.hashPassword(password, acc.getSalt()));
         acc.setCreatedAt(new Timestamp(java.lang.System.currentTimeMillis()));
         acc.setUser(user);
         return acc;

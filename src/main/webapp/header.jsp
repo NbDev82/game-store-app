@@ -131,7 +131,7 @@
                                 <!--hidden control User-->
                                 <div class="popup_block_new" id="account_dropdown" style="display: none;">
                                     <div class="popup_body popup_menu">
-                                        <a class="popup_menu_item" href="#">View my
+                                        <a class="popup_menu_item" href="/game-store-app-v1/profiles?action=viewProfile">View my
                                             profile</a>
                                         <!-- User Name  -->
                                         <a class="popup_menu_item" href="#">Account

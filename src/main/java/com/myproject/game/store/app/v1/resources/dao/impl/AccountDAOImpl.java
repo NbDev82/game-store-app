@@ -88,6 +88,37 @@ public class AccountDAOImpl implements AccountDAO{
     }
     
     @Override
+    public boolean updateAccount(Account account) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            Account existingAccount = em.find(Account.class, account.getAccountId());
+            if (existingAccount != null) {
+                existingAccount.setUserName(account.getUserName());
+                existingAccount.setEmail(account.getEmail());
+                existingAccount.setPasswordHash(account.getPasswordHash());
+                existingAccount.setSalt(account.getSalt());
+                existingAccount.setCreatedAt(account.getCreatedAt());
+                existingAccount.setLastLogin(account.getLastLogin());
+                existingAccount.setUser(account.getUser());
+                existingAccount.setPasswordResetRequest(account.getPasswordResetRequest());
+                existingAccount.setRoles(account.getRoles());
+                em.merge(existingAccount);
+                trans.commit();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            trans.rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
     public boolean emailExisted(String email) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

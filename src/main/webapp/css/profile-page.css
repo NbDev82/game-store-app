@@ -1,0 +1,348 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 4, 2023, 4:03:23 PM
+    Author     : admin
+*/
+
+body {
+    color: #969696;
+    font-family: "Motiva Sans",Arial,Helvetica,sans-serif;
+    background: #1b2838;
+    text-align: left;
+    color: #8F98A0;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+body.DefaultTheme {
+    --gradient-right: rgba(109, 38, 44, 0.301);
+    --gradient-left: rgba(50, 255, 193, 0.103);
+    --gradient-background: rgba(34, 35, 48, 0.93);
+    --gradient-background-right: rgba(109, 38, 44, 0);
+    --gradient-background-left: rgba(50, 255, 193, 0.103);
+    --color-showcase-header: rgba(43, 45, 68, 0.93);
+    --gradient-showcase-header-left: rgba(115, 173, 184, 0.247);
+    --btn-background: rgba(43, 52, 68);
+    --btn-background-hover: rgb(53, 62, 78);
+    --btn-outline: rgb(93, 102, 118);
+}
+
+div {
+    display: block;
+}
+
+.profile_page {
+    background-image: url( 'https://community.cloudflare.steamstatic.com/public/images/profile/2020/bg_dots.png' );
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #000000;
+    position: relative;
+    min-width: 950px;
+}
+
+.profile_header_bg {
+    position: relative;
+    max-width: 1018px;
+    min-height: 224px;
+    padding-bottom: 0px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.profile_header_bg_texture {
+    max-width: 976px;
+    min-height: 224px;
+    margin: 0 auto;
+    background: radial-gradient(
+		farthest-side at bottom right,
+		var(--gradient-right),
+		transparent 500px
+	  ),
+	  radial-gradient(
+		farthest-corner at bottom left,
+		var(--gradient-left),
+		transparent 600px
+	  );
+    background-color: var(--gradient-background);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.profile_header {
+    position: relative;
+    max-width: 926px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
+
+.profile_header_content {
+    position: relative;
+    padding-top: 8px;
+    padding-right: 8px;
+    color: #c4c4c4;
+    font-size: 13px;
+}
+
+.profile_header_centered_persona {
+    position: absolute;
+    left: 186px;
+    right: 268px;
+    white-space: nowrap;
+    padding-left: 18px;
+    padding-bottom: 18px;
+}
+
+.profile_header .persona_name {
+    line-height: 40px;
+    font-size: 24px;
+    color: #ffffff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: 200;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile_header_summary {
+    overflow: hidden;
+    padding-right: 18px;
+    padding-left: 0px;
+    margin-top: 40px;
+}
+
+.profile_summary {
+    height: 76px;
+    line-height: 18px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.playerAvartar {
+    float: left;
+    margin-right: 18px;
+    position: relative;
+    width: 166px;
+    height: 166px;
+    border-radius: 0;
+    padding: 1px;
+}
+
+.playerAvatarAutoSizeInner {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}
+
+.profile_header_badgeinfo {
+    float: right;
+}
+
+.profile_header_badgeinfo_badge_area {
+    width: 268px;
+}
+
+.persona_level {
+    line-height: 40px;
+    margin-bottom: 13px;
+    color: #ebebeb;
+}
+
+.profile_header_badge {
+    border-radius: 3px;
+    background-color: rgba( 0, 0, 0, 0.3 );
+    height: 70px;
+    margin-bottom: 13px;
+}
+
+.profile_header_badge_instructions {
+    padding: 8px;
+}
+
+.profile_header_actions {
+    white-space: nowrap;
+}
+
+
+
+.btn_profile_action {
+	border-radius: 2px;
+	color: lightgray !important;
+	padding: 1px;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	background-color: var(--btn-background);
+	transition: all 0.1s ease-in-out;
+}
+.btn_profile_action > span {
+	padding: 0 10px;
+	border-radius: 2px;
+	display: block;
+	background-color: var(--btn-background);
+}
+.btn_profile_action:hover, .btn_profile_action.focus {
+	text-decoration: none;
+	color: #fff;
+	background-color: var(--btn-background-hover);
+	filter: drop-shadow(1px 5px 10px rgba(0, 0, 0, 0.25));
+
+}
+.btn_profile_action:hover > span, .btn_profile_action.focus > span {
+	background-color: var(--btn-background-hover);
+	color: #fff;
+}
+.btn_profile_action_disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+.btn_profile_action > span > .reward_btn_icon {
+	vertical-align: middle;
+}
+
+.profile_content {
+    position: relative;
+    background: radial-gradient( farthest-side at top right, var(--gradient-right), transparent 500px ), 
+        radial-gradient( farthest-corner at top left, var(--gradient-left), transparent 600px ), 
+        radial-gradient( farthest-corner at bottom right, var(--gradient-background-right), transparent 500px ), 
+        radial-gradient( farthest-corner at bottom left, var(--gradient-background-left), transparent 600px );
+    background-color: var(--gradient-background);
+    background-repeat: no-repeat;
+    padding: 12px 12px 64px 12px;
+    width: 952px;
+    margin: 0 auto;
+    font-size: 13px;
+    min-height: calc( 100vh - 511px );
+}
+
+.profile_content_inner {
+    position: relative;
+}
+
+.profile_rightcol {
+    background-color: #101214;
+    background-color: rgba( 0, 0, 0, 0.3 );
+    backdrop-filter: blur(20px);
+    padding: 10px;
+    border-radius: 3px;
+    width: 268px;
+    float: right;
+}
+
+.profile_in_game {
+    margin-bottom: 32px;
+}
+
+.persona {
+    color: #898989;
+}
+
+.profile_online_status_header {
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.profile_online_status {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.profile_leftcol {
+    width: 652px;
+    float: left;
+}
+
+.profile_leftcol_header {
+    border-bottom: none;
+    padding: 6px 10px;
+    line-height: 26px;
+    border-radius: 3px;
+    backdrop-filter: blur(20px);
+    background-color: rgba( 0, 0, 0, 0.3 );
+}
+
+.profile_recentgame_header {
+    margin-bottom: 8px;
+}
+
+h2 {
+    color: #969696 !important;
+    font-weight: 200 !important;
+    margin: 0 !important;
+    padding: 0;
+    font-size: 20px !important;
+}
+
+.your_game {
+    backdrop-filter: blur(20px);
+    background-color: rgba( 0, 0, 0, 0.3 );
+    border-radius: 3px;
+    margin-bottom: 21px;
+}
+
+
+.your_game_content {
+    padding: 8px 10px;
+}
+
+.game_info {
+    position: relative;
+    height: 69px;
+}
+
+.game_info_cap {
+    float: left;
+    margin-right: 8px;
+    width: 184px;
+    max-width: 33%;
+}
+
+.game_capsule {
+    width: 100%;
+    border: none;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+img.game_capsule {
+	width: 148px;
+	height: 56px;
+}
+
+.game_name {
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+.whiteLink {
+    color: #ebebeb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.whiteLink:hover {
+    color: #66C0F4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.game_info_details {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: right;
+    color: #969696;
+}

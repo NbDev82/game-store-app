@@ -31,6 +31,9 @@ public class User implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
     
+    @Column(name = "summary", columnDefinition = "varchar(255) default 'No information given.'")
+    private String summary;
+    
     @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
     

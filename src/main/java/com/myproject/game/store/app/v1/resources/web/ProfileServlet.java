@@ -5,7 +5,11 @@
 package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
+import com.myproject.game.store.app.v1.resources.dao.EmailDAO;
+import com.myproject.game.store.app.v1.resources.dao.UserDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.impl.EmailDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.impl.UserDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.User;
 import java.io.IOException;
@@ -21,8 +25,16 @@ import javax.servlet.http.HttpSession;
  *
  * @author admin
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/logAcc"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/profiles"})
+public class ProfileServlet extends HttpServlet {
+    private AccountDAO accountDAO;
+    private UserDAO userDAO;
+    
+    @Override
+    public void init()throws ServletException {
+        accountDAO = new AccountDAOImpl();
+        userDAO = new UserDAOImpl();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +53,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet ProfileServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,20 +88,63 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        log("get into servlet");
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        if (action == null)
-            action = "logout";
-        String url = processAction(action, request, response);
-        if(url != null && !url.isEmpty()){
-            if(url.contains(request.getContextPath()))
-                response.sendRedirect(url);
-            else
-                getServletContext()
-                    .getRequestDispatcher(url)
-                    .forward(request, response);
-        }
+        String url = "/view-profile.jsp";
+        if (action.equals("viewProfile"))
+            url = "/view-profile.jsp";
+        else if (action.equals("editProfile"))
+            url = handleEditProfileAction(request, response);
+        
+        
+        getServletContext()
+            .getRequestDispatcher(url)
+            .forward(request, response);
+        
     }
-
+    
+    private String handleEditProfileAction(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String userName = request.getParameter("userName");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String summary = request.getParameter("summary");
+        log(userName);        
+        log(firstName);        
+        log(lastName);        
+        log(email);        
+        log(phoneNumber);        
+        log(summary);
+        User user = (User)session.getAttribute("user");
+        Account acc = (Account)session.getAttribute("acc");
+        String url = "edit-profile.jsp";
+        if(userDAO.isValidPhoneNumber(phoneNumber)) {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setSummary(summary);
+            user.setPhoneNumber(phoneNumber);
+            try {
+                if(userDAO.updateUser(user)) {
+                    acc.setEmail(email);
+                    acc.setUserName(userName);
+                    acc.setUser(user);
+                    if(accountDAO.updateAccount(acc))
+                        url = "/view-profile.jsp";
+                }
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+                url = "/    edit-profile.jsp";
+            }
+        }
+        
+        return url;
+        
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
@@ -99,64 +154,5 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    private String processAction(String action, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String url = "/login.jsp";
-        switch (action) {
-            case "logout":{
-                url = handleLogoutAction(request, response);
-                break;
-            }
-            case "login":
-                url = handleLoginAction(request, response);
-                break;
-            case "createAcc":
-                url = "/signIn.jsp";
-                break;
-            default:
-                break;
-        }
-        return url;
-    }
-    
-    private String handleLoginAction(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String url = "";
-        String userName = request.getParameter("userName");
-        String passwordHash = request.getParameter("passwordHash");
-        AccountDAO accDao = new AccountDAOImpl();
-        String message;
-        Account acc = accDao.validateAccount(userName, passwordHash);
-        if (acc != null) {
-            User user = acc.getUser();
-            session.setAttribute("acc", acc);
-            session.setAttribute("user", user);
-            log(String.valueOf(acc));
-            log(String.valueOf(user));
-            message = "";
-            String preUrl = (String)session.getAttribute("preUrl");
-            if(preUrl == null || preUrl.isEmpty()){
-                url = request.getContextPath()+"/home";
-            }else{
-                url= preUrl;
-            }
-            return url;
-        }
-        else {
-            message = "Invalid username or password!!!";
-            url = "/login.jsp";
-        }   
-        request.setAttribute(("message"), message);
-        return url;
-    }
 
-    private String handleLogoutAction(HttpServletRequest request, HttpServletResponse response) {
-        String url = "/login.jsp"; 
-        HttpSession session = request.getSession();
-        session.setAttribute("acc", null);
-        session.setAttribute("user", null);
-        return url;
-    }
 }

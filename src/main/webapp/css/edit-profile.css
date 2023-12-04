@@ -1,0 +1,255 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 4, 2023, 8:59:02 PM
+    Author     : admin
+*/
+
+body.flat_page {
+    position: relative;
+    min-height: 100%;
+}
+
+body.profile_edit_page {
+    background: linear-gradient(180deg, #262D33 -3.38%, #1D1E20 78.58%) !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: auto 100% !important;
+    font-family: "Motiva Sans",Arial,Helvetica,sans-serif !important;
+}
+
+body.profile_edit_page .leftcol.hasContentBoxes {
+    display: block;
+    float: none;
+    width: auto;
+    max-width: none;
+}
+
+.pagecontent {
+    padding-bottom: 128px;
+}
+
+.profile_small_header_bg {
+    max-width: 1010px;
+    height: 215px;
+    margin: 0 auto -98px auto;
+    background-position: center;
+}
+
+.grouppage_content_area {
+    padding-top: 18px;
+}
+
+.groupadmin_content{
+	background: #495665;
+	color: #97a5b4;
+}
+
+.maincontent {
+    width: 948px;
+    margin: 0 auto;
+}
+
+.profile_BackToProfile {
+    text-align: right;
+    line-height: 20px
+}
+
+.profile_BackToProfile a {
+    color: #999;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.profile_BackToProfile a:hover {
+    color: #fff;
+}
+
+.profile_edit {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+
+.profile_edit .profile_edit_navigation {
+    min-width: 0;
+    width: 200px;
+    max-width: 20vw;
+    margin: 0 20px 0 0;
+}
+
+.profile_edit_navigation_btn {
+    display: block;
+    line-height: 30px;
+    background-image: linear-gradient(to left, transparent, transparent 50%, #3d4450 50%, #3d4450);
+    background-size: 200% 100%;
+    border-radius: 3px;
+    transition-property: background-position,color,background-color;
+    transition-duration: .15s;
+    transition-timing-function: ease-in;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #3d4450;
+    background-position: 0 0;
+    color: #fff;
+    padding: 2px 20px 2px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.profile_edit_pagecontent {
+    flex: 1;
+    min-width: 0;
+}
+
+body.profile_edit_page .HeaderText {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin: 0px 5px 0px 5px;
+}
+
+.HeaderText {
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    user-select: none;
+    margin-right: 26px;
+    margin-bottom: 12px;
+}
+
+body.profile_edit_page .BodyText {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    line-height: normal;
+}
+
+.BodyText {
+    color: #969696;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 300;
+    margin-bottom: 32px;
+    user-select: none;
+}
+
+.profile_edit_profilebox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 15px 0;
+}
+
+.profile_edit_profilebox_title {
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-transform: uppercase;
+    color: #e4e4e4;
+    padding: 0px 0px 6px 10px;
+    border-bottom: 2px solid rgba(228,228,228,.1);
+}
+
+.profile_edit_profilebox_content {
+    flex: 1;
+    align-items: center;
+    padding: 24px 20px;
+}
+
+.InputAreaBox {
+    margin-bottom: 22px;
+    color: #c15755;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.profile_edit_InputLabel {
+    font-weight: 300;
+    color: #969696;
+    text-transform: uppercase;
+    line-height: 19px;
+    font-size: 13px;
+    margin-bottom: 4px;
+    user-select: none;
+    letter-spacing: initial;
+}
+
+.profile_edit_InputWrapper {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+}
+
+.profile_edit_Input {
+    box-shadow: inset 1px 1px 0px rgba(0,0,0,.6666666667);
+    border: none;
+    background-color: rgba(0,0,0,.25);
+    border-radius: 3px;
+    color: #909090;
+    font-size: 14px;
+    font-family: "Motiva Sans",Arial,Helvetica,sans-serif;
+    font-weight: 300;
+    margin: 0;
+    display: block;
+    line-height: 22px;
+    padding: 10px;
+}
+
+.profile_edit_InputWrapper>input.profile_edit_Input {
+    flex: 1;
+}
+
+.summary_textarea {
+    outline: none;
+    color: #909090;
+    font-size: 14px;
+    line-height: 1.4em;
+    box-shadow: inset 1px 1px 0px rgba(0,0,0,.6666666667);
+    border: none;
+    background-color: rgba(0,0,0,.25);
+    padding: 12px;
+    width: calc(100% - 24px);
+}
+
+.profile_edit_savebtn {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.blue_save_btn {
+    background: linear-gradient(to right, #47bfff 0%, #1a44c2 60%);
+    background-position: 25%;
+    background-size: 330% 100%;
+    width: 200px;
+    margin-left: 12px;
+    box-sizing: content-box;
+    border: 0;
+    font: inherit;
+    overflow: visible;
+    padding: 0;
+    margin: 2px 0;
+    -webkit-user-select: none;
+    display: block;
+    line-height: 32px;
+    color: #dfe3e6;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+    transition-property: opacity,background,color,box-shadow;
+    transition-duration: .2s;
+    transition-timing-function: ease-out;
+    position: relative;
+}
