@@ -270,6 +270,8 @@ public class CartServlet extends HttpServlet {
         GameDAO gameDAO = new GameDAOImpl();
         List<Game> games = orderDAO.getOrderedGame(acc.getAccountId());
         Game game = gameDAO.getGameById(gameId);
+        if(games == null)
+            return true;
         boolean isExist = false;
         for(Game g: games){
             if(g.getGameId()==game.getGameId())
