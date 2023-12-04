@@ -6,14 +6,16 @@ package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.EmailDAO;
-import com.myproject.game.store.app.v1.resources.dao.UserDAO;
-import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.*;
+import com.myproject.game.store.app.v1.resources.dao.impl.*;
 import com.myproject.game.store.app.v1.resources.dao.impl.EmailDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.UserDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,11 +31,13 @@ import javax.servlet.http.HttpSession;
 public class ProfileServlet extends HttpServlet {
     private AccountDAO accountDAO;
     private UserDAO userDAO;
+    private OrderDAO orderDAO;
     
     @Override
     public void init()throws ServletException {
         accountDAO = new AccountDAOImpl();
         userDAO = new UserDAOImpl();
+        orderDAO = new OrderDAOImpl();
     }
 
     /**
@@ -92,8 +96,15 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         String url = "/view-profile.jsp";
-        if (action.equals("viewProfile"))
-            url = "/view-profile.jsp";
+        Account acc = (Account) session.getAttribute("acc");
+        if (action.equals("viewProfile")){
+            log(String.valueOf(acc.getAccountId()));
+            List<Game> yourGames = orderDAO.getOrderedGame(acc.getAccountId());
+            if(yourGames != null) {
+                url = "/view-profile.jsp";
+                session.setAttribute("yourGames", yourGames);
+            }
+        }
         else if (action.equals("editProfile"))
             url = handleEditProfileAction(request, response);
         
@@ -137,7 +148,7 @@ public class ProfileServlet extends HttpServlet {
                 }
             } catch(Exception e) {
                 System.out.println(e.getMessage());
-                url = "/    edit-profile.jsp";
+                url = "/edit-profile.jsp";
             }
         }
         

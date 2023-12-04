@@ -10,6 +10,7 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -155,6 +156,10 @@ public class LoginServlet extends HttpServlet {
     private String handleLogoutAction(HttpServletRequest request, HttpServletResponse response) {
         String url = "/login.jsp"; 
         HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("acc");
+        acc.setLastLogin(new Timestamp(java.lang.System.currentTimeMillis()));
+        AccountDAO accDao = new AccountDAOImpl();
+        if(accDao.updateAccount(acc));
         session.setAttribute("acc", null);
         session.setAttribute("user", null);
         return url;
