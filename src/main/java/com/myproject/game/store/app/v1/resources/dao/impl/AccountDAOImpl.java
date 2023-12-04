@@ -10,7 +10,6 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import java.security.*;
 import java.util.*;
 import javax.persistence.*;
-import java.util.logging.Logger;
 /**
  *
  * @author admin
@@ -19,7 +18,7 @@ public class AccountDAOImpl implements AccountDAO{
     @Override
     public Account validateAccount(String userName, String providedPassword) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "SELECT a FROM Account a WHERE a.userName = :userName";
+        String qString = "SELECT a FROM Account a WHERE a.userName = :userName or a.email = :userName";
         TypedQuery<Account> q = em.createQuery(qString, Account.class);
         q.setParameter("userName", userName);
         
@@ -151,5 +150,43 @@ public class AccountDAOImpl implements AccountDAO{
         Account acc = em.find(Account.class, accountId);
         em.close();
         return acc;
+    }
+
+    @Override
+    public void changePassword(String email, String password) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        Account acc = findAccountByEmail(email);
+        String passwordHash = hashPassword(password,acc.getSalt());
+        try{
+            trans.begin();
+            acc.setPasswordHash(passwordHash);
+            em.merge(acc);
+            trans.commit();
+        }catch(Exception e){
+            trans.rollback();
+        }finally{
+            em.close();
+        }
+    }
+
+    private Account findAccountByEmail(String email) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.email = :email");
+            query.setParameter("email", email);
+            Account account = (Account)query.getSingleResult();
+            em.getTransaction().commit();
+            return account;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return null;
+        } finally {
+            em.close();
+        }
     }
 }
