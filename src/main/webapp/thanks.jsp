@@ -28,7 +28,7 @@
                     <div class="container" style="text-align: center;">
                         <h1 style="color: whitesmoke; font-size: 40px;">Payment Successful!</h1>
                         <p  style="color: whitesmoke; font-size: 25px;">Your game will be sent to the specified email.</p>
-                        <a href="index.html">
+                        <a href="/game-store-app-v1/home">
                             <button type="button" class="btn btn-success">Back to home page</button>
                         </a>
                     </div>
