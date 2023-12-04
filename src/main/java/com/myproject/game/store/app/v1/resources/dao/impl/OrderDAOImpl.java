@@ -5,7 +5,9 @@
 package com.myproject.game.store.app.v1.resources.dao.impl;
 
 import com.myproject.game.store.app.v1.resources.connection.DBUtil;
+import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
@@ -128,5 +130,19 @@ public class OrderDAOImpl implements OrderDAO{
             .filter(order -> order.isStatus() == status)
             .collect(Collectors.toList());
     }
-    
+
+    @Override
+    public List<Game> getOrderedGame(Long accId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        Account acc = em.find(Account.class, accId);
+        List<Order> orders = acc.getUser().getCart().getOrders();
+        orders = filterByStatus(orders, true);
+        List<Game> games = new ArrayList<>();
+        for(Order o : orders){
+            for(OrderItem oi : o.getOrderItems()){
+                games.add(oi.getGame());
+            }
+        }
+        return games;
+    }
 }

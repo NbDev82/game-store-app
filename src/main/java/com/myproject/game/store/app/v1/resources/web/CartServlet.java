@@ -6,15 +6,21 @@ package com.myproject.game.store.app.v1.resources.web;
 
 import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.CartDAO;
+import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.CartDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
+import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
+import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -216,27 +222,30 @@ public class CartServlet extends HttpServlet {
         }else{
             if(gameIdString != null){
                 Long gameId = Long.valueOf(gameIdString);
-                Cart cart = acc.getUser().getCart();
-                log(String.valueOf(acc.getUser().getCart() == null) );
-                Long userId = acc.getUser().getUserId();
-                if(cart == null){
-                    if(cartDAO.createCart(userId)){
-                        cart = cartDAO.getCartByUserId(userId);
-                        acc = accountDAO.getAccountById(acc.getAccountId());
-                        session.setAttribute("acc", acc);
-                    }
-                }
-                if(cart == null){
-                    url=request.getContextPath()+"/error.jsp";
-                }else{
-                    Long cartId = cart.getCartId();
-                    cart = cartDAO.addItem(cartId, gameId);
+                if(checkOrderedGame(acc,gameId)){
+                    Cart cart = acc.getUser().getCart();
+                    Long userId = acc.getUser().getUserId();
                     if(cart == null){
-                        url = "/error.jsp";
+                        if(cartDAO.createCart(userId)){
+                            cart = cartDAO.getCartByUserId(userId);
+                            acc = accountDAO.getAccountById(acc.getAccountId());
+                            session.setAttribute("acc", acc);
+                        }
+                    }
+                    if(cart == null){
+                        url=request.getContextPath()+"/error.jsp";
                     }else{
-                       session.setAttribute("cart", cart);
-                       url="/cart.jsp"; 
-                    }      
+                        Long cartId = cart.getCartId();
+                        cart = cartDAO.addItem(cartId, gameId);
+                        if(cart == null){
+                            url = "/error.jsp";
+                        }else{
+                           session.setAttribute("cart", cart);
+                           url="/cart.jsp"; 
+                        }      
+                    }
+                }else{
+                    url = request.getContextPath();
                 }
             }else{
                 url = "/error.jsp";
@@ -254,5 +263,18 @@ public class CartServlet extends HttpServlet {
                     .getRequestDispatcher(url)
                     .forward(request, response);
         }
+    }
+
+    private boolean checkOrderedGame(Account acc, Long gameId) {
+        OrderDAO orderDAO = new OrderDAOImpl();
+        GameDAO gameDAO = new GameDAOImpl();
+        List<Game> games = orderDAO.getOrderedGame(acc.getAccountId());
+        Game game = gameDAO.getGameById(gameId);
+        boolean isExist = false;
+        for(Game g: games){
+            if(g.getGameId()==game.getGameId())
+                isExist = true;
+        }
+        return !isExist;
     }
 }
