@@ -17,6 +17,7 @@ public interface AccountDAO {
     String hashPassword(String password, String salt);
     String generateSalt();
     boolean insertAccount(Account acc);
+    boolean updateAccount(Account account);
     boolean emailExisted(String email);
     boolean validatePassword(String password);
     boolean usernameExisted(String userName);
