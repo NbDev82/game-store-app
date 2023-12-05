@@ -2420,11 +2420,14 @@
                                                                         <input  name="score" type="number" id="rating" min="1" max="5" required style="height:30px">
                                                                     </div>
                                                                     <h2 for="comment">Your Review:</h2>
-                                                                    <textarea  name="txtcomment" id="comment" class="review-textarea" placeholder="Your review" maxlength="255" required>
+                                                                    <textarea  name="txtcomment" type="text" id="comment" class="review-textarea" placeholder="Your review" maxlength="255" required>
                                                                     </textarea>
                                                                     <!--<button type="button" onclick="addComment()">Add a review</button>-->
-                                                                    <input type="hidden" name="action" >
+<!--                                                                    <input type="hidden" name="action" >-->
+<!--                                                                    <input type="hidden" name="accUserId" value="">-->
                                                                     <!--value="addReview"-->
+                                                                    <input type="hidden" name="gameId" value="${game.gameId}" required/>
+                                                                    <input type="hidden" name="accId" value="${acc.accountId}" required/>
                                                                     <button type="submit"><span>Add a review</span></button>                                                            
                                                                 </form>
                                                             </div>
@@ -2504,7 +2507,7 @@
                                                             <div id="search_resultsRows" >
                                                                 <c:forEach items="${reviews}" var="review">
                                                                     <!--chuyen huong den profile-->
-                                                                    <a href="" style="height: 150px; box-sizing: border-box" data-ds-appid="238320" data-ds-itemkey="App_238320"
+                                                                    <a href="profiles?action=viewProfile" style="height: 150px; box-sizing: border-box" data-ds-appid="238320" data-ds-itemkey="App_238320"
                                                                        data-ds-tagids="[1667,3839,3978,4166,4345,1721,1662]"
                                                                        data-ds-descids="[2,5]" data-ds-crtrids="[33520700]"
                                                                        onmouseout="HideGameHover( this, event, 'global_hover' )"
