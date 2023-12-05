@@ -8,7 +8,9 @@ import com.myproject.game.store.app.v1.resources.connection.DBUtil;
 import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import static com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl.logger;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
+import com.myproject.game.store.app.v1.resources.model.entity.GameImg;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -84,11 +86,66 @@ public class GameDAOImpl implements GameDAO {
             em.close();
         }
     }
+
     @Override
-    public void InsertGame(Long main_img_id,String game_name,String title,
-            String content,String warning,String award,Timestamp release_date, int initial_price,
-            boolean is_discount,int discount_price,String dev_name,String pub_name,int percent_pos,
-            String global_review,int numb_review){
-        
+    public void InsertGame(Game game) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+
+            em.persist(game);
+//            game.setMainImgId(game.getGameId()*100+1);
+//            em.merge(game);
+            trans.commit();
+
+        } catch (Exception ex) {
+            logger.warning(ex.getMessage());
+            System.out.println(ex);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void InsertImage(GameImg gameimg){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+
+            em.persist(gameimg);
+//            game.setMainImgId(game.getGameId()*100+1);
+//            em.merge(game);
+            trans.commit();
+
+        } catch (Exception ex) {
+            logger.warning(ex.getMessage());
+            System.out.println(ex);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+    @Override
+    public void UpdateGame(Game game){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+
+            em.merge(game);
+//            game.setMainImgId(game.getGameId()*100+1);
+//            em.merge(game);
+            trans.commit();
+
+        } catch (Exception ex) {
+            logger.warning(ex.getMessage());
+            System.out.println(ex);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
     }
 }
