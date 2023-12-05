@@ -254,7 +254,7 @@ src="https://store.akamai.steamstatic.com/public/javascript/broadcast_carousel.j
                                     <div class="row">
                                         <!-- Earnings (Monthly) Card Example -->
                                         <div class="col-xl-3 col-md-6 mb-4">
-                                            <form th:action="/admin" method="post"
+                                            <a href="/game-store-app-v1/managerGameStore" method="post"
                                                   class="card border-left-primary shadow h-100 py-2">
                                                 <input type="hidden" name="action" value="operatorGame"/>
                                                 <button type="submit" class="btn btn-link text-decoration-none">
@@ -271,7 +271,7 @@ src="https://store.akamai.steamstatic.com/public/javascript/broadcast_carousel.j
                                                         </div>
                                                     </div>
                                                 </button>
-                                            </form>
+                                            </a>
                                         </div>
 
                                         <!-- Earnings (Monthly) Card Example -->
