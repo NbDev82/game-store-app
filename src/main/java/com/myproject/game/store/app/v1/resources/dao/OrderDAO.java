@@ -8,6 +8,7 @@ import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Cart;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.Order;
+import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
 import java.util.List;
 
 /**
@@ -23,4 +24,5 @@ public interface OrderDAO {
     public Order getOrderBySecurityCode(String securityCode);
 
     public List<Game> getOrderedGame(Long accId);
+    public OrderItem getOrderItem(Long accId, Long gameId);
 }
