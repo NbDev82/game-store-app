@@ -168,48 +168,30 @@
                                         <h2>Your Games</h2>
                                         <div style="clear: both;"></div>
                                     </div>
-                                    <div class="your_games">
-                                        <div class="your_game">
-                                            <div class="your_game_content">
-                                                <div class="game_info">
-                                                    <div class="game_info_cap">
-                                                        <a href="*"> 
-                                                            <img class="game_capsule" src="https://cdn.cloudflare.steamstatic.com/steam/apps/1449850/capsule_184x69.jpg">
-                                                        </a>                                                        
+                                    <c:forEach items="${yourGames}" var="game">
+                                        <div class="your_games">
+                                            <div class="your_game">
+                                                <div class="your_game_content">
+                                                    <div class="game_info">
+                                                        <div class="game_info_cap">
+                                                            <a href="*"> 
+                                                                <img class="game_capsule" src="${game.gameimgs[0].imgLink}">
+                                                            </a>                                                        
+                                                        </div>
+                                                        <div class="game_info_details">
+                                                            Wish you have a good time
+                                                            <br>
+                                                            Enjoy the game
+                                                        </div>
+                                                        <div class="game_name">
+                                                            <a class="whiteLink" href="/game-store-app-v1/game?gameId=${game.gameId}">${game.gameName}</a>
+                                                        </div>
                                                     </div>
-                                                    <div class="game_info_details">
-                                                        This is the details of the games
-                                                        <br>
-                                                        Enjoy the game
-                                                    </div>
-                                                    <div class="game_name">
-                                                        <a class="whiteLink" href="*">Yugioh! Master Duel</a>
-                                                    </div>
-                                                </div>
-                                            </div>   
+                                                </div>   
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="your_games">
-                                        <div class="your_game">
-                                            <div class="your_game_content">
-                                                <div class="game_info">
-                                                    <div class="game_info_cap">
-                                                        <a href="*"> 
-                                                            <img class="game_capsule" src="https://cdn.cloudflare.steamstatic.com/steam/apps/1449850/capsule_184x69.jpg">
-                                                        </a>                                                        
-                                                    </div>
-                                                    <div class="game_info_details">
-                                                        This is the details of the games
-                                                        <br>
-                                                        Enjoy the game
-                                                    </div>
-                                                    <div class="game_name">
-                                                        <a class="whiteLink" href="*">Yugioh! Master Duel</a>
-                                                    </div>
-                                                </div>
-                                            </div>   
-                                        </div>
-                                    </div>
+                                    </c:forEach>
+                                    
                                 </div>
                                 <div style="clear: both;"></div>
                             </div>
