@@ -11,6 +11,8 @@ import com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.LanguageSupport;
+import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
+import com.myproject.game.store.app.v1.resources.model.entity.Review;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.in;
@@ -59,9 +61,18 @@ public class ProductServlet extends HttpServlet {
             if(!languageNames.contains(i.getLanguageName()))
                 languageNames.add(i.getLanguageName());
         }
+        
+        List<Review> reviews = new ArrayList<>();
+        for (OrderItem i : game.getOrderItems()) {
+            for (Review j : i.getReviews()) {
+                reviews.add(j);
+            }
+        }
+
         request.setAttribute("game", game);
         request.setAttribute("supports", supports);
         request.setAttribute("languageNames", languageNames);
+        request.setAttribute("reviews", reviews);
         request.getRequestDispatcher(url).forward(request,response);
     }
 
