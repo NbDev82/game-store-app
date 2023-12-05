@@ -55,6 +55,7 @@ public class SearchServlet extends HttpServlet {
             }
         request.setAttribute("listGames", listGames);
         request.setAttribute("listNames", listNames);
+        request.setAttribute("txtSearch", txtSearch);
         String url="search.jsp";
         request.getRequestDispatcher(url).forward(request, response);
     }

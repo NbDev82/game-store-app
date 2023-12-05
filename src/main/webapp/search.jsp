@@ -379,7 +379,7 @@
                                                        id="term" name="txt" 
                                                          maxlength="64">
                                                 
-                                                <input type="hidden" name="term" id="realterm" value="outlast">
+                                                <input type="hidden" name="term" id="realterm" value="${txtSearch}">
                                                 <input type="hidden" name="hide_filtered_results_warning"
                                                        id="hide_filtered_results_warning" value="">
                                                 <input type="hidden" name="ignore_preferences" id="ignore_preferences" value="">
