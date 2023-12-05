@@ -174,7 +174,7 @@
                                                 <div class="your_game_content">
                                                     <div class="game_info">
                                                         <div class="game_info_cap">
-                                                            <a href="*"> 
+                                                            <a href="game?gameId=${game.gameId}"> 
                                                                 <img class="game_capsule" src="${game.gameimgs[0].imgLink}">
                                                             </a>                                                        
                                                         </div>
