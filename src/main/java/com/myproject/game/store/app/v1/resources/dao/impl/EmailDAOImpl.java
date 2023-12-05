@@ -53,7 +53,7 @@ public class EmailDAOImpl implements EmailDAO{
 
             // 4 - send the message
             Transport transport = session.getTransport();
-            transport.connect("congnguyenhuu0911@gmail.com", "obbf ffcq ebed jpfm");
+            transport.connect("gamestoreapp1@gmail.com", "awdw ztyh lefw dzbr");
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
             return true;
