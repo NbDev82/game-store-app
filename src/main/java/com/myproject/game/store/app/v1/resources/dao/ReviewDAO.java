@@ -15,6 +15,7 @@ import java.util.List;
  * @author HP
  */
 public interface ReviewDAO {
-//    public List<Review> getAllReviewForGame(String gameId);
+//    public void addReview(Game game,Account acc,String Comment,int Score);
+//    public void addReview(Review);
     public void addReview(Review review);
 }

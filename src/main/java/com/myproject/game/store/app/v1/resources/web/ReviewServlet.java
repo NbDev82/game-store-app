@@ -4,9 +4,11 @@
  */
 package com.myproject.game.store.app.v1.resources.web;
 
+import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
 import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.ReviewDAO;
+import com.myproject.game.store.app.v1.resources.dao.impl.AccountDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.ReviewDAOImpl;
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static org.nustaq.serialization.minbin.MinBin.print;
 
 /**
  *
@@ -46,69 +49,46 @@ public class ReviewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+//        HttpSession session = request.getSession();
         
         response.setContentType("text/html;charset=UTF-8");
-        String scoreStr = request.getParameter("score");
+        int score =Integer.parseInt( request.getParameter("score"));
         String txtcomment = request.getParameter("txtcomment");
-        String gameId = request.getParameter("gameId");
-        int score = Integer.parseInt(scoreStr);
-        String url = "/product.jsp";
+        String gameIdStr = request.getParameter("gameId");
+        Long gameId = Long.valueOf(gameIdStr);
+        Long accId = Long.valueOf(request.getParameter("accId"));
         
-        Account acc = (Account) session.getAttribute("acc");
+//            Account acc = (Account) session.getAttribute("acc");
+        AccountDAO accountDAO = new AccountDAOImpl();
+        Account acc = accountDAO.getAccountById(accId);
+        
         GameDAO gameDAO = new GameDAOImpl();
-        Game game = gameDAO.getGameById(Long.valueOf(gameId));
-        
+        Game game = gameDAO.getGameById(gameId);
+
+//        ReviewDAO reviewDAO = new ReviewDAOImpl();
+//        reviewDAO.addReview(game,acc,txtcomment,score);
         Review review = new Review();
         review.setComment(txtcomment);
         review.setScore(score);
         review.setUser(acc.getUser());
-        
+
 //        Kiem tra game da mua chua
         OrderDAO orderDAO = new OrderDAOImpl();
-        List<Game> ListGameOrdered = new ArrayList<>();
-        ListGameOrdered = orderDAO.getOrderedGame(Long.valueOf(acc.getUser().getUserId()));
-        OrderItem oi = orderDAO.getOrderItem(Long.valueOf(acc.getUser().getUserId()),game.getGameId());
-//        if (ListGameOrdered.contains(game)) {
-//            review.setOrderItem(orderItem);
-//            ReviewDAO reviewDAO = new ReviewDAOImpl();
-//            reviewDAO.addReview(review);
-//        }
-        for (Game g: ListGameOrdered){
-            if(Objects.equals(g.getGameId(), game.getGameId()))
-            {
-                review.setOrderItem(oi);
+        List<Game> ListGameOrdered = orderDAO.getOrderedGame(accId);
+        OrderItem oi = orderDAO.getOrderItem(accId, gameId);
+        review.setOrderItem(oi);
+        for (Game g : ListGameOrdered) {
+            if (Objects.equals(g.getGameId(), game.getGameId())) {
+
                 ReviewDAO reviewDAO = new ReviewDAOImpl();
                 reviewDAO.addReview(review);
             }
         }
-        List<String> supports = new ArrayList<>();
-        List<String> languageNames = new ArrayList<>();
 
-        List<Review> reviews = new ArrayList<>();
-        for (OrderItem i : game.getOrderItems()) {
-            for (Review j : i.getReviews()) {
-                reviews.add(j);
-            }
-        }
 
-//      List<String> supports = List.of("Interface", "Full Audio", "Subtitles");  
-        for (LanguageSupport i : game.getLanguageSupports()) {
-            if (!supports.contains(i.getSupport())) {
-                supports.add(i.getSupport());
-            }
-        }
-        for (LanguageSupport i : game.getLanguageSupports()) {
-            if (!languageNames.contains(i.getLanguageName())) {
-                languageNames.add(i.getLanguageName());
-            }
-        }
-
-        request.setAttribute("game", game);
-        request.setAttribute("supports", supports);
-        request.setAttribute("languageNames", languageNames);
-        request.setAttribute("reviews", reviews);
-        request.getRequestDispatcher(url).forward(request, response);
+        
+        String url = "game?gameId="+gameIdStr;
+        response.sendRedirect(url);
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
