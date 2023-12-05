@@ -135,7 +135,11 @@ public class OrderDAOImpl implements OrderDAO{
     public List<Game> getOrderedGame(Long accId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         Account acc = em.find(Account.class, accId);
+        if(acc.getUser().getCart() == null)
+            return null;
         List<Order> orders = acc.getUser().getCart().getOrders();
+        if(orders == null)
+            return null;
         orders = filterByStatus(orders, true);
         List<Game> games = new ArrayList<>();
         for(Order o : orders){
