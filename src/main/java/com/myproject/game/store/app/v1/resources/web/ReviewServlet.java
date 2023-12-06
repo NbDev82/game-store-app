@@ -20,9 +20,13 @@ import com.myproject.game.store.app.v1.resources.model.entity.Review;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,19 +53,18 @@ public class ReviewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-        
+
         response.setContentType("text/html;charset=UTF-8");
-        int score =Integer.parseInt( request.getParameter("score"));
+        Integer score = Integer.parseInt(request.getParameter("score"));
         String txtcomment = request.getParameter("txtcomment");
         String gameIdStr = request.getParameter("gameId");
         Long gameId = Long.valueOf(gameIdStr);
         Long accId = Long.valueOf(request.getParameter("accId"));
-        
+
 //            Account acc = (Account) session.getAttribute("acc");
         AccountDAO accountDAO = new AccountDAOImpl();
         Account acc = accountDAO.getAccountById(accId);
-        
+
         GameDAO gameDAO = new GameDAOImpl();
         Game game = gameDAO.getGameById(gameId);
 
@@ -71,7 +74,8 @@ public class ReviewServlet extends HttpServlet {
         review.setComment(txtcomment);
         review.setScore(score);
         review.setUser(acc.getUser());
-
+        review.setDateStatement(new Timestamp(System.currentTimeMillis() + LocalTime.now().getNano() / 1_000_000));
+        
 //        Kiem tra game da mua chua
         OrderDAO orderDAO = new OrderDAOImpl();
         List<Game> ListGameOrdered = orderDAO.getOrderedGame(accId);
@@ -81,13 +85,15 @@ public class ReviewServlet extends HttpServlet {
             if (Objects.equals(g.getGameId(), game.getGameId())) {
 
                 ReviewDAO reviewDAO = new ReviewDAOImpl();
-                reviewDAO.addReview(review);
+//                reviewDAO.addReview(review);
+                reviewDAO.addReview(acc.getUser().getUserId(), oi.getOrderItemId(), score, txtcomment, Timestamp.from(java.time.Instant.now()));
             }
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("review", review);
 
-
-        
-        String url = "game?gameId="+gameIdStr;
+        System.out.println(gameId);
+        String url = "game?gameId=" + gameId;
         response.sendRedirect(url);
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,7 +109,11 @@ public class ReviewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        String gameIdStr = request.getParameter("gameId");
         processRequest(request, response);
+//        String url = "game?gameId=" + gameIdStr;
+//        request.getRequestDispatcher(url).forward(request,response);
+//        response.sendRedirect(url);
     }
 
     /**
@@ -117,7 +127,12 @@ public class ReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        String gameIdStr = request.getParameter("gameId");
         processRequest(request, response);
+//        String url = "game?gameId=" + gameIdStr;
+//        request.getRequestDispatcher(url).forward(request,response);
+//        response.sendRedirect(url);
+
     }
 
     /**
