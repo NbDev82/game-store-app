@@ -49,6 +49,7 @@ public class ProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = "/product.jsp"; 
         HttpSession session = request.getSession();
+        
         Long id = Long.valueOf(request.getParameter("gameId"));
         System.out.println(id);
         GameDAO gameDAO= new GameDAOImpl();
@@ -69,11 +70,15 @@ public class ProductServlet extends HttpServlet {
         for (OrderItem orderItem : game.getOrderItems()) {
             reviews.addAll(orderItem.getReviews());
         }
-        Review revUpdate = (Review) session.getAttribute("review");
-        if(revUpdate!=null){
-            reviews.add(revUpdate); 
-            session.removeAttribute("review");
-        }
+//        Review revUpdate = (Review) session.getAttribute("review");
+//        if(revUpdate!=null){
+//            reviews.add(revUpdate); 
+//            session.removeAttribute("review");
+//        }
+        List<Review> lsreviewsUpdate = (List<Review>) session.getAttribute("lsReviewsUpdate");
+        if(lsreviewsUpdate != null)
+            reviews.addAll(lsreviewsUpdate);
+        
         request.setAttribute("game", game);
         request.setAttribute("supports", supports);
         request.setAttribute("languageNames", languageNames);
