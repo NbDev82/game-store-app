@@ -31,62 +31,13 @@ public class ReviewDAOImpl implements ReviewDAO {
     static final Logger logger
             = Logger.getLogger(
                     GameDAOImpl.class.getName());
-    @Override
-    public void addReview(Review review){
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        EntityTransaction trans = em.getTransaction();
-        trans.begin();
-        try{
-            em.persist(review);
-            trans.commit();
-        }catch(Exception ex){
-            logger.warning(ex.getMessage());
-            System.out.println(ex);
-            trans.rollback();
-//if (trans != null && trans.isActive()) {
-//                trans.rollback();
-//            }
-        }finally {
-            em.close();
-        }
-    }
-//    public void addReview(Game game, Account acc, String Comment, int Score) {
-//        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-//        EntityTransaction trans = em.getTransaction();
-//
-//        try {
-//            Review review = new Review();
-//            review.setUser(acc.getUser());
-//            review.setScore(Score);
-//            review.setComment(Comment);
-//
-//            OrderDAO orderDAO = new OrderDAOImpl();
-//            List<Game> ListGameOrdered = orderDAO.getOrderedGame(acc.getAccountId());
-//            OrderItem oi = orderDAO.getOrderItem(acc.getAccountId(), game.getGameId());
-//            review.setOrderItem(oi);
-//            for (Game g : ListGameOrdered) {
-//                if (Objects.equals(g.getGameId(), game.getGameId())) {
-//
-//                    trans.begin();
-//                    em.persist(review);
-//                    trans.commit();
-//                }
-//            }
-//        } catch (Exception ex) {
-//            logger.warning(ex.getMessage());
-//            System.out.println(ex);
-//            trans.rollback();
-//        } finally {
-//            em.close();
-//        }
-//    }
 
     @Override
     public void addReview(Long userId, Long orderItemId, int Score, String Comment, Timestamp dateStatement) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        String sql = 
-                "insert into reviews(COMMENT,date_statement, SCORE,order_item_id,user_id)"
+        String sql
+                = "insert into reviews(COMMENT,date_statement, SCORE,order_item_id,user_id)"
                 + "values (?,?,?,?,?)";
 
         try {
@@ -105,6 +56,6 @@ public class ReviewDAOImpl implements ReviewDAO {
             }
         } finally {
             em.close();
-        }           
+        }
     }
 }

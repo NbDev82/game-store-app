@@ -15,7 +15,5 @@ import java.util.List;
  * @author HP
  */
 public interface ReviewDAO {
-//    public void addReview(Game game,Account acc,String Comment,int Score);
-    public void addReview(Review review);
     public void addReview(Long userId, Long orderItemId, int Score, String Comment,Timestamp dateStatement);
 }

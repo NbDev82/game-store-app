@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.bytebuddy.implementation.bytecode.collection.ArrayLength;
 import static org.nustaq.serialization.minbin.MinBin.print;
 
 /**
@@ -61,21 +62,18 @@ public class ReviewServlet extends HttpServlet {
         Long gameId = Long.valueOf(gameIdStr);
         Long accId = Long.valueOf(request.getParameter("accId"));
 
-//            Account acc = (Account) session.getAttribute("acc");
         AccountDAO accountDAO = new AccountDAOImpl();
         Account acc = accountDAO.getAccountById(accId);
 
         GameDAO gameDAO = new GameDAOImpl();
         Game game = gameDAO.getGameById(gameId);
 
-//        ReviewDAO reviewDAO = new ReviewDAOImpl();
-//        reviewDAO.addReview(game,acc,txtcomment,score);
         Review review = new Review();
         review.setComment(txtcomment);
         review.setScore(score);
         review.setUser(acc.getUser());
         review.setDateStatement(new Timestamp(System.currentTimeMillis() + LocalTime.now().getNano() / 1_000_000));
-        
+
 //        Kiem tra game da mua chua
         OrderDAO orderDAO = new OrderDAOImpl();
         List<Game> ListGameOrdered = orderDAO.getOrderedGame(accId);
@@ -90,7 +88,15 @@ public class ReviewServlet extends HttpServlet {
             }
         }
         HttpSession session = request.getSession();
-        session.setAttribute("review", review);
+        List<Review> lsLastReview = (List<Review>) session.getAttribute("lsReviewsUpdate");
+
+        List<Review> lsReviewUpdate = new ArrayList<>();
+        if (lsLastReview != null) {
+            lsReviewUpdate.addAll(lsLastReview);
+        }
+        lsReviewUpdate.add(review);
+
+        session.setAttribute("lsReviewsUpdate", lsReviewUpdate);
 
         System.out.println(gameId);
         String url = "game?gameId=" + gameId;
