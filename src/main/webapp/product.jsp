@@ -2507,7 +2507,15 @@
                                                             <div id="search_resultsRows" >
                                                                 <c:forEach items="${reviews}" var="review">
                                                                     <!--chuyen huong den profile-->
-                                                                    <a href="profiles?action=viewProfile" style="height: 150px; box-sizing: border-box" data-ds-appid="238320" data-ds-itemkey="App_238320"
+                                                                    <c:choose> 
+                                                                        <c:when test="${acc !=null}">
+                                                                            <c:set var="linkprofile" value="profiles?action=viewProfile"></c:set>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <c:set var="link profile" value=""></c:set>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                    <a href="${linkprofile}" style="height: 150px; box-sizing: border-box" data-ds-appid="238320" data-ds-itemkey="App_238320"
                                                                        data-ds-tagids="[1667,3839,3978,4166,4345,1721,1662]"
                                                                        data-ds-descids="[2,5]" data-ds-crtrids="[33520700]"
                                                                        onmouseout="HideGameHover( this, event, 'global_hover' )"
@@ -2548,7 +2556,7 @@
 
                                                                                     <div class="review_message-date">
                                                                                         <time>
-                                                                                            <fmt:parseDate var="parsedDate" value="${review.dateStatement}" pattern="yyyy-MM-dd HH:mm:ss.SS" />
+                                                                                            <fmt:parseDate var="parsedDate" value="${review.dateStatement}" pattern="yyyy-MM-dd HH:mm:ss.SSSSSSS" />
                                                                                             <fmt:formatDate value="${parsedDate}" pattern="MMM dd, yyyy" />
                                                                                         </time>
                                                                                     </div>
