@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.List;
+import javax.mail.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
@@ -25,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,14 +47,15 @@ public class ProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url="/product.jsp";
-        response.setContentType("text/html;charset=UTF-8");
+        String url = "/product.jsp"; 
+        HttpSession session = request.getSession();
         Long id = Long.valueOf(request.getParameter("gameId"));
+        System.out.println(id);
         GameDAO gameDAO= new GameDAOImpl();
         Game game = gameDAO.getGameById(id);
         List<String> supports = new ArrayList<String>();
         List<String> languageNames= new ArrayList<String>();
-//      List<String> supports = List.of("Interface", "Full Audio", "Subtitles");  
+
         for (LanguageSupport i : game.getLanguageSupports()){
             if(!supports.contains(i.getSupport()))
                 supports.add(i.getSupport());
@@ -61,14 +64,16 @@ public class ProductServlet extends HttpServlet {
             if(!languageNames.contains(i.getLanguageName()))
                 languageNames.add(i.getLanguageName());
         }
-        
-        List<Review> reviews = new ArrayList<>();
-        for (OrderItem i : game.getOrderItems()) {
-            for (Review j : i.getReviews()) {
-                reviews.add(j);
-            }
-        }
 
+        List<Review> reviews = new ArrayList<>();
+        for (OrderItem orderItem : game.getOrderItems()) {
+            reviews.addAll(orderItem.getReviews());
+        }
+        Review revUpdate = (Review) session.getAttribute("review");
+        if(revUpdate!=null){
+            reviews.add(revUpdate); 
+            session.removeAttribute("review");
+        }
         request.setAttribute("game", game);
         request.setAttribute("supports", supports);
         request.setAttribute("languageNames", languageNames);
