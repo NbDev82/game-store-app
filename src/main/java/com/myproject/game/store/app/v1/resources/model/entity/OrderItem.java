@@ -46,5 +46,9 @@ public class OrderItem implements Serializable {
         this.data = data;
         this.game = game;
     }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
 }
 

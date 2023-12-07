@@ -39,5 +39,11 @@ public class Review implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Review(int score, String comment, Timestamp dateStatement) {
+        this.score = score;
+        this.comment = comment;
+        this.dateStatement = dateStatement;
+    }
 }
 

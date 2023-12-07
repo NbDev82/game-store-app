@@ -48,5 +48,12 @@ public class User implements Serializable {
     
     @OneToOne(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Wallet wallet; 
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
 }
 
