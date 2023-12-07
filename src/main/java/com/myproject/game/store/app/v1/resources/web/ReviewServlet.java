@@ -79,12 +79,13 @@ public class ReviewServlet extends HttpServlet {
         List<Game> ListGameOrdered = orderDAO.getOrderedGame(accId);
         OrderItem oi = orderDAO.getOrderItem(accId, gameId);
         review.setOrderItem(oi);
-        for (Game g : ListGameOrdered) {
-            if (Objects.equals(g.getGameId(), game.getGameId())) {
+        if (ListGameOrdered != null) {
+            for (Game g : ListGameOrdered) {
+                if (Objects.equals(g.getGameId(), game.getGameId())) {
 
-                ReviewDAO reviewDAO = new ReviewDAOImpl();
-//                reviewDAO.addReview(review);
-                reviewDAO.addReview(acc.getUser().getUserId(), oi.getOrderItemId(), score, txtcomment, Timestamp.from(java.time.Instant.now()));
+                    ReviewDAO reviewDAO = new ReviewDAOImpl();
+                    reviewDAO.addReview(acc.getUser().getUserId(), oi.getOrderItemId(), score, txtcomment, Timestamp.from(java.time.Instant.now()));
+                }
             }
         }
         HttpSession session = request.getSession();

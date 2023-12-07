@@ -2362,7 +2362,7 @@
                                                     </div>
                                                     <hr style="border:1px solid #f1f1f1">
                                                     <c:choose>
-                                                        <c:when test="${acc !=null}">
+                                                        <c:when test="${acc !=null && IsOrderedGame}">
 
                                                             <!-- Hiển thị danh sách comment -->
                                                             <div style="margin: 0px; width:100% ">

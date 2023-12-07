@@ -7,8 +7,11 @@ package com.myproject.game.store.app.v1.resources.web;
 import com.myproject.game.store.app.v1.resources.connection.DBUtil;
 import com.myproject.game.store.app.v1.resources.dao.GameDAO;
 import com.myproject.game.store.app.v1.resources.dao.HomeDAO;
+import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.HomeDAOImpl;
+import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
+import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.LanguageSupport;
 import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
@@ -18,6 +21,7 @@ import java.io.PrintWriter;
 import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.mail.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,11 +59,25 @@ public class ProductServlet extends HttpServlet {
         GameDAO gameDAO= new GameDAOImpl();
         Game game = gameDAO.getGameById(id);
         List<String> supports = new ArrayList<String>();
-        List<String> languageNames= new ArrayList<String>();
+        List<String> languageNames = new ArrayList<String>();
 
-        for (LanguageSupport i : game.getLanguageSupports()){
-            if(!supports.contains(i.getSupport()))
+        Boolean IsOrderedGame = false;
+        Account acc = (Account) session.getAttribute("acc");
+        if (acc != null) {
+            OrderDAO orderDAO = new OrderDAOImpl();
+            List<Game> ListGameOrdered = orderDAO.getOrderedGame(acc.getAccountId());
+            if (ListGameOrdered != null) {
+                for (Game g : ListGameOrdered) {
+                    if (Objects.equals(g.getGameId(), game.getGameId())) {
+                        IsOrderedGame = true;
+                    }
+                }
+            }
+        }
+        for (LanguageSupport i : game.getLanguageSupports()) {
+            if (!supports.contains(i.getSupport())) {
                 supports.add(i.getSupport());
+            }
         }
         for (LanguageSupport i : game.getLanguageSupports()){
             if(!languageNames.contains(i.getLanguageName()))
@@ -70,15 +88,11 @@ public class ProductServlet extends HttpServlet {
         for (OrderItem orderItem : game.getOrderItems()) {
             reviews.addAll(orderItem.getReviews());
         }
-//        Review revUpdate = (Review) session.getAttribute("review");
-//        if(revUpdate!=null){
-//            reviews.add(revUpdate); 
-//            session.removeAttribute("review");
-//        }
         List<Review> lsreviewsUpdate = (List<Review>) session.getAttribute("lsReviewsUpdate");
         if(lsreviewsUpdate != null)
             reviews.addAll(lsreviewsUpdate);
         
+        request.setAttribute("IsOrderedGame", IsOrderedGame);
         request.setAttribute("game", game);
         request.setAttribute("supports", supports);
         request.setAttribute("languageNames", languageNames);
