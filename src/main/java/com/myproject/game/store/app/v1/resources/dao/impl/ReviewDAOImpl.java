@@ -60,11 +60,13 @@ public class ReviewDAOImpl implements ReviewDAO {
         
         try{
             trans.begin();
+            
             em.persist(review);
-            oi.addReview(review);
-            em.merge(oi);
-            user.addReview(review);
-            em.merge(user);
+            trans.commit();
+            trans.begin();
+            review.setOrderItem(oi);
+            review.setUser(user);
+            em.merge(review);
             trans.commit();
             return true;
         }catch(Exception e){

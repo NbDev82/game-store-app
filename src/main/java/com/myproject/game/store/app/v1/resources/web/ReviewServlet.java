@@ -66,8 +66,6 @@ public class ReviewServlet extends HttpServlet {
             Review review = new Review(score,txtcomment,new Timestamp(System.currentTimeMillis() + LocalTime.now().getNano() / 1_000_000));
             isSuccess = reviewDAO.add(review, oi,acc.getUser().getUserId());
         }
-        if(isSuccess)
-            log("DM deo duoc, cong nghe lol");
         String url = "game?gameId=" + gameId;
         response.sendRedirect(url);
     }

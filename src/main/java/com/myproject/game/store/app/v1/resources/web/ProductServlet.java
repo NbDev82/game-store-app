@@ -85,9 +85,13 @@ public class ProductServlet extends HttpServlet {
         }
 
         List<Review> reviews = new ArrayList<>();
+        log(String.valueOf(game.getOrderItems().size()));
         for (OrderItem orderItem : game.getOrderItems()) {
-            reviews.addAll(orderItem.getReviews());
+            List<Review> rev = orderItem.getReviews();
+            if(rev!= null && !rev.isEmpty())
+                reviews.addAll(rev);
         }
+        log(String.valueOf(reviews.size()));
         List<Review> lsreviewsUpdate = (List<Review>) session.getAttribute("lsReviewsUpdate");
         if(lsreviewsUpdate != null)
             reviews.addAll(lsreviewsUpdate);
