@@ -6,6 +6,7 @@ package com.myproject.game.store.app.v1.resources.dao;
 
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
+import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
 import com.myproject.game.store.app.v1.resources.model.entity.Review;
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,4 +17,6 @@ import java.util.List;
  */
 public interface ReviewDAO {
     public void addReview(Long userId, Long orderItemId, int Score, String Comment,Timestamp dateStatement);
+
+    public boolean add(Review review, OrderItem oi, Long userId);
 }

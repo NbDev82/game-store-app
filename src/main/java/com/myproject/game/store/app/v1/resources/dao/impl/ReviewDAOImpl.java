@@ -5,22 +5,14 @@
 package com.myproject.game.store.app.v1.resources.dao.impl;
 
 import com.myproject.game.store.app.v1.resources.connection.DBUtil;
-import com.myproject.game.store.app.v1.resources.dao.AccountDAO;
-import com.myproject.game.store.app.v1.resources.dao.OrderDAO;
 import com.myproject.game.store.app.v1.resources.dao.ReviewDAO;
-import static com.myproject.game.store.app.v1.resources.dao.impl.GameDAOImpl.logger;
-import com.myproject.game.store.app.v1.resources.model.entity.Account;
-import com.myproject.game.store.app.v1.resources.model.entity.Game;
 import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
 import com.myproject.game.store.app.v1.resources.model.entity.Review;
-import java.sql.PreparedStatement;
+import com.myproject.game.store.app.v1.resources.model.entity.User;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
 /**
  *
@@ -55,6 +47,31 @@ public class ReviewDAOImpl implements ReviewDAO {
                 transaction.rollback();
             }
         } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean add(Review review, OrderItem oi, Long userId) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        User user = em.find(User.class, userId);
+        
+        try{
+            trans.begin();
+            em.persist(review);
+            oi.addReview(review);
+            em.merge(oi);
+            user.addReview(review);
+            em.merge(user);
+            trans.commit();
+            return true;
+        }catch(Exception e){
+            logger.warning(e.getMessage());
+            trans.rollback();
+            return false;
+        }finally{
             em.close();
         }
     }

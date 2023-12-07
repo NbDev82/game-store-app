@@ -14,27 +14,20 @@ import com.myproject.game.store.app.v1.resources.dao.impl.OrderDAOImpl;
 import com.myproject.game.store.app.v1.resources.dao.impl.ReviewDAOImpl;
 import com.myproject.game.store.app.v1.resources.model.entity.Account;
 import com.myproject.game.store.app.v1.resources.model.entity.Game;
-import com.myproject.game.store.app.v1.resources.model.entity.LanguageSupport;
 import com.myproject.game.store.app.v1.resources.model.entity.OrderItem;
 import com.myproject.game.store.app.v1.resources.model.entity.Review;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import net.bytebuddy.implementation.bytecode.collection.ArrayLength;
-import static org.nustaq.serialization.minbin.MinBin.print;
 
 /**
  *
@@ -54,52 +47,27 @@ public class ReviewServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        OrderDAO orderDAO = new OrderDAOImpl();
+        GameDAO gameDAO = new GameDAOImpl();
+        AccountDAO accountDAO = new AccountDAOImpl();
+        ReviewDAO reviewDAO = new ReviewDAOImpl();
+                
         response.setContentType("text/html;charset=UTF-8");
-        Integer score = Integer.parseInt(request.getParameter("score"));
-        String txtcomment = request.getParameter("txtcomment");
         String gameIdStr = request.getParameter("gameId");
         Long gameId = Long.valueOf(gameIdStr);
         Long accId = Long.valueOf(request.getParameter("accId"));
-
-        AccountDAO accountDAO = new AccountDAOImpl();
-        Account acc = accountDAO.getAccountById(accId);
-
-        GameDAO gameDAO = new GameDAOImpl();
-        Game game = gameDAO.getGameById(gameId);
-
-        Review review = new Review();
-        review.setComment(txtcomment);
-        review.setScore(score);
-        review.setUser(acc.getUser());
-        review.setDateStatement(new Timestamp(System.currentTimeMillis() + LocalTime.now().getNano() / 1_000_000));
-
-//        Kiem tra game da mua chua
-        OrderDAO orderDAO = new OrderDAOImpl();
-        List<Game> ListGameOrdered = orderDAO.getOrderedGame(accId);
+        
         OrderItem oi = orderDAO.getOrderItem(accId, gameId);
-        review.setOrderItem(oi);
-        if (ListGameOrdered != null) {
-            for (Game g : ListGameOrdered) {
-                if (Objects.equals(g.getGameId(), game.getGameId())) {
-
-                    ReviewDAO reviewDAO = new ReviewDAOImpl();
-                    reviewDAO.addReview(acc.getUser().getUserId(), oi.getOrderItemId(), score, txtcomment, Timestamp.from(java.time.Instant.now()));
-                }
-            }
+        boolean isSuccess = false;
+        if(oi != null){
+            Account acc = accountDAO.getAccountById(accId);
+            int score = Integer.parseInt(request.getParameter("score"));
+            String txtcomment = request.getParameter("txtcomment");
+            Review review = new Review(score,txtcomment,new Timestamp(System.currentTimeMillis() + LocalTime.now().getNano() / 1_000_000));
+            isSuccess = reviewDAO.add(review, oi,acc.getUser().getUserId());
         }
-        HttpSession session = request.getSession();
-        List<Review> lsLastReview = (List<Review>) session.getAttribute("lsReviewsUpdate");
-
-        List<Review> lsReviewUpdate = new ArrayList<>();
-        if (lsLastReview != null) {
-            lsReviewUpdate.addAll(lsLastReview);
-        }
-        lsReviewUpdate.add(review);
-
-        session.setAttribute("lsReviewsUpdate", lsReviewUpdate);
-
-        System.out.println(gameId);
+        if(isSuccess)
+            log("DM deo duoc, cong nghe lol");
         String url = "game?gameId=" + gameId;
         response.sendRedirect(url);
     }
